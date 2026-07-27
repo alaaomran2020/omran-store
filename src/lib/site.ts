@@ -1,7 +1,7 @@
 export const RAW_WHATSAPP = "201555570269";
 export const DISPLAY_PHONE = "01555570269";
 
-// قائمة روابط التنقل المطلوبة لمكون الهيدر Header
+// قائمة روابط التنقل المطلوبة لمكون الهيدر
 export const navLinks = [
   { name: "المنتجات", href: "/#products" },
   { name: "الأقسام", href: "/#categories" },
@@ -13,8 +13,9 @@ export const navLinks = [
 export const siteConfig = {
   name: "شركة عمران التجارية",
   shortName: "عمران للألعاب والهدايا",
+  tagline: "توزيع ألعاب الأطفال والبالونات والهدايا — جملة وقطاعي",
   description:
-    "توريد وتوزيع ألعاب الأطفال والبالونات والهدايا — جملة وقطاعي مع خدمة الشحن والتوصيل لجميع المحافظات.",
+    "نوفر للمحلات ومنافذ التوزيع تشكيلة ثابتة من ألعاب الأطفال والعرائس والألعاب التعليمية ومستلزمات المناسبات، بأسعار جملة محدودة وكميات تعبئة واضحة.",
   url: "https://www.omrantoys.store",
   ogImage: "https://www.omrantoys.store/og.jpg",
   
