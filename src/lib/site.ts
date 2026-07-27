@@ -3,9 +3,9 @@
  * تُقرأ أرقام التواصل من متغيرات البيئة مع وجود قيم افتراضية آمنة.
  */
 
-/** رقم واتساب بصيغة دولية بدون علامة (+) — مثال: 201000000000 */
+/** رقم واتساب بصيغة دولية بدون علامة (+) — مثال: 01555570269 */
 const RAW_WHATSAPP =
-  process.env.NEXT_PUBLIC_WHATSAPP_NUMBER?.replace(/\D/g, "") || "201000000000";
+  process.env.NEXT_PUBLIC_WHATSAPP_NUMBER?.replace(/\D/g, "") || "01555570269";
 
 export interface SiteConfig {
   name: string;
@@ -36,10 +36,14 @@ export const siteConfig: SiteConfig = {
     "شركة عمران التجارية للتوريد والتوزيع: ألعاب أطفال، عرائس ومجسمات، ألعاب تعليمية، بالونات وهدايا. أسعار جملة للتجار وأسعار قطاعي للأفراد مع توريد منتظم لجميع المحافظات.",
   url: process.env.NEXT_PUBLIC_SITE_URL || "https://omran-store.example.com",
   whatsappNumber: RAW_WHATSAPP,
-  phoneDisplay: "0100 000 0000",
+  phoneDisplay: "01555570269  ",
   phoneHref: `tel:+${RAW_WHATSAPP}`,
   email: "sales@omran-trading.com",
-  address: "مصر — القاهرة، منطقة التجارة والتوزيع",
+  address: "لعب أطفال — هدايا
+ميدان السيد البدوي
+شارع درب الابشيهي
+الاستاد امام نادي سيتي كلوب و مطعم سي السيد
+,
   workingHours: "السبت إلى الخميس، من 9 صباحاً حتى 6 مساءً",
   currency: "EGP",
   currencySymbol: "ج.م",

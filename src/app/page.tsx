@@ -22,7 +22,7 @@ function StructuredData() {
     address: {
       "@type": "PostalAddress",
       addressCountry: "EG",
-      addressLocality: "القاهرة",
+      addressLocality: "طنطا",
     },
   };
 
