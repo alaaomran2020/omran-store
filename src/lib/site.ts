@@ -1,6 +1,15 @@
 export const RAW_WHATSAPP = "201555570269";
 export const DISPLAY_PHONE = "01555570269";
 
+// قائمة روابط التنقل المطلوبة لمكون الهيدر Header
+export const navLinks = [
+  { name: "المنتجات", href: "/#products" },
+  { name: "الأقسام", href: "/#categories" },
+  { name: "خدمة الجملة", href: "/#wholesale" },
+  { name: "عن الشركة", href: "/#about" },
+  { name: "التواصل", href: "/#contact" },
+];
+
 export const siteConfig = {
   name: "شركة عمران التجارية",
   shortName: "عمران للألعاب والهدايا",
@@ -16,11 +25,14 @@ export const siteConfig = {
   whatsappUrl: `https://wa.me/${RAW_WHATSAPP}`,
   email: "sales@omran-trading.com",
   
-  // العنوان الرئيسي (تم استخدام Backticks لتجنب خطأ Unterminated string)
+  // العنوان الرئيسي
   address: `طنطا — ميدان السيد البدوي — شارع درب الابشيهي / الاستاد أمام نادي سيتي كلوب`,
   city: "طنطا",
   governorate: "محافظة الغربية",
   country: "مصر",
+
+  // روابط الهيدر
+  navLinks,
 
   // فروع شركة عمران في طنطا
   branches: [
