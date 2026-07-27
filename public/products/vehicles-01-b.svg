@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="800" height="800" role="img" aria-label="سيارة سباق بجهاز تحكم عن بعد">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#dbeafe"/>
+    </linearGradient>
+    <linearGradient id="body" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#3b82f6"/>
+      <stop offset="100%" stop-color="#1d4ed8"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="800" fill="url(#bg)"/>
+  <circle cx="200" cy="180" r="150" fill="#3b82f6" opacity="0.14"/>
+  <circle cx="660" cy="650" r="110" fill="#1d4ed8" opacity="0.10"/>
+  <g transform="translate(400 410)">
+    <g transform="translate(0 -20)">
+      <path d="M-230 60 L-190 -30 Q-175 -70 -130 -75 L110 -95 Q160 -98 195 -60 L250 0 Q265 15 262 40 L258 70 Q255 92 232 92 L-208 92 Q-232 92 -230 60 Z" fill="url(#body)"/>
+      <path d="M-150 -40 L-125 -55 L-15 -63 L-15 -12 L-160 -6 Z" fill="#ffffff" opacity="0.85"/>
+      <path d="M15 -64 L120 -72 Q150 -74 172 -48 L205 -10 L15 -12 Z" fill="#ffffff" opacity="0.85"/>
+      <rect x="-238" y="30" width="60" height="24" rx="10" fill="#3b82f6"/>
+      <circle cx="-130" cy="95" r="62" fill="#1f2937"/><circle cx="-130" cy="95" r="28" fill="#e5e7eb"/>
+      <circle cx="150" cy="95" r="62" fill="#1f2937"/><circle cx="150" cy="95" r="28" fill="#e5e7eb"/>
+      <rect x="200" y="10" width="58" height="18" rx="9" fill="#fbbf24"/>
+    </g></g>
+  <ellipse cx="400" cy="660" rx="230" ry="26" fill="#1d4ed8" opacity="0.10"/>
+</svg>
