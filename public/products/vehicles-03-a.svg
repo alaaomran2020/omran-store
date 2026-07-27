@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="800" height="800" role="img" aria-label="طقم 6 سيارات معدنية">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#dbeafe"/>
+    </linearGradient>
+    <linearGradient id="body" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#3b82f6"/>
+      <stop offset="100%" stop-color="#1d4ed8"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="800" fill="url(#bg)"/>
+  <circle cx="620" cy="180" r="150" fill="#3b82f6" opacity="0.14"/>
+  <circle cx="150" cy="650" r="110" fill="#1d4ed8" opacity="0.10"/>
+  <g transform="translate(400 410)">
+    <g>
+      <g transform="translate(-240 -120)">
+            <rect x="-10" y="-6" width="150" height="90" rx="14" fill="#dbeafe"/>
+            <path d="M0 60 L12 22 Q18 6 38 4 L96 0 Q114 -1 124 14 L140 38 Q146 48 144 58 L142 66 L2 66 Z" fill="#1d4ed8"/>
+            <circle cx="34" cy="68" r="17" fill="#1f2937"/><circle cx="106" cy="68" r="17" fill="#1f2937"/>
+          </g><g transform="translate(-75 -120)">
+            <rect x="-10" y="-6" width="150" height="90" rx="14" fill="#dbeafe"/>
+            <path d="M0 60 L12 22 Q18 6 38 4 L96 0 Q114 -1 124 14 L140 38 Q146 48 144 58 L142 66 L2 66 Z" fill="#3b82f6"/>
+            <circle cx="34" cy="68" r="17" fill="#1f2937"/><circle cx="106" cy="68" r="17" fill="#1f2937"/>
+          </g><g transform="translate(90 -120)">
+            <rect x="-10" y="-6" width="150" height="90" rx="14" fill="#dbeafe"/>
+            <path d="M0 60 L12 22 Q18 6 38 4 L96 0 Q114 -1 124 14 L140 38 Q146 48 144 58 L142 66 L2 66 Z" fill="#1d4ed8"/>
+            <circle cx="34" cy="68" r="17" fill="#1f2937"/><circle cx="106" cy="68" r="17" fill="#1f2937"/>
+          </g><g transform="translate(-240 30)">
+            <rect x="-10" y="-6" width="150" height="90" rx="14" fill="#dbeafe"/>
+            <path d="M0 60 L12 22 Q18 6 38 4 L96 0 Q114 -1 124 14 L140 38 Q146 48 144 58 L142 66 L2 66 Z" fill="#3b82f6"/>
+            <circle cx="34" cy="68" r="17" fill="#1f2937"/><circle cx="106" cy="68" r="17" fill="#1f2937"/>
+          </g><g transform="translate(-75 30)">
+            <rect x="-10" y="-6" width="150" height="90" rx="14" fill="#dbeafe"/>
+            <path d="M0 60 L12 22 Q18 6 38 4 L96 0 Q114 -1 124 14 L140 38 Q146 48 144 58 L142 66 L2 66 Z" fill="#1d4ed8"/>
+            <circle cx="34" cy="68" r="17" fill="#1f2937"/><circle cx="106" cy="68" r="17" fill="#1f2937"/>
+          </g><g transform="translate(90 30)">
+            <rect x="-10" y="-6" width="150" height="90" rx="14" fill="#dbeafe"/>
+            <path d="M0 60 L12 22 Q18 6 38 4 L96 0 Q114 -1 124 14 L140 38 Q146 48 144 58 L142 66 L2 66 Z" fill="#3b82f6"/>
+            <circle cx="34" cy="68" r="17" fill="#1f2937"/><circle cx="106" cy="68" r="17" fill="#1f2937"/>
+          </g>
+    </g></g>
+  <ellipse cx="400" cy="660" rx="230" ry="26" fill="#1d4ed8" opacity="0.10"/>
+</svg>
