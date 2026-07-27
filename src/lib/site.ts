@@ -1,59 +1,52 @@
-/**
- * بيانات الشركة والإعدادات العامة للموقع.
- * تُقرأ أرقام التواصل من متغيرات البيئة مع وجود قيم افتراضية آمنة.
- */
+export const RAW_WHATSAPP = "201555570269";
+export const DISPLAY_PHONE = "01555570269";
 
-/** رقم واتساب بصيغة دولية بدون علامة (+) — مثال: 01555570269 */
-const RAW_WHATSAPP =
-  process.env.NEXT_PUBLIC_WHATSAPP_NUMBER?.replace(/\D/g, "") || "01555570269";
-
-export interface SiteConfig {
-  name: string;
-  legalName: string;
-  shortName: string;
-  tagline: string;
-  description: string;
-  url: string;
-  whatsappNumber: string;
-  /** رقم الهاتف بصيغة العرض */
-  phoneDisplay: string;
-  /** رابط الاتصال المباشر */
-  phoneHref: string;
-  email: string;
-  address: string;
-  workingHours: string;
-  currency: string;
-  /** رمز العملة المعروض بجانب الأسعار */
-  currencySymbol: string;
-}
-
-export const siteConfig: SiteConfig = {
+export const siteConfig = {
   name: "شركة عمران التجارية",
-  legalName: "شركة عمران التجارية للألعاب والهدايا",
-  shortName: "عمران",
-  tagline: "توزيع ألعاب الأطفال والبالونات والهدايا — جملة وقطاعي",
+  shortName: "عمران للألعاب والهدايا",
   description:
-    "شركة عمران التجارية للتوريد والتوزيع: ألعاب أطفال، عرائس ومجسمات، ألعاب تعليمية، بالونات وهدايا. أسعار جملة للتجار وأسعار قطاعي للأفراد مع توريد منتظم لجميع المحافظات.",
-  url: process.env.NEXT_PUBLIC_SITE_URL || "https://omran-store.example.com",
-  whatsappNumber: RAW_WHATSAPP,
-  phoneDisplay: "01555570269  ",
+    "توريد وتوزيع ألعاب الأطفال والبالونات والهدايا — جملة وقطاعي مع خدمة الشحن والتوصيل لجميع المحافظات.",
+  url: "https://www.omrantoys.store",
+  ogImage: "https://www.omrantoys.store/og.jpg",
+  
+  // بيانات التواصل الرسمية
+  phone: DISPLAY_PHONE,
+  phoneRaw: RAW_WHATSAPP,
   phoneHref: `tel:+${RAW_WHATSAPP}`,
+  whatsappUrl: `https://wa.me/${RAW_WHATSAPP}`,
   email: "sales@omran-trading.com",
-  address: "لعب أطفال — هدايا
-ميدان السيد البدوي
-شارع درب الابشيهي
-الاستاد امام نادي سيتي كلوب و مطعم سي السيد
-,
-  workingHours: "السبت إلى الخميس، من 9 صباحاً حتى 6 مساءً",
-  currency: "EGP",
-  currencySymbol: "ج.م",
+  
+  // العنوان الرئيسي (تم استخدام Backticks لتجنب خطأ Unterminated string)
+  address: `طنطا — ميدان السيد البدوي — شارع درب الابشيهي / الاستاد أمام نادي سيتي كلوب`,
+  city: "طنطا",
+  governorate: "محافظة الغربية",
+  country: "مصر",
+
+  // فروع شركة عمران في طنطا
+  branches: [
+    {
+      id: "badawi-branch",
+      name: "فرع السيد البدوي",
+      address: "طنطا — ميدان السيد البدوي — شارع درب الابشيهي",
+      phone: DISPLAY_PHONE,
+      whatsapp: RAW_WHATSAPP,
+      services: "معرض الجملة والقطاعي وتجهيز الطلبات",
+      mapUrl: "https://maps.google.com/?q=Tanta",
+    },
+    {
+      id: "stadium-branch",
+      name: "فرع الاستاد",
+      address: "طنطا — منطقة الاستاد — أمام نادي سيتي كلوب ومطعم سي السيد",
+      phone: DISPLAY_PHONE,
+      whatsapp: RAW_WHATSAPP,
+      services: "معرض المبيعات المباشرة والتوزيع",
+      mapUrl: "https://maps.google.com/?q=Tanta",
+    },
+  ],
+
+  links: {
+    whatsapp: `https://wa.me/${RAW_WHATSAPP}`,
+  },
 };
 
-/** روابط التنقل الرئيسية في الهيدر */
-export const navLinks: { href: string; label: string }[] = [
-  { href: "#products", label: "المنتجات" },
-  { href: "#categories", label: "الأقسام" },
-  { href: "#wholesale", label: "خدمة الجملة" },
-  { href: "#about", label: "عن الشركة" },
-  { href: "#contact", label: "التواصل" },
-];
+export type SiteConfig = typeof siteConfig;
