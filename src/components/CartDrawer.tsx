@@ -139,7 +139,12 @@ export function CartDrawer() {
             </p>
             <button
               type="button"
-              onClick={closeCart}
+              onClick={() => {
+                closeCart();
+                document
+                  .getElementById("products")
+                  ?.scrollIntoView({ behavior: "smooth" });
+              }}
               className="mt-2 rounded-xl bg-brand-700 px-5 py-2.5 text-sm font-bold text-white transition-colors hover:bg-brand-800"
             >
               تصفح المنتجات

@@ -1,7 +1,10 @@
+"use client";
+
 import { Baby, Car, Gift, GraduationCap, LayoutGrid } from "lucide-react";
 import { categories } from "@/lib/categories";
 import { countByCategory } from "@/lib/products";
 import { formatNumber } from "@/lib/format";
+import { useStore } from "@/context/StoreProvider";
 import type { IconName } from "@/lib/types";
 
 const iconMap: Record<IconName, typeof Car> = {
@@ -12,8 +15,12 @@ const iconMap: Record<IconName, typeof Car> = {
   "layout-grid": LayoutGrid,
 };
 
-/** عرض الأقسام الأربعة الرئيسية */
+/**
+ * عرض الأقسام الأربعة الرئيسية.
+ * الضغط على أي قسم يطبّق فلتره مباشرة على الكتالوج ثم ينتقل إليه.
+ */
 export function CategoriesSection() {
+  const { browseCategory } = useStore();
   const counts = countByCategory();
 
   return (
@@ -37,7 +44,12 @@ export function CategoriesSection() {
               <a
                 key={category.id}
                 href="#products"
-                className="card-surface group flex flex-col gap-3 p-5 transition-shadow hover:shadow-md"
+                onClick={(event) => {
+                  event.preventDefault();
+                  browseCategory(category.id);
+                }}
+                aria-label={`تصفح قسم ${category.name}`}
+                className="card-surface group flex cursor-pointer flex-col gap-3 p-5 transition-shadow hover:shadow-md"
               >
                 <span
                   className="flex size-12 items-center justify-center rounded-xl transition-transform group-hover:scale-105"

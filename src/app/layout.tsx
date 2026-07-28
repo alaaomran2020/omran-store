@@ -13,6 +13,8 @@ import { StoreProvider } from "@/context/StoreProvider";
 import { Header } from "@/components/Header";
 import { CartDrawer } from "@/components/CartDrawer";
 import { FloatingCartBar } from "@/components/FloatingCartBar";
+import { AddedToast } from "@/components/AddedToast";
+import { BackToTop } from "@/components/BackToTop";
 import { Footer } from "@/components/Footer";
 import { siteConfig } from "@/lib/site";
 
@@ -91,6 +93,8 @@ export default function RootLayout({
           <Footer />
           <CartDrawer />
           <FloatingCartBar />
+          <AddedToast />
+          <BackToTop />
         </StoreProvider>
       </body>
     </html>

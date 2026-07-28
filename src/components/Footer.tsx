@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { Mail, MapPin, Phone } from "lucide-react";
+import { CategoryBrowseLink } from "@/components/CategoryBrowseLink";
 import { categories } from "@/lib/categories";
 import { navLinks, siteConfig } from "@/lib/site";
 
@@ -51,9 +52,12 @@ export function Footer() {
             <ul className="space-y-2 text-sm">
               {categories.map((category) => (
                 <li key={category.id}>
-                  <a href="#products" className="transition-colors hover:text-white">
+                  <CategoryBrowseLink
+                    categoryId={category.id}
+                    className="transition-colors hover:text-white"
+                  >
                     {category.name}
-                  </a>
+                  </CategoryBrowseLink>
                 </li>
               ))}
             </ul>

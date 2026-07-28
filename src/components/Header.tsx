@@ -14,12 +14,33 @@ export function Header() {
   const { totals, openCart, hydrated } = useStore();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  /** معرّف القسم الظاهر حالياً في نافذة العرض — لتمييز رابطه في التنقل */
+  const [activeSection, setActiveSection] = useState<string | null>(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  // تتبع القسم الظاهر (scroll-spy) لتمييز رابط التنقل المطابق
+  useEffect(() => {
+    const sections = navLinks
+      .map((link) => document.getElementById(link.href.split("#")[1] ?? ""))
+      .filter((el): el is HTMLElement => el !== null);
+    if (sections.length === 0) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) setActiveSection(entry.target.id);
+        }
+      },
+      { rootMargin: "-25% 0px -65% 0px" },
+    );
+    sections.forEach((section) => observer.observe(section));
+    return () => observer.disconnect();
   }, []);
 
   useEffect(() => {
@@ -80,16 +101,24 @@ export function Header() {
         {/* روابط التنقل */}
         <nav aria-label="التنقل الرئيسي" className="hidden xl:block">
           <ul className="flex items-center gap-1">
-            {navLinks.map((link) => (
-              <li key={link.href}>
-                <a
-                  href={link.href}
-                  className="rounded-lg px-3 py-2 text-sm font-semibold text-ink-700 transition-colors hover:bg-ink-100 hover:text-brand-800"
-                >
-                  {link.label}
-                </a>
-              </li>
-            ))}
+            {navLinks.map((link) => {
+              const isActive = activeSection === link.href.split("#")[1];
+              return (
+                <li key={link.href}>
+                  <a
+                    href={link.href}
+                    aria-current={isActive ? "location" : undefined}
+                    className={`rounded-lg px-3 py-2 text-sm font-semibold transition-colors ${
+                      isActive
+                        ? "bg-brand-50 text-brand-800"
+                        : "text-ink-700 hover:bg-ink-100 hover:text-brand-800"
+                    }`}
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              );
+            })}
           </ul>
         </nav>
 
@@ -137,17 +166,25 @@ export function Header() {
           <div className="container-page space-y-3 py-4">
             <nav aria-label="تنقل الجوال">
               <ul className="grid gap-1">
-                {navLinks.map((link) => (
-                  <li key={link.href}>
-                    <a
-                      href={link.href}
-                      onClick={() => setMobileOpen(false)}
-                      className="block rounded-lg px-3 py-2.5 text-sm font-semibold text-ink-700 transition-colors hover:bg-ink-100"
-                    >
-                      {link.label}
-                    </a>
-                  </li>
-                ))}
+                {navLinks.map((link) => {
+                  const isActive = activeSection === link.href.split("#")[1];
+                  return (
+                    <li key={link.href}>
+                      <a
+                        href={link.href}
+                        onClick={() => setMobileOpen(false)}
+                        aria-current={isActive ? "location" : undefined}
+                        className={`block rounded-lg px-3 py-2.5 text-sm font-semibold transition-colors ${
+                          isActive
+                            ? "bg-brand-50 text-brand-800"
+                            : "text-ink-700 hover:bg-ink-100"
+                        }`}
+                      >
+                        {link.label}
+                      </a>
+                    </li>
+                  );
+                })}
               </ul>
             </nav>
             <div className="md:hidden">
