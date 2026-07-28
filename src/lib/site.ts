@@ -1,3 +1,40 @@
+export interface SiteConfig {
+  name: string;
+  tagline: string;
+  description: string; // <-- إضافة الخاصية المطلوبة لملف layout.tsx
+  url: string;
+  logoUrl: string;
+  footerDescription: string;
+  contact: {
+    phone: string;
+    whatsapp: string;
+    email: string;
+  };
+  workingHours: string;
+  branches: Array<{
+    id: string;
+    name: string;
+    address: string;
+    mapUrl: string;
+    active: boolean;
+  }>;
+  operations: {
+    maintenanceMode: boolean;
+    announcementEnabled: boolean;
+    announcementText: string;
+    wholesaleNotice: string;
+  };
+  social: {
+    facebook: string;
+    instagram: string;
+    telegram: string;
+  };
+  seo: {
+    metaTitle: string;
+    metaDescription: string;
+  };
+}
+
 export const navLinks = [
   { name: "الرئيسية", href: "/" },
   { name: "المنتجات", href: "/products" },
@@ -5,9 +42,10 @@ export const navLinks = [
   { name: "تواصل معنا", href: "/contact" },
 ];
 
-export const siteConfig = {
+export const siteConfig: SiteConfig = {
   name: "شركة عمران التجارية",
   tagline: "أكبر تشكيل لعب أطفال",
+  description: "أكبر تشكيل لعب أطفال وهدايا بأعلى جودة وأفضل أسعار جملة وقطاعي في مصر.",
   url: "https://omrantoys.store",
   logoUrl: "",
   footerDescription: "كل اللي تحتاجه لأطفالك في مكان واحد! 🎈✨\n\"أكبر تشكيل لعب أطفال 🎯\nأسعار جملة.. برة المنافسة\"",
