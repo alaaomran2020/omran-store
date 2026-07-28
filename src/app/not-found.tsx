@@ -6,11 +6,11 @@ export default function NotFound() {
     <div className="container-page flex min-h-[60vh] flex-col items-center justify-center gap-4 py-20 text-center">
       <p className="num text-5xl font-extrabold text-brand-800">404</p>
       <h1 className="text-xl font-extrabold text-ink-900">
-        الصفحة غير موجودة
+        عذراً، الصفحة التي تبحث عنها غير متاحة
       </h1>
       <p className="max-w-md text-sm text-ink-600">
-        الرابط الذي فتحته غير متاح. يمكنك العودة إلى الصفحة الرئيسية وتصفح كتالوج
-        المنتجات.
+        ربما تغيّر عنوان الرابط أو أُزيلت الصفحة. لا تقلق — الكتالوج الكامل
+        لألعاب الأطفال والبالونات والهدايا في انتظارك على الصفحة الرئيسية.
       </p>
       <Link
         href="/"

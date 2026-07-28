@@ -29,7 +29,7 @@ function StructuredData() {
   const catalog = {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    name: "كتالوج منتجات شركة عمران التجارية",
+    name: "كتالوج ألعاب أطفال بالجملة والقطاعي — شركة عمران التجارية",
     numberOfItems: products.length,
     itemListElement: products.slice(0, 12).map((product, index) => ({
       "@type": "ListItem",

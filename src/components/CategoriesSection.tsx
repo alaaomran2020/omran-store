@@ -29,11 +29,12 @@ export function CategoriesSection() {
         <div className="mb-8 max-w-2xl">
           <p className="mb-1.5 text-sm font-bold text-brand-700">الأقسام</p>
           <h2 className="text-2xl font-extrabold text-ink-900 sm:text-3xl">
-            أقسام التوريد الرئيسية
+            تشكيلة منتقاة تغطي كل احتياجات محلك
           </h2>
           <p className="mt-2 text-sm text-ink-600">
-            تشكيلة الشركة موزعة على أربعة أقسام تغطي احتياجات محلات الألعاب ومحلات
-            الهدايا ومنظمي المناسبات.
+            أربعة أقسام رئيسية تلبي مبيعات محلات الألعاب والهدايا ومستلزمات
+            المناسبات — اختر قسمك وستنتقل مباشرة إلى أصنافه بالأسعار والكميات
+            المتاحة.
           </p>
         </div>
 

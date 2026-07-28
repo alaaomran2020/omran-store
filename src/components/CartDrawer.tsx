@@ -132,10 +132,11 @@ export function CartDrawer() {
             <div className="rounded-full bg-ink-100 p-5">
               <ShoppingBag className="size-8 text-ink-400" aria-hidden="true" />
             </div>
-            <p className="text-base font-bold text-ink-800">السلة فارغة</p>
+            <p className="text-base font-bold text-ink-800">سلتك لا تزال فارغة</p>
             <p className="max-w-xs text-sm text-ink-500">
-              أضف المنتجات المطلوبة من الكتالوج، ثم أرسل الطلب إلينا عبر واتساب
-              لمراجعة التوفر وقيمة الشحن.
+              أضف الأصناف والكميات من الكتالوج بضغطة واحدة، ثم أرسل طلبك رسالة
+              جاهزة عبر واتساب — وسيصلك تأكيد التوفر وقيمة الشحن خلال مواعيد
+              العمل.
             </p>
             <button
               type="button"

@@ -143,11 +143,12 @@ export function CatalogSection() {
           <div>
             <p className="mb-1.5 text-sm font-bold text-brand-700">الكتالوج</p>
             <h2 className="text-2xl font-extrabold text-ink-900 sm:text-3xl">
-              منتجات متاحة للتوريد
+              الأصناف المتاحة بأسعار معلنة للجملة والقطاعي
             </h2>
             <p className="mt-2 max-w-2xl text-sm text-ink-600">
-              أسعار القطاعي معروضة للأفراد، وأسعار الجملة للتجار عند الالتزام بالحد
-              الأدنى للكمية الموضح مع كل صنف.
+              سعر القطاعي معلن للأفراد، وسعر الجملة الأقل متاح للتجار عند الالتزام
+              بالحد الأدنى الموضح على بطاقة كل صنف — تسعير واضح بلا مفاوضات ولا
+              أسعار مخفية.
             </p>
           </div>
           <PricingToggle className="hidden lg:inline-flex" />
@@ -301,10 +302,10 @@ export function CatalogSection() {
               aria-hidden="true"
             />
             <p className="text-base font-bold text-ink-800">
-              لا توجد أصناف مطابقة
+              لا توجد أصناف مطابقة لبحثك
             </p>
             <p className="mt-1 text-sm text-ink-500">
-              جرّب تعديل كلمات البحث أو اختيار قسم آخر.
+              جرّب كلمات أبسط، أو ابحث بكود الصنف، أو اختر قسماً آخر من الأعلى.
             </p>
             <button
               type="button"

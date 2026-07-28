@@ -10,26 +10,26 @@ import { siteConfig } from "@/lib/site";
 const highlights = [
   {
     icon: PackageCheck,
-    title: "توريد بالكرتونة",
-    body: "كل صنف موضح عليه عدد القطع بالكرتونة والحد الأدنى لسعر الجملة.",
+    title: "أسعار جملة بالكرتونة، بدون مفاجآت",
+    body: "كل صنف موضح عليه عدد قطع الكرتونة والحد الأدنى لسعر الجملة، فتحسب تكلفتك وهامش ربحك بدقة قبل أن تطلب.",
   },
   {
     icon: Truck,
-    title: "شحن لجميع المحافظات",
-    body: "التعاقد مع شركات شحن معتمدة، وتحديد قيمة الشحن قبل تنفيذ الطلب.",
+    title: "شحن معتمد لجميع المحافظات",
+    body: "نتعاون مع شركات شحن موثوقة ونحدد لك قيمة الشحن ومدة التسليم قبل تنفيذ الطلب.",
   },
   {
     icon: MessageCircle,
-    title: "طلب مباشر عبر واتساب",
-    body: "تجهيز الطلب من الموقع وإرساله كرسالة مفصلة لفريق المبيعات.",
+    title: "طلبك جاهز خلال دقائق عبر واتساب",
+    body: "جهّز الطلب من الكتالوج وأرسله رسالة مفصلة لفريق المبيعات — نرد خلال مواعيد العمل الرسمية.",
   },
 ];
 
 /** القسم الافتتاحي للصفحة الرئيسية */
 export function Hero() {
   const stats = [
-    { value: `${formatNumber(products.length)}+`, label: "صنف متاح للتوريد" },
-    { value: formatNumber(categories.length), label: "أقسام رئيسية" },
+    { value: `${formatNumber(products.length)}+`, label: "صنف جاهز للتوريد من المخزون" },
+    { value: formatNumber(categories.length), label: "أقسام تغطي كل احتياجات محلك" },
     { value: "24 ساعة", label: "متوسط الرد على طلبات الجملة" },
   ];
 
@@ -49,17 +49,18 @@ export function Hero() {
         <div className="grid items-center gap-10 lg:grid-cols-[1.1fr_0.9fr]">
           <div>
             <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1.5 text-xs font-semibold">
-              توريد وتوزيع — جملة وقطاعي
+              توريد بالجملة والقطاعي — شحن لجميع محافظات مصر
             </span>
 
             <h1 className="mt-4 text-3xl font-extrabold leading-tight sm:text-4xl lg:text-5xl">
-              {siteConfig.name} لألعاب الأطفال والبالونات والهدايا
+              ألعاب أطفال بالجملة وبالونات ومستلزمات حفلات وهدايا
             </h1>
 
             <p className="mt-4 max-w-xl text-base leading-relaxed text-brand-100 sm:text-lg">
-              نوفّر للمحلات ومنافذ التوزيع تشكيلة ثابتة من ألعاب الأطفال والعرائس
-              والألعاب التعليمية ومستلزمات المناسبات، بأسعار جملة محددة وكميات
-              تعبئة واضحة. كما نخدم الأفراد بأسعار القطاعي على نفس الأصناف.
+              {siteConfig.name} — مورّدك الموثوق في طنطا وكل المحافظات. نوفّر
+              للمحلات ومنافذ التوزيع تشكيلة ثابتة من السيارات والعرائس والألعاب
+              التعليمية ومستلزمات المناسبات بأسعار جملة معلنة وكميات كراتين
+              واضحة، ونخدم الأفراد بأسعار القطاعي على نفس الأصناف.
             </p>
 
             <div className="mt-7 flex flex-wrap gap-3">
@@ -67,7 +68,7 @@ export function Hero() {
                 href="#products"
                 className="flex items-center gap-2 rounded-xl bg-white px-5 py-3 text-sm font-bold text-brand-900 transition-colors hover:bg-brand-50"
               >
-                تصفح الكتالوج
+                تصفح الكتالوج والأسعار
                 <ArrowLeft className="size-4" aria-hidden="true" />
               </a>
               <a
