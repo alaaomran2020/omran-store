@@ -1,5 +1,6 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { useDeferredValue, useMemo, useState } from "react";
 import {
   Baby,
@@ -12,13 +13,17 @@ import {
   X,
 } from "lucide-react";
 import { ProductCard } from "@/components/ProductCard";
-import { QuickViewModal } from "@/components/QuickViewModal";
 import { PricingToggle } from "@/components/PricingToggle";
 import { useStore } from "@/context/StoreProvider";
 import { categories } from "@/lib/categories";
 import { products } from "@/lib/products";
 import { formatNumber, getUnitPrice } from "@/lib/format";
 import type { IconName, Product, SortOption } from "@/lib/types";
+
+// نافذة العرض السريع في حزمة منفصلة — لا تُحمَّل إلا عند أول استخدام
+const QuickViewModal = dynamic(() =>
+  import("@/components/QuickViewModal").then((m) => m.QuickViewModal),
+);
 
 const iconMap: Record<IconName, typeof Car> = {
   car: Car,
@@ -318,7 +323,9 @@ export function CatalogSection() {
         )}
       </div>
 
-      <QuickViewModal product={quickView} onClose={() => setQuickView(null)} />
+      {quickView && (
+        <QuickViewModal product={quickView} onClose={() => setQuickView(null)} />
+      )}
     </section>
   );
 }

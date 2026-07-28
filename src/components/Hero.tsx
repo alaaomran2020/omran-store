@@ -1,5 +1,3 @@
-"use client";
-
 import { ArrowLeft, MessageCircle, PackageCheck, Truck } from "lucide-react";
 import { products } from "@/lib/products";
 import { categories } from "@/lib/categories";
