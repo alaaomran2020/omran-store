@@ -83,8 +83,8 @@ export const siteConfig: SiteConfig = {
   tagline: "توريد ألعاب أطفال وبالونات ومستلزمات حفلات وهدايا — جملة وقطاعي",
   description:
     "شركة عمران التجارية لتوريد وتوزيع ألعاب الأطفال بالجملة في طنطا وجميع المحافظات: سيارات وعرائس وألعاب تعليمية وبالونات لاتكس وفويل ومستلزمات الحفلات والهدايا. أسعار جملة معلنة وحد أدنى واضح لكل صنف، مع بيع قطاعي للأفراد وشحن لكل مصر.",
-  url: "https://www.omrantoys.store",
-  ogImage: "https://www.omrantoys.store/og.jpg",
+  url: "https://omrantoys.store",
+  ogImage: "https://omrantoys.store/og.jpg",
   
   phone: DISPLAY_PHONE,
   phoneDisplay: DISPLAY_PHONE,
