@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { CheckCircle2, ShoppingCart } from "lucide-react";
 import { useStore } from "@/context/StoreProvider";
@@ -14,7 +15,7 @@ const TOAST_DURATION = 2800;
  * مع اختصار مباشر لفتح السلة وإتمام الطلب — يقلل التخلي قبل الإرسال.
  */
 export function AddedToast() {
-  const { lastAddedId, openCart, getQuantity, hydrated } = useStore();
+  const { lastAddedId, getQuantity, hydrated } = useStore();
   /** المنتج المعروض في التنبيه — يبقى بعد انقضاء مؤشر البطاقة */
   const [currentId, setCurrentId] = useState<string | null>(null);
   const [trackedId, setTrackedId] = useState<string | null>(null);
@@ -40,7 +41,7 @@ export function AddedToast() {
 
   return (
     <div
-      className="pointer-events-none fixed inset-x-4 bottom-24 z-40 flex justify-center sm:bottom-8"
+      className="safe-bottom pointer-events-none fixed inset-x-3 bottom-3 z-40 flex justify-center"
       role="status"
       aria-live="polite"
     >
@@ -59,17 +60,14 @@ export function AddedToast() {
             </span>
           )}
         </p>
-        <button
-          type="button"
-          onClick={() => {
-            setCurrentId(null);
-            openCart();
-          }}
-          className="flex shrink-0 items-center gap-1.5 rounded-lg bg-emerald-600 px-3 py-2 text-xs font-extrabold text-white transition-colors hover:bg-emerald-700"
+        <Link
+          href="/checkout"
+          onClick={() => setCurrentId(null)}
+          className="press flex shrink-0 items-center gap-1.5 rounded-lg bg-emerald-600 px-3 py-2 text-xs font-extrabold text-white hover:bg-emerald-700"
         >
           <ShoppingCart className="size-4" aria-hidden="true" />
-          عرض السلة وإتمام الطلب
-        </button>
+          إتمام الطلب
+        </Link>
       </div>
     </div>
   );

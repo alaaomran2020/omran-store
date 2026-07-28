@@ -50,9 +50,12 @@ export function getQuantityStep(product: Product, mode: PricingMode): number {
 
 /** الحد الأدنى للطلب حسب وضع التسعير */
 export function getMinQuantity(product: Product, mode: PricingMode): number {
-  return mode === "wholesale"
-    ? Math.max(1, product.packaging.minWholesaleUnits)
-    : 1;
+  if (mode !== "wholesale") return 1;
+  // الحد الأدنى للجملة: دستة كاملة على الأقل، أو الحد المعلن للصنف إن كان أكبر
+  return Math.max(
+    siteConfig.operations.wholesaleMinUnits,
+    product.packaging.minWholesaleUnits,
+  );
 }
 
 /** صياغة عدد الكراتين المكافئ لعدد القطع */
@@ -69,4 +72,27 @@ export function formatUnits(units: number): string {
   if (units === 2) return "قطعتان";
   if (units >= 3 && units <= 10) return `${formatNumber(units)} قطع`;
   return `${formatNumber(units)} قطعة`;
+}
+
+/** عدد قطع الدستة — الحد الأدنى المعتمد للجملة */
+export const DOZEN_UNITS = siteConfig.operations.wholesaleMinUnits;
+
+/** سعر الدستة (12 قطعة) بسعر الجملة */
+export function getDozenPrice(product: Product): number {
+  return product.wholesalePrice * DOZEN_UNITS;
+}
+
+/** سعر الكرتونة الكاملة بسعر الجملة */
+export function getCartonPrice(product: Product): number {
+  return product.wholesalePrice * Math.max(1, product.packaging.unitsPerCarton);
+}
+
+/** عدد الدستات المكافئ لعدد القطع (مقرّب لخانتين) */
+export function toDozens(units: number): number {
+  return Math.round((units / DOZEN_UNITS) * 100) / 100;
+}
+
+/** صياغة عدد الدستات بخانتين عشريتين عند الحاجة */
+export function formatDozens(units: number): string {
+  return decimalFormatter.format(toDozens(units));
 }

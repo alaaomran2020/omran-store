@@ -4,10 +4,7 @@ import "./globals.css";
 import { preload } from "react-dom";
 import { StoreProvider } from "@/context/StoreProvider";
 import { Header } from "@/components/Header";
-import { DeferredCartDrawer } from "@/components/DeferredCartDrawer";
-import { FloatingCartBar } from "@/components/FloatingCartBar";
 import { AddedToast } from "@/components/AddedToast";
-import { BackToTop } from "@/components/BackToTop";
 import { Footer } from "@/components/Footer";
 import { siteConfig } from "@/lib/site";
 
@@ -91,21 +88,20 @@ export default function RootLayout({
 
   return (
     <html lang="ar" dir="rtl">
-      <body className="min-h-dvh bg-ink-50 antialiased">
+      <body className="flex min-h-dvh flex-col bg-ink-50 antialiased">
         <StoreProvider>
           <a
-            href="#products"
+            href="#main"
             className="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:m-3 focus:rounded-lg focus:bg-brand-700 focus:px-4 focus:py-2 focus:text-white"
           >
-            تخطي إلى المنتجات
+            تخطي إلى المحتوى
           </a>
           <Header />
-          <main>{children}</main>
+          <main id="main" className="flex-1">
+            {children}
+          </main>
           <Footer />
-          <DeferredCartDrawer />
-          <FloatingCartBar />
           <AddedToast />
-          <BackToTop />
         </StoreProvider>
       </body>
     </html>

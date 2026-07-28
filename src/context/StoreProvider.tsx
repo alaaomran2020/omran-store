@@ -16,7 +16,6 @@ import { getMinQuantity, getUnitPrice } from "@/lib/format";
 import type {
   CartItem,
   CartTotals,
-  CategoryId,
   PricingMode,
   Product,
   ResolvedCartItem,
@@ -42,20 +41,6 @@ export interface StoreContextValue {
   clearCart: () => void;
   getQuantity: (productId: string) => number;
 
-  /** حالة درج السلة */
-  isCartOpen: boolean;
-  openCart: () => void;
-  closeCart: () => void;
-
-  /**
-   * فلتر القسم المطبق على الكتالوج (حالة جلسة لا تُحفظ).
-   * يتيح لبطاقات الأقسام وروابط التذييل تصفية الكتالوج مباشرة.
-   */
-  categoryFilter: CategoryId | "all";
-  setCategoryFilter: (category: CategoryId | "all") => void;
-  /** تحديد قسم ثم الانتقال السلس إلى شبكة المنتجات */
-  browseCategory: (category: CategoryId) => void;
-
   /** يصبح true بعد قراءة البيانات المحفوظة في المتصفح */
   hydrated: boolean;
   /** معرّف آخر منتج تمت إضافته — يُستخدم لإظهار تأكيد بصري مؤقت */
@@ -72,22 +57,8 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
   );
   const { items, mode, hydrated } = snapshot;
 
-  const [isCartOpen, setCartOpen] = useState(false);
-  const [categoryFilter, setCategoryFilter] = useState<CategoryId | "all">(
-    "all",
-  );
   const [lastAddedId, setLastAddedId] = useState<string | null>(null);
   const addedTimer = useRef<number | null>(null);
-
-  // منع تمرير الصفحة خلف درج السلة
-  useEffect(() => {
-    if (!isCartOpen) return;
-    const previous = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.body.style.overflow = previous;
-    };
-  }, [isCartOpen]);
 
   // تنظيف مؤقت مؤشر "تمت الإضافة" عند إزالة المكوّن
   useEffect(() => {
@@ -172,19 +143,6 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
     [items],
   );
 
-  const openCart = useCallback(() => setCartOpen(true), []);
-  const closeCart = useCallback(() => setCartOpen(false), []);
-
-  // تصفية الكتالوج بقسم محدد مع الانتقال السلس إليه
-  const browseCategory = useCallback((category: CategoryId) => {
-    setCategoryFilter(category);
-    requestAnimationFrame(() => {
-      document
-        .getElementById("products")
-        ?.scrollIntoView({ behavior: "smooth" });
-    });
-  }, []);
-
   const value = useMemo<StoreContextValue>(
     () => ({
       mode,
@@ -200,12 +158,6 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
       removeItem: store.removeItem,
       clearCart: store.clearCart,
       getQuantity,
-      isCartOpen,
-      openCart,
-      closeCart,
-      categoryFilter,
-      setCategoryFilter,
-      browseCategory,
       hydrated,
       lastAddedId,
     }),
@@ -218,11 +170,6 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
       incrementItem,
       decrementItem,
       getQuantity,
-      isCartOpen,
-      openCart,
-      closeCart,
-      categoryFilter,
-      browseCategory,
       hydrated,
       lastAddedId,
     ],

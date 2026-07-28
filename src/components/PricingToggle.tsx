@@ -5,21 +5,24 @@ import { useStore } from "@/context/StoreProvider";
 import type { PricingMode } from "@/lib/types";
 
 interface PricingToggleProps {
-  /** حجم العنصر: عادي للهيدر، مصغّر للاستخدام داخل البطاقات */
+  /** حجم العنصر: عادي للصفحات، مصغّر داخل البطاقات */
   size?: "sm" | "md";
   className?: string;
 }
 
 const options: { value: PricingMode; label: string; short: string }[] = [
-  { value: "retail", label: "عرض سعر القطاعي", short: "قطاعي" },
-  { value: "wholesale", label: "عرض سعر الجملة", short: "جملة" },
+  { value: "retail", label: "قطاعي", short: "قطاعي" },
+  { value: "wholesale", label: "جملة", short: "جملة" },
 ];
 
 /**
- * مفتاح تبديل وضع التسعير بين القطاعي والجملة.
- * يؤثر فوراً على كل الأسعار المعروضة في الموقع والسلة.
+ * مفتاح التبديل المزدوج لنمط التسعير (جملة / قطاعي).
+ * يؤثر فوراً على كل الأسعار المعروضة في الموقع والسلة، ويُحفظ بين الزيارات.
  */
-export function PricingToggle({ size = "md", className = "" }: PricingToggleProps) {
+export function PricingToggle({
+  size = "md",
+  className = "",
+}: PricingToggleProps) {
   const { mode, setMode } = useStore();
 
   const padding = size === "sm" ? "px-3 py-1.5 text-xs" : "px-4 py-2 text-sm";
@@ -27,8 +30,8 @@ export function PricingToggle({ size = "md", className = "" }: PricingToggleProp
   return (
     <div
       role="radiogroup"
-      aria-label="وضع عرض الأسعار"
-      className={`inline-flex items-center gap-1 rounded-full border border-ink-200 bg-white p-1 shadow-sm ${className}`}
+      aria-label="نمط التسعير"
+      className={`inline-flex items-center gap-1 rounded-full border border-ink-200 bg-white p-1 ${className}`}
     >
       {options.map((option) => {
         const isActive = mode === option.value;
@@ -40,15 +43,14 @@ export function PricingToggle({ size = "md", className = "" }: PricingToggleProp
             role="radio"
             aria-checked={isActive}
             onClick={() => setMode(option.value)}
-            className={`flex items-center gap-1.5 rounded-full font-semibold transition-colors ${padding} ${
+            className={`press flex items-center gap-1.5 rounded-full font-bold ${padding} ${
               isActive
-                ? "bg-brand-700 text-white shadow-sm"
+                ? "bg-brand-700 text-white"
                 : "text-ink-600 hover:bg-ink-100"
             }`}
           >
             <Icon className="size-4 shrink-0" aria-hidden="true" />
-            <span className="hidden sm:inline">{option.label}</span>
-            <span className="sm:hidden">{option.short}</span>
+            {option.label}
           </button>
         );
       })}

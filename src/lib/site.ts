@@ -1,43 +1,116 @@
+/**
+ * إعدادات الموقع المركزية — شركة عمران التجارية.
+ *
+ * كل النصوص وبيانات التواصل والفروع تُقرأ من هنا فقط، فلا تتكرر داخل المكونات.
+ * أي تعديل على الأرقام أو الفروع أو نصوص التنبيهات يتم في هذا الملف وحده.
+ */
+
+/** فرع من فروع الشركة */
+export interface Branch {
+  id: string;
+  name: string;
+  address: string;
+  mapUrl: string;
+  active: boolean;
+}
+
+/** رابط داخل شريط التنقل */
+export interface NavLink {
+  href: string;
+  label: string;
+}
+
+const RAW_PHONE = "01555570269";
+const WHATSAPP_NUMBER = "201555570269";
+const SITE_URL = "https://omrantoys.store";
+
 export const siteConfig = {
+  /** الاسم المختصر المعروض في الواجهة */
   name: "شركة عمران التجارية",
-  tagline: "أكبر تشكيل لعب أطفال",
-  logoUrl: "",
-  footerDescription: "كل اللي تحتاجه لأطفالك في مكان واحد! 🎈✨\n\"أكبر تشكيل لعب أطفال 🎯\nأسعار جملة.. برة المنافسة\"",
+  /** الاسم القانوني الكامل (يُستخدم في البيانات المنظمة) */
+  legalName: "شركة عمران التجارية للألعاب والهدايا",
+  tagline: "أسعار جملة برة المنافسة",
+  /** وصف الموقع لمحركات البحث ومواقع التواصل */
+  description:
+    "شركة عمران التجارية — أكبر تشكيل لعب أطفال وبالونات وهدايا في طنطا، بأسعار جملة برة المنافسة وبيع قطاعي للأفراد، مع توريد لجميع المحافظات.",
+  url: SITE_URL,
+  logoUrl: "/logo.svg",
+
+  /** العملة المستخدمة في كل الأسعار */
+  currency: "EGP",
+  currencySymbol: "ج.م",
+
+  /* ----------------------------- بيانات التواصل ----------------------------- */
   contact: {
-    phone: "01555570269",
-    whatsapp: "201555570269",
-    email: ""
+    phone: RAW_PHONE,
+    whatsapp: WHATSAPP_NUMBER,
+    email: "",
   },
-  workingHours: "يوميا من 9 صباحا : 11 مساء",
+  /** رقم الهاتف كما يُعرض للمستخدم */
+  phoneDisplay: RAW_PHONE,
+  /** رابط الاتصال المباشر */
+  phoneHref: `tel:+${WHATSAPP_NUMBER}`,
+  /** رقم الواتساب بالصيغة الدولية بدون علامة + */
+  whatsappNumber: WHATSAPP_NUMBER,
+  email: "",
+  address: "طنطا — محافظة الغربية، جمهورية مصر العربية",
+  workingHours: "يومياً من 9 صباحاً حتى 11 مساءً",
+
+  footerDescription:
+    "كل اللي تحتاجه لأطفالك في مكان واحد — أكبر تشكيل لعب أطفال وبالونات ومستلزمات حفلات وهدايا، بأسعار جملة برة المنافسة وبيع قطاعي للأفراد.",
+
+  /* --------------------------------- الفروع -------------------------------- */
   branches: [
     {
       id: "c976c79a",
       name: "فرع ميدان السيد البدوي",
-      address: "طنطا - ميدان السيد البدوي",
-      mapUrl: "https://www.google.com/maps/dir/%D8%A7%D9%84%D8%A7%D8%B3%D9%80%D8%AA%D9%80%D9%80%D8%A7%D8%AF%D8%8C+%D8%B7%D9%86%D8%B7%D8%A7+(%D9%82%D8%B3%D9%85+2)%D8%8C+%D9%82%D8%B3%D9%85+%D8%AB%D8%A7%D9%86+%D8%B7%D9%86%D8%B7%D8%A7%D8%8C+%D9%85%D8%AD%D8%A7%D9%81%D8%B8%D8%A9+%D8%A7%D9%84%D8%BA%D8%B1%D8%A8%D9%8A%D8%A9%E2%80%AD/%D8%B4%D8%B1%D9%83%D8%A9+%D8%B9%D9%85%D8%B1%D8%A7%D9%8BD8%A7%D9%84%D8%AA%D8%AC%D8%A7%D8%B1%D9%8A%D8%A9%D8%8C+%D8%A7%D9%85%D8%A7%D9%85+%D9%86%D8%A7%D8%AF%D9%8A+%D8%B3%D9%8A%D8%AA%D9%8A+%D9%83%D9%84%D9%88%D8%A8+%D9%88+%D9%85%D8%B7%D8%B9%D9%85+%D8%B3%D9%8A+%D8%A7%D9%84%D8%B3%D9%8A%D8%AF%D8%8C+%D8%A7%D9%84%D8%A7%D8%B3%D9%80%D8%AA%D9%80%D9%80%D8%A7%D8%AF%D8%8C+%D8%B7%D9%86%D8%B7%D8%A7+(%D9%82%D8%B3%D9%85+2)%D8%8C+%D9%82%D8%B3%D9%85+%D8%AB%D8%A7%D9%86+%D8%B7%D9%86%D8%B7%D8%A7%D8%8C+%D9%85%D8%AD%D8%A7%D9%81%D8%B8%D8%A9+%D8%A7%D9%84%D8%BA%D8%B1%D8%A8%D9%8A%D8%A9+31511%E2%80%AD/@30.8119293,30.9939895,76m/data=!3m1!1e3!4m13!4m12!1m5!1m1!1s0x14f7c985cceb169b:0x20e938a2a98b7882!2m2!1d30.9942558!2d30.8109845!1m5!1m1!1s0x14f7c9763b305b7b:0xea81425db7047c2e!2m2!1d30.9939374!2d30.8120613?entry=ttu&g_ep=EgoyMDI2MDcyMi4wIKXMDSoASAFQAw%3D%3D",
-      active: true
+      address: "طنطا — ميدان السيد البدوي",
+      mapUrl: "https://maps.google.com/?q=30.8109845,30.9942558",
+      active: true,
     },
     {
       id: "cef83e67",
       name: "فرع الاستاد",
-      address: "الاستاد امام نادي سيتي كلوب و مطعم سي السيد",
-      mapUrl: "https://www.google.com/maps/dir/%D8%A7%D9%84%D8%A7%D8%B3%D9%80%D8%AA%D9%80%D9%80%D8%A7%D8%AF%D8%8C+%D8%B7%D9%86%D8%B7%D8%A7+(%D9%82%D8%B3%D9%85+2)%D8%8C+%D9%82%D8%B3%D9%85+%D8%AB%D8%A7%D9%86+%D8%B7%D9%86%D8%B7%D8%A7%D8%8C+%D9%85%D8%AD%D8%A7%D9%81%D8%B8%D8%A9+%D8%A7%D9%84%D8%BA%D8%B1%D8%A8%D9%8A%D8%A9%E2%80%AD/%D8%B4%D8%B1%D9%83%D8%A9+%D8%B9%D9%85%D8%B1%D8%A7%D9%8BD8%A7%D9%84%D8%AA%D8%AC%D8%A7%D8%B1%D9%8A%D8%A9%D8%8C+%D8%A7%D9%85%D8%A7%D9%85+%D9%86%D8%A7%D8%AF%D9%8A+%D8%B3%D9%8A%D8%AA%D9%8A+%D9%83%D9%84%D9%88%D8%A8+%D9%88+%D9%85%D8%B7%D8%B9%D9%85+%D8%B3%D9%8A+%D8%A7%D9%84%D8%B3%D9%8A%D8%AF%D8%8C+%D8%A7%D9%84%D8%A7%D8%B3%D9%80%D8%AA%D9%80%D9%80%D8%A7%D8%AF%D8%8C+%D8%B7%D9%86%D8%B7%D8%A7+(%D9%82%D8%B3%D9%85+2)%D8%8C+%D9%82%D8%B3%D9%85+%D8%AB%D8%A7%D9%86+%D8%B7%D9%86%D8%B7%D8%A7%D8%8C+%D9%85%D8%AD%D8%A7%D9%81%D8%B8%D8%A9+%D8%A7%D9%84%D8%BA%D8%B1%D8%A8%D9%8A%D8%A9+31511%E2%80%AD/@30.8119293,30.9939895,76m/data=!3m1!1e3!4m13!4m12!1m5!1m1!1s0x14f7c985cceb169b:0x20e938a2a98b7882!2m2!1d30.9942558!2d30.8109845!1m5!1m1!1s0x14f7c9763b305b7b:0xea81425db7047c2e!2m2!1d30.9939374!2d30.8120613?entry=ttu&g_ep=EgoyMDI2MDcyMi4wIKXMDSoASAFQAw%3D%3D",
-      active: true
-    }
-  ],
+      address: "طنطا — الاستاد، أمام نادي سيتي كلوب ومطعم سي السيد",
+      mapUrl: "https://maps.google.com/?q=30.8120613,30.9939374",
+      active: true,
+    },
+  ] as Branch[],
+
+  /* ------------------------------ إعدادات التشغيل ----------------------------- */
   operations: {
     maintenanceMode: false,
     announcementEnabled: true,
-    announcementText: "شحن مجاني للطلبات فوق 1000 جنيه",
-    wholesaleNotice: "يرجى العلم: أسعار التوريد بالجملة مخصصة للكميات التجارية بدءاً من دستة كاملة (12 قطعة) من نفس الصنف. كما يتيح المتجر إمكانية الشراء الفردي بأسعار القطاعي المحددة."
+    announcementText: "شحن مجاني للطلبات فوق 1000 جنيه · أسعار جملة برة المنافسة",
+    wholesaleNotice:
+      "أسعار الجملة مخصصة للكميات التجارية بدءاً من دستة كاملة (12 قطعة) من نفس الصنف، مع إتاحة الشراء الفردي بأسعار القطاعي المعلنة.",
+    /** أقل عدد قطع للحصول على سعر الجملة (دستة) */
+    wholesaleMinUnits: 12,
+    /** حد الشحن المجاني بالجنيه */
+    freeShippingThreshold: 1000,
   },
+
   social: {
     facebook: "https://www.facebook.com/profile.php?id=61590544803396",
     instagram: "https://www.instagram.com/omrantoys.store",
-    telegram: ""
+    telegram: "",
   },
+
   seo: {
     metaTitle: "شركة عمران التجارية | لعب أطفال - هدايا - جملة وقطاعي",
-    metaDescription: "ألعاب أطفال، جملة، العاب تعليمية، طنطا، شركة عمران التجارية."
-  }
-};
+    metaDescription:
+      "ألعاب أطفال، بالونات، هدايا، ألعاب تعليمية — جملة وقطاعي في طنطا مع توريد لكل المحافظات.",
+  },
+} as const;
+
+/** الفروع العاملة فقط */
+export const activeBranches: Branch[] = siteConfig.branches.filter(
+  (branch) => branch.active,
+);
+
+/** روابط التنقل الأساسية — أربع صفحات فقط */
+export const navLinks: NavLink[] = [
+  { href: "/", label: "الرئيسية" },
+  { href: "/products", label: "الكتالوج" },
+  { href: "/checkout", label: "إتمام الطلب" },
+];

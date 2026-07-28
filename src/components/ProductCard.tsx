@@ -1,12 +1,15 @@
 "use client";
 
 import Image from "next/image";
-import { Check, Eye, Flame, Package, Plus } from "lucide-react";
+import Link from "next/link";
+import { Check, Plus } from "lucide-react";
 import { useStore } from "@/context/StoreProvider";
-import { categoryMap } from "@/lib/categories";
 import {
+  DOZEN_UNITS,
   formatNumber,
   formatPrice,
+  getCartonPrice,
+  getDozenPrice,
   getMinQuantity,
   getUnitPrice,
   getWholesaleSavingPercent,
@@ -15,161 +18,125 @@ import type { Product } from "@/lib/types";
 
 interface ProductCardProps {
   product: Product;
-  /** فتح نافذة العرض السريع */
-  onQuickView: (product: Product) => void;
+  /** أول صفّ من البطاقات يُحمَّل بأولوية لتحسين LCP */
+  priority?: boolean;
 }
 
 /** بطاقة منتج داخل شبكة الكتالوج */
-export function ProductCard({ product, onQuickView }: ProductCardProps) {
+export function ProductCard({ product, priority = false }: ProductCardProps) {
   const { mode, addItem, getQuantity, lastAddedId, hydrated } = useStore();
 
-  const category = categoryMap[product.categoryId];
   const unitPrice = getUnitPrice(product, mode);
   const minQuantity = getMinQuantity(product, mode);
   const inCart = hydrated ? getQuantity(product.id) : 0;
   const justAdded = lastAddedId === product.id;
   const saving = getWholesaleSavingPercent(product);
   const cover = product.images[0];
+  const isWholesale = mode === "wholesale";
 
   return (
-    <article className="card-surface group flex flex-col overflow-hidden transition-shadow hover:shadow-md">
+    <article className="card-surface lift flex flex-col overflow-hidden">
       {/* الصورة */}
-      <div className="relative aspect-square overflow-hidden bg-ink-100">
-        <button
-          type="button"
-          onClick={() => onQuickView(product)}
-          className="absolute inset-0 z-10 cursor-zoom-in"
-          aria-label={`عرض سريع لمنتج ${product.name}`}
-        />
+      <Link
+        href={`/products/${product.id}`}
+        className="relative block aspect-square overflow-hidden bg-ink-100"
+      >
         {cover && (
           <Image
             src={cover.src}
             alt={cover.alt}
             fill
-            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-            className="object-cover transition-transform duration-300 group-hover:scale-105"
+            sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+            className="object-cover"
+            priority={priority}
           />
         )}
-
-        {/* شارات الحالة */}
-        <div className="pointer-events-none absolute top-3 start-3 z-20 flex flex-col items-start gap-1.5">
-          {product.featured && (
-            <span className="flex items-center gap-1 rounded-md bg-accent-500 px-2 py-1 text-[11px] font-bold text-white">
-              <Flame className="size-3" aria-hidden="true" />
-              الأكثر طلباً
-            </span>
-          )}
-          {mode === "wholesale" && saving > 0 && (
-            <span className="rounded-md bg-brand-700 px-2 py-1 text-[11px] font-bold text-white">
-              أقل من القطاعي بـ <span className="num">{saving}%</span>
-            </span>
-          )}
-          {!product.inStock && (
-            <span className="rounded-md bg-ink-700 px-2 py-1 text-[11px] font-bold text-white">
-              غير متوفر حالياً
-            </span>
-          )}
-        </div>
-
-        {/* زر العرض السريع */}
-        <button
-          type="button"
-          onClick={() => onQuickView(product)}
-          className="absolute bottom-3 end-3 z-20 flex items-center gap-1.5 rounded-lg bg-white/95 px-3 py-2 text-xs font-bold text-ink-800 shadow-sm transition-colors hover:bg-white"
-        >
-          <Eye className="size-4" aria-hidden="true" />
-          عرض سريع
-        </button>
-      </div>
+        {isWholesale && saving > 0 && (
+          <span className="absolute top-2 start-2 rounded-md bg-accent-500 px-2 py-1 text-[11px] font-extrabold text-white">
+            وفّر <span className="num">{saving}</span>%
+          </span>
+        )}
+        {!product.inStock && (
+          <span className="absolute inset-x-0 bottom-0 bg-ink-950/80 py-1.5 text-center text-xs font-bold text-white">
+            غير متوفر حالياً
+          </span>
+        )}
+      </Link>
 
       {/* المحتوى */}
-      <div className="flex flex-1 flex-col gap-3 p-4">
-        <div className="flex items-start justify-between gap-2">
-          <span className="rounded-md bg-ink-100 px-2 py-0.5 text-[11px] font-semibold text-ink-600">
-            {category?.name}
-          </span>
-          <span className="num text-[11px] font-medium text-ink-400">
-            {product.sku}
-          </span>
-        </div>
-
-        <h3 className="text-base font-bold text-ink-900">
-          <button
-            type="button"
-            onClick={() => onQuickView(product)}
-            className="text-start hover:text-brand-700"
+      <div className="flex flex-1 flex-col gap-2 p-3">
+        <h3 className="text-sm font-bold text-ink-900">
+          <Link
+            href={`/products/${product.id}`}
+            className="line-clamp-2 transition-colors hover:text-brand-700"
           >
             {product.name}
-          </button>
+          </Link>
         </h3>
 
-        <p className="line-clamp-2 text-sm text-ink-600">
-          {product.shortDescription}
-        </p>
+        <div className="mt-auto space-y-2 pt-1">
+          <div>
+            <p className="text-[11px] font-semibold text-ink-500">
+              {isWholesale ? "سعر الجملة للقطعة" : "سعر القطعة"}
+            </p>
+            <p className="num text-lg font-extrabold text-brand-800">
+              {formatPrice(unitPrice)}
+            </p>
+          </div>
 
-        {/* بيانات التعبئة */}
-        <div className="flex items-center gap-1.5 rounded-lg bg-ink-50 px-2.5 py-2 text-xs text-ink-600">
-          <Package className="size-4 shrink-0 text-ink-400" aria-hidden="true" />
-          <span>
-            الكرتونة{" "}
-            <span className="num font-bold text-ink-800">
-              {formatNumber(product.packaging.unitsPerCarton)}
-            </span>{" "}
-            قطعة · أقل كمية جملة{" "}
-            <span className="num font-bold text-ink-800">
-              {formatNumber(product.packaging.minWholesaleUnits)}
-            </span>
-          </span>
-        </div>
+          {/* إبراز سعر الدستة والكرتونة في وضع الجملة */}
+          {isWholesale && (
+            <dl className="grid grid-cols-2 gap-1 rounded-lg bg-brand-50 p-2 text-[11px] leading-tight">
+              <div>
+                <dt className="font-semibold text-ink-500">
+                  الدستة (<span className="num">{DOZEN_UNITS}</span>)
+                </dt>
+                <dd className="num font-extrabold text-brand-800">
+                  {formatPrice(getDozenPrice(product))}
+                </dd>
+              </div>
+              <div>
+                <dt className="font-semibold text-ink-500">
+                  الكرتونة (
+                  <span className="num">
+                    {formatNumber(product.packaging.unitsPerCarton)}
+                  </span>
+                  )
+                </dt>
+                <dd className="num font-extrabold text-brand-800">
+                  {formatPrice(getCartonPrice(product))}
+                </dd>
+              </div>
+            </dl>
+          )}
 
-        {/* السعر */}
-        <div className="mt-auto space-y-3 pt-1">
-          <div className="flex items-end justify-between gap-2">
-            <div>
-              <p className="text-[11px] font-semibold text-ink-500">
-                {mode === "wholesale" ? "سعر الجملة للقطعة" : "سعر القطاعي للقطعة"}
-              </p>
-              <p className="num text-xl font-extrabold text-brand-800">
-                {formatPrice(unitPrice)}
-              </p>
-            </div>
-            {mode === "wholesale" && (
-              <p className="num text-xs text-ink-400 line-through">
-                {formatPrice(product.retailPrice)}
-              </p>
+          <button
+            type="button"
+            onClick={() => addItem(product)}
+            disabled={!product.inStock}
+            className={`press flex w-full items-center justify-center gap-1.5 rounded-xl px-3 py-2.5 text-xs font-bold disabled:cursor-not-allowed disabled:bg-ink-200 disabled:text-ink-500 sm:text-sm ${
+              justAdded
+                ? "bg-emerald-600 text-white"
+                : "bg-brand-700 text-white hover:bg-brand-800"
+            }`}
+          >
+            {justAdded ? (
+              <>
+                <Check className="size-4" aria-hidden="true" />
+                تمت الإضافة
+              </>
+            ) : (
+              <>
+                <Plus className="size-4" aria-hidden="true" />
+                أضف <span className="num">{formatNumber(minQuantity)}</span>{" "}
+                قطعة
+              </>
             )}
-          </div>
-
-          <div className="flex items-center gap-2">
-            <button
-              type="button"
-              onClick={() => addItem(product)}
-              disabled={!product.inStock}
-              className={`flex flex-1 items-center justify-center gap-1.5 rounded-xl px-3 py-2.5 text-sm font-bold transition-colors disabled:cursor-not-allowed disabled:bg-ink-200 disabled:text-ink-500 ${
-                justAdded
-                  ? "bg-emerald-600 text-white"
-                  : "bg-brand-700 text-white hover:bg-brand-800"
-              }`}
-            >
-              {justAdded ? (
-                <>
-                  <Check className="size-4" aria-hidden="true" />
-                  تمت الإضافة
-                </>
-              ) : (
-                <>
-                  <Plus className="size-4" aria-hidden="true" />
-                  إضافة{" "}
-                  <span className="num">{formatNumber(minQuantity)}</span> قطعة
-                </>
-              )}
-            </button>
-          </div>
+          </button>
 
           {inCart > 0 && (
             <p className="text-center text-[11px] font-semibold text-emerald-700">
-              في السلة حالياً: <span className="num">{formatNumber(inCart)}</span>{" "}
-              قطعة
+              في السلة: <span className="num">{formatNumber(inCart)}</span> قطعة
             </p>
           )}
         </div>
