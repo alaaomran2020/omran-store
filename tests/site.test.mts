@@ -5,6 +5,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 
 import { activeBranches, navLinks, siteConfig } from "@/lib/site";
+import type { SiteConfig } from "@/lib/site";
 import { products, getProductById } from "@/lib/products";
 import {
   DOZEN_UNITS,
@@ -19,6 +20,7 @@ test("الإعدادات: كل الحقول التي تستخدمها الواج
     "name",
     "legalName",
     "tagline",
+    "wholesaleSlogan",
     "description",
     "url",
     "currency",
@@ -36,8 +38,24 @@ test("الإعدادات: كل الحقول التي تستخدمها الواج
   }
 
   assert.match(siteConfig.url, /^https:\/\//);
+  assert.ok(!siteConfig.url.endsWith("/"), "الرابط بدون سلاش نهائي");
   assert.match(siteConfig.whatsappNumber, /^\d{10,15}$/);
   assert.ok(siteConfig.phoneHref.startsWith("tel:"));
+});
+
+test("الإعدادات: النوع SiteConfig مطبَّق ويغطي الحقول المشتقة", () => {
+  // فحص وقت التصريف: أي حقل ناقص أو باسم خاطئ يكسر البناء
+  const typed: SiteConfig = siteConfig;
+
+  assert.equal(typed.legalName, "شركة عمران التجارية");
+  assert.equal(typed.tagline, "أكبر تشكيل لعب أطفال");
+  assert.equal(typed.url, "https://omrantoys.store");
+  assert.equal(typed.currency, "EGP");
+
+  // الحقول المشتقة متسقة مع بيانات التواصل الخام
+  assert.equal(typed.phoneDisplay, typed.contact.phone);
+  assert.equal(typed.whatsappNumber, typed.contact.whatsapp);
+  assert.equal(typed.phoneHref, `tel:+${typed.contact.whatsapp}`);
 });
 
 test("التنقل: ثلاثة روابط تغطي معمارية الصفحات الأربع", () => {

@@ -20,37 +20,96 @@ export interface NavLink {
   label: string;
 }
 
-const RAW_PHONE = "01555570269";
-const WHATSAPP_NUMBER = "201555570269";
-const SITE_URL = "https://omrantoys.store";
+/** بيانات التواصل الخام */
+export interface ContactInfo {
+  phone: string;
+  whatsapp: string;
+  email: string;
+}
 
-export const siteConfig = {
+/** إعدادات التشغيل والتنبيهات وسياسة الجملة */
+export interface OperationsConfig {
+  maintenanceMode: boolean;
+  announcementEnabled: boolean;
+  announcementText: string;
+  wholesaleNotice: string;
+  /** أقل عدد قطع للحصول على سعر الجملة (دستة) */
+  wholesaleMinUnits: number;
+  /** حد الشحن المجاني بالجنيه */
+  freeShippingThreshold: number;
+}
+
+export interface SocialLinks {
+  facebook: string;
+  instagram: string;
+  telegram: string;
+}
+
+export interface SeoConfig {
+  metaTitle: string;
+  metaDescription: string;
+}
+
+/** العقد الكامل لإعدادات الموقع */
+export interface SiteConfig {
   /** الاسم المختصر المعروض في الواجهة */
-  name: "شركة عمران التجارية",
-  /** الاسم القانوني الكامل (يُستخدم في البيانات المنظمة) */
-  legalName: "شركة عمران التجارية للألعاب والهدايا",
-  tagline: "أسعار جملة برة المنافسة",
+  name: string;
+  /** الاسم القانوني (يُستخدم في البيانات المنظمة وحقوق النشر) */
+  legalName: string;
+  /** الشعار التسويقي الأساسي */
+  tagline: string;
+  /** الشعار السعري المميز للشركة */
+  wholesaleSlogan: string;
   /** وصف الموقع لمحركات البحث ومواقع التواصل */
-  description:
-    "شركة عمران التجارية — أكبر تشكيل لعب أطفال وبالونات وهدايا في طنطا، بأسعار جملة برة المنافسة وبيع قطاعي للأفراد، مع توريد لجميع المحافظات.",
-  url: SITE_URL,
-  logoUrl: "/logo.svg",
+  description: string;
+  url: string;
+  logoUrl: string;
 
   /** العملة المستخدمة في كل الأسعار */
+  currency: string;
+  currencySymbol: string;
+
+  contact: ContactInfo;
+  /** رقم الهاتف كما يُعرض للمستخدم */
+  phoneDisplay: string;
+  /** رابط الاتصال المباشر */
+  phoneHref: string;
+  /** رقم الواتساب بالصيغة الدولية بدون علامة + */
+  whatsappNumber: string;
+  email: string;
+  address: string;
+  workingHours: string;
+  footerDescription: string;
+
+  branches: Branch[];
+  operations: OperationsConfig;
+  social: SocialLinks;
+  seo: SeoConfig;
+}
+
+const RAW_PHONE = "01555570269";
+const WHATSAPP_NUMBER = "201555570269";
+
+export const siteConfig: SiteConfig = {
+  name: "شركة عمران التجارية",
+  legalName: "شركة عمران التجارية",
+  tagline: "أكبر تشكيل لعب أطفال",
+  wholesaleSlogan: "أسعار جملة برة المنافسة",
+  description:
+    "أكبر تشكيل لعب أطفال وهدايا بأعلى جودة وأفضل أسعار جملة وقطاعي في مصر.",
+  url: "https://omrantoys.store",
+  logoUrl: "/logo.svg",
+
   currency: "EGP",
   currencySymbol: "ج.م",
 
-  /* ----------------------------- بيانات التواصل ----------------------------- */
   contact: {
     phone: RAW_PHONE,
     whatsapp: WHATSAPP_NUMBER,
     email: "",
   },
-  /** رقم الهاتف كما يُعرض للمستخدم */
   phoneDisplay: RAW_PHONE,
-  /** رابط الاتصال المباشر */
   phoneHref: `tel:+${WHATSAPP_NUMBER}`,
-  /** رقم الواتساب بالصيغة الدولية بدون علامة + */
   whatsappNumber: WHATSAPP_NUMBER,
   email: "",
   address: "طنطا — محافظة الغربية، جمهورية مصر العربية",
@@ -59,7 +118,6 @@ export const siteConfig = {
   footerDescription:
     "كل اللي تحتاجه لأطفالك في مكان واحد — أكبر تشكيل لعب أطفال وبالونات ومستلزمات حفلات وهدايا، بأسعار جملة برة المنافسة وبيع قطاعي للأفراد.",
 
-  /* --------------------------------- الفروع -------------------------------- */
   branches: [
     {
       id: "c976c79a",
@@ -75,18 +133,15 @@ export const siteConfig = {
       mapUrl: "https://maps.google.com/?q=30.8120613,30.9939374",
       active: true,
     },
-  ] as Branch[],
+  ],
 
-  /* ------------------------------ إعدادات التشغيل ----------------------------- */
   operations: {
     maintenanceMode: false,
     announcementEnabled: true,
     announcementText: "شحن مجاني للطلبات فوق 1000 جنيه · أسعار جملة برة المنافسة",
     wholesaleNotice:
       "أسعار الجملة مخصصة للكميات التجارية بدءاً من دستة كاملة (12 قطعة) من نفس الصنف، مع إتاحة الشراء الفردي بأسعار القطاعي المعلنة.",
-    /** أقل عدد قطع للحصول على سعر الجملة (دستة) */
     wholesaleMinUnits: 12,
-    /** حد الشحن المجاني بالجنيه */
     freeShippingThreshold: 1000,
   },
 
@@ -101,7 +156,7 @@ export const siteConfig = {
     metaDescription:
       "ألعاب أطفال، بالونات، هدايا، ألعاب تعليمية — جملة وقطاعي في طنطا مع توريد لكل المحافظات.",
   },
-} as const;
+};
 
 /** الفروع العاملة فقط */
 export const activeBranches: Branch[] = siteConfig.branches.filter(

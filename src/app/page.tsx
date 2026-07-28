@@ -103,14 +103,17 @@ export default function HomePage() {
 
           <h1 className="mt-4 text-3xl font-extrabold sm:text-4xl lg:text-5xl">
             {siteConfig.name}
-            <span className="mt-2 block text-accent-300">
+            <span className="mt-2 block text-xl font-bold sm:text-2xl lg:text-3xl">
               {siteConfig.tagline}
+            </span>
+            <span className="mt-2 block text-accent-300">
+              {siteConfig.wholesaleSlogan}
             </span>
           </h1>
 
           <p className="mt-4 max-w-2xl text-base leading-relaxed text-brand-100">
-            أكبر تشكيل لعب أطفال وبالونات ومستلزمات حفلات وهدايا. أسعار الجملة
-            معلنة بالكرتونة والدستة، والقطاعي متاح للأفراد على نفس الأصناف.
+            {siteConfig.description} أسعار الجملة معلنة بالكرتونة والدستة،
+            والقطاعي متاح للأفراد على نفس الأصناف.
           </p>
 
           <div className="mt-7 flex flex-wrap gap-3">
