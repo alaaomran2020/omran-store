@@ -1,5 +1,6 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { useDeferredValue, useMemo, useState } from "react";
 import {
   Baby,
@@ -12,13 +13,17 @@ import {
   X,
 } from "lucide-react";
 import { ProductCard } from "@/components/ProductCard";
-import { QuickViewModal } from "@/components/QuickViewModal";
 import { PricingToggle } from "@/components/PricingToggle";
 import { useStore } from "@/context/StoreProvider";
 import { categories } from "@/lib/categories";
 import { products } from "@/lib/products";
 import { formatNumber, getUnitPrice } from "@/lib/format";
-import type { CategoryId, IconName, Product, SortOption } from "@/lib/types";
+import type { IconName, Product, SortOption } from "@/lib/types";
+
+// نافذة العرض السريع في حزمة منفصلة — لا تُحمَّل إلا عند أول استخدام
+const QuickViewModal = dynamic(() =>
+  import("@/components/QuickViewModal").then((m) => m.QuickViewModal),
+);
 
 const iconMap: Record<IconName, typeof Car> = {
   car: Car,
@@ -52,13 +57,12 @@ function normalizeArabic(input: string): string {
     .trim();
 }
 
-type FilterValue = CategoryId | "all";
-
 /** قسم الكتالوج: البحث الفوري، تصفية الأقسام، الترتيب، والعرض السريع */
 export function CatalogSection() {
-  const { mode } = useStore();
+  const { mode, categoryFilter, setCategoryFilter } = useStore();
   const [query, setQuery] = useState("");
-  const [category, setCategory] = useState<FilterValue>("all");
+  const category = categoryFilter;
+  const setCategory = setCategoryFilter;
   const [sort, setSort] = useState<SortOption>("featured");
   const [onlyInStock, setOnlyInStock] = useState(false);
   const [quickView, setQuickView] = useState<Product | null>(null);
@@ -144,18 +148,19 @@ export function CatalogSection() {
           <div>
             <p className="mb-1.5 text-sm font-bold text-brand-700">الكتالوج</p>
             <h2 className="text-2xl font-extrabold text-ink-900 sm:text-3xl">
-              منتجات متاحة للتوريد
+              الأصناف المتاحة بأسعار معلنة للجملة والقطاعي
             </h2>
             <p className="mt-2 max-w-2xl text-sm text-ink-600">
-              أسعار القطاعي معروضة للأفراد، وأسعار الجملة للتجار عند الالتزام بالحد
-              الأدنى للكمية الموضح مع كل صنف.
+              سعر القطاعي معلن للأفراد، وسعر الجملة الأقل متاح للتجار عند الالتزام
+              بالحد الأدنى الموضح على بطاقة كل صنف — تسعير واضح بلا مفاوضات ولا
+              أسعار مخفية.
             </p>
           </div>
           <PricingToggle className="hidden lg:inline-flex" />
         </div>
 
-        {/* أدوات التصفية */}
-        <div className="mb-6 space-y-4 rounded-2xl border border-ink-200 bg-ink-50 p-4">
+        {/* أدوات التصفية — لاصقة على الشاشات الكبيرة لتبقى متاحة أثناء التمرير */}
+        <div className="mb-6 space-y-4 rounded-2xl border border-ink-200 bg-ink-50 p-4 lg:sticky lg:top-[7.75rem] lg:z-20">
           <div className="flex flex-col gap-3 lg:flex-row lg:items-center">
             {/* البحث */}
             <div className="relative flex-1">
@@ -302,10 +307,10 @@ export function CatalogSection() {
               aria-hidden="true"
             />
             <p className="text-base font-bold text-ink-800">
-              لا توجد أصناف مطابقة
+              لا توجد أصناف مطابقة لبحثك
             </p>
             <p className="mt-1 text-sm text-ink-500">
-              جرّب تعديل كلمات البحث أو اختيار قسم آخر.
+              جرّب كلمات أبسط، أو ابحث بكود الصنف، أو اختر قسماً آخر من الأعلى.
             </p>
             <button
               type="button"
@@ -318,7 +323,9 @@ export function CatalogSection() {
         )}
       </div>
 
-      <QuickViewModal product={quickView} onClose={() => setQuickView(null)} />
+      {quickView && (
+        <QuickViewModal product={quickView} onClose={() => setQuickView(null)} />
+      )}
     </section>
   );
 }

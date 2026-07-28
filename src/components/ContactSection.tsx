@@ -41,11 +41,11 @@ export function ContactSection() {
         <div className="mb-8 max-w-2xl">
           <p className="mb-1.5 text-sm font-bold text-brand-700">التواصل</p>
           <h2 className="text-2xl font-extrabold text-ink-900 sm:text-3xl">
-            بيانات التواصل مع فريق المبيعات
+            فريق المبيعات جاهز لخدمتك
           </h2>
           <p className="mt-2 text-sm text-ink-600">
-            للاستفسار عن الأسعار أو التوفر أو ترتيب توريد دوري، يمكن التواصل عبر
-            القنوات التالية خلال مواعيد العمل الرسمية.
+            سؤال عن سعر أو توفر؟ تريد ترتيب توريد دوري لمحلك؟ تواصل معنا عبر
+            القنوات التالية خلال مواعيد العمل الرسمية وسنرد عليك بأسرع ما يمكن.
           </p>
         </div>
 
@@ -96,11 +96,11 @@ export function ContactSection() {
 
           <div className="flex flex-col justify-center gap-4 rounded-2xl border border-emerald-200 bg-emerald-50 p-6">
             <h3 className="text-lg font-extrabold text-emerald-900">
-              الطلب والاستفسار عبر واتساب
+              أسرع طريق لطلبك: واتساب
             </h3>
             <p className="text-sm leading-relaxed text-emerald-800">
-              أسرع وسيلة للرد هي واتساب. جهّز طلبك من الكتالوج وأرسله مباشرة، أو
-              ابدأ محادثة للاستفسار عن صنف معين.
+              جهّز طلبك من الكتالوج وأرسله برسالة واحدة مفصلة، أو ابدأ محادثة
+              للاستفسار عن صنف معين — فريقنا يرد خلال مواعيد العمل.
             </p>
             <a
               href={buildInquiryUrl("الأصناف المتاحة وأسعار التوريد")}
@@ -109,7 +109,7 @@ export function ContactSection() {
               className="flex items-center justify-center gap-2 rounded-xl bg-emerald-600 px-5 py-3 text-sm font-bold text-white transition-colors hover:bg-emerald-700"
             >
               <MessageCircle className="size-4" aria-hidden="true" />
-              بدء محادثة واتساب
+              ابدأ المحادثة الآن
             </a>
             <p className="num text-center text-xs font-semibold text-emerald-800" dir="ltr">
               +{siteConfig.whatsappNumber}

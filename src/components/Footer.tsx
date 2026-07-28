@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { Mail, MapPin, Phone } from "lucide-react";
+import { CategoryBrowseLink } from "@/components/CategoryBrowseLink";
 import { categories } from "@/lib/categories";
 import { navLinks, siteConfig } from "@/lib/site";
 
@@ -26,8 +27,9 @@ export function Footer() {
               </span>
             </div>
             <p className="text-sm leading-relaxed">
-              توريد وتوزيع ألعاب الأطفال والبالونات والهدايا لمحلات التجزئة ومنافذ
-              التوزيع، مع خدمة بيع قطاعي للأفراد.
+              شركة متخصصة في توريد وتوزيع ألعاب الأطفال والبالونات ومستلزمات
+              الحفلات والهدايا بالجملة لمحلات التجزئة ومنافذ التوزيع في جميع
+              المحافظات، مع بيع قطاعي للأفراد من معرضينا بطنطا.
             </p>
           </div>
 
@@ -51,9 +53,12 @@ export function Footer() {
             <ul className="space-y-2 text-sm">
               {categories.map((category) => (
                 <li key={category.id}>
-                  <a href="#products" className="transition-colors hover:text-white">
+                  <CategoryBrowseLink
+                    categoryId={category.id}
+                    className="transition-colors hover:text-white"
+                  >
                     {category.name}
-                  </a>
+                  </CategoryBrowseLink>
                 </li>
               ))}
             </ul>
@@ -96,7 +101,8 @@ export function Footer() {
             الحقوق محفوظة.
           </p>
           <p>
-            الأسعار المعروضة استرشادية ويتم تأكيدها من فريق المبيعات قبل التنفيذ.
+            الأسعار المعروضة استرشادية، ويتم تأكيدها مع قيمة الشحن من فريق
+            المبيعات قبل تنفيذ أي طلب.
           </p>
         </div>
       </div>

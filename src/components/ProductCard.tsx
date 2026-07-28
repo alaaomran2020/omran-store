@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { Check, Eye, Package, Plus } from "lucide-react";
+import { Check, Eye, Flame, Package, Plus } from "lucide-react";
 import { useStore } from "@/context/StoreProvider";
 import { categoryMap } from "@/lib/categories";
 import {
@@ -53,6 +53,12 @@ export function ProductCard({ product, onQuickView }: ProductCardProps) {
 
         {/* شارات الحالة */}
         <div className="pointer-events-none absolute top-3 start-3 z-20 flex flex-col items-start gap-1.5">
+          {product.featured && (
+            <span className="flex items-center gap-1 rounded-md bg-accent-500 px-2 py-1 text-[11px] font-bold text-white">
+              <Flame className="size-3" aria-hidden="true" />
+              الأكثر طلباً
+            </span>
+          )}
           {mode === "wholesale" && saving > 0 && (
             <span className="rounded-md bg-brand-700 px-2 py-1 text-[11px] font-bold text-white">
               أقل من القطاعي بـ <span className="num">{saving}%</span>

@@ -1,18 +1,13 @@
 import type { Metadata, Viewport } from "next";
-// خط القاهرة العربي مستضاف محلياً (بدون طلبات خارجية)
-import "@fontsource/cairo/arabic-400.css";
-import "@fontsource/cairo/arabic-500.css";
-import "@fontsource/cairo/arabic-600.css";
-import "@fontsource/cairo/arabic-700.css";
-import "@fontsource/cairo/arabic-800.css";
-import "@fontsource/cairo/latin-400.css";
-import "@fontsource/cairo/latin-600.css";
-import "@fontsource/cairo/latin-700.css";
+// خط القاهرة المتغيّر مستضاف محلياً — معرّف في globals.css
 import "./globals.css";
+import { preload } from "react-dom";
 import { StoreProvider } from "@/context/StoreProvider";
 import { Header } from "@/components/Header";
-import { CartDrawer } from "@/components/CartDrawer";
+import { DeferredCartDrawer } from "@/components/DeferredCartDrawer";
 import { FloatingCartBar } from "@/components/FloatingCartBar";
+import { AddedToast } from "@/components/AddedToast";
+import { BackToTop } from "@/components/BackToTop";
 import { Footer } from "@/components/Footer";
 import { siteConfig } from "@/lib/site";
 
@@ -25,12 +20,17 @@ export const metadata: Metadata = {
   description: siteConfig.description,
   applicationName: siteConfig.name,
   keywords: [
-    "ألعاب أطفال جملة",
-    "توزيع ألعاب",
-    "بالونات جملة",
-    "هدايا ومناسبات",
-    "ألعاب تعليمية",
-    "عرائس ومجسمات",
+    "ألعاب أطفال بالجملة",
+    "جملة ألعاب أطفال في طنطا",
+    "توزيع ألعاب أطفال",
+    "توريد ألعاب للمحلات",
+    "بالونات بالجملة",
+    "بالونات لاتكس وفويل",
+    "مستلزمات حفلات وأعياد ميلاد",
+    "علب هدايا بالجملة",
+    "عرائس ودمى بالجملة",
+    "ألعاب تعليمية بالجملة",
+    "سيارات أطفال جملة",
     "شركة عمران التجارية",
   ],
   authors: [{ name: siteConfig.legalName }],
@@ -76,6 +76,19 @@ export const viewport: Viewport = {
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
+  // تحميل مسبق للخطين الأساسيين (النص العربي عنصر LCP، والأسعار لاتينية)
+  // ليبدأ جلبهما مع أول بايت بدل انتظار اكتشاف CSS
+  preload("/fonts/cairo-arabic-wght-normal.woff2", {
+    as: "font",
+    type: "font/woff2",
+    crossOrigin: "anonymous",
+  });
+  preload("/fonts/cairo-latin-wght-normal.woff2", {
+    as: "font",
+    type: "font/woff2",
+    crossOrigin: "anonymous",
+  });
+
   return (
     <html lang="ar" dir="rtl">
       <body className="min-h-dvh bg-ink-50 antialiased">
@@ -89,8 +102,10 @@ export default function RootLayout({
           <Header />
           <main>{children}</main>
           <Footer />
-          <CartDrawer />
+          <DeferredCartDrawer />
           <FloatingCartBar />
+          <AddedToast />
+          <BackToTop />
         </StoreProvider>
       </body>
     </html>
