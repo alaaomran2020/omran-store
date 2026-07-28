@@ -1,3 +1,10 @@
+export const navLinks = [
+  { name: "الرئيسية", href: "/" },
+  { name: "المنتجات", href: "/products" },
+  { name: "عن الشركة", href: "/about" },
+  { name: "تواصل معنا", href: "/contact" },
+];
+
 export const siteConfig = {
   name: "شركة عمران التجارية",
   tagline: "أكبر تشكيل لعب أطفال",
