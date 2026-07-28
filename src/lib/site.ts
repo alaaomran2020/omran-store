@@ -1,111 +1,43 @@
-export const RAW_WHATSAPP = "201555570269";
-export const DISPLAY_PHONE = "01555570269";
-export const OFFICIAL_EMAIL = "sales@omran-trading.com";
-
-export interface NavLink {
-  name: string;
-  label: string;
-  href: string;
-}
-
-export interface Branch {
-  id: string;
-  name: string;
-  address: string;
-  phone: string;
-  whatsapp: string;
-  services: string;
-  mapUrl: string;
-}
-
-export interface SiteConfig {
-  name: string;
-  shortName: string;
-  legalName: string;
-  tagline: string;
-  description: string;
-  url: string;
-  ogImage: string;
-  phone: string;
-  phoneDisplay: string;
-  phoneRaw: string;
-  phoneHref: string;
-  whatsappUrl: string;
-  whatsappNumber: string;
-  email: string;
-  address: string;
-  city: string;
-  governorate: string;
-  country: string;
-  workingHours: string;
-  currency: string;
-  currencySymbol: string;
-  navLinks: NavLink[];
-  branches: Branch[];
-  links: {
-    whatsapp: string;
-  };
-}
-
-export const navLinks: NavLink[] = [
-  { name: "المنتجات", label: "المنتجات", href: "/#products" },
-  { name: "الأقسام", label: "الأقسام", href: "/#categories" },
-  { name: "خدمة الجملة", label: "خدمة الجملة", href: "/#wholesale" },
-  { name: "عن الشركة", label: "عن الشركة", href: "/#about" },
-  { name: "التواصل", label: "التواصل", href: "/#contact" },
-];
-
-export const branches: Branch[] = [
-  {
-    id: "badawi-branch",
-    name: "فرع السيد البدوي",
-    address: "طنطا — ميدان السيد البدوي — شارع درب الابشيهي",
-    phone: DISPLAY_PHONE,
-    whatsapp: RAW_WHATSAPP,
-    services: "معرض الجملة والقطاعي وتجهيز الطلبات",
-    mapUrl: "https://maps.google.com/?q=Tanta",
-  },
-  {
-    id: "stadium-branch",
-    name: "فرع الاستاد",
-    address: "طنطا — منطقة الاستاد — أمام نادي سيتي كلوب ومطعم سي السيد",
-    phone: DISPLAY_PHONE,
-    whatsapp: RAW_WHATSAPP,
-    services: "معرض المبيعات المباشرة والتوزيع",
-    mapUrl: "https://maps.google.com/?q=Tanta",
-  },
-];
-
-export const siteConfig: SiteConfig = {
+export const siteConfig = {
   name: "شركة عمران التجارية",
-  shortName: "عمران للألعاب والهدايا",
-  legalName: "شركة عمران التجارية لألعاب الأطفال والبالونات والهدايا",
-  tagline: "توريد ألعاب أطفال وبالونات ومستلزمات حفلات وهدايا — جملة وقطاعي",
-  description:
-    "شركة عمران التجارية لتوريد وتوزيع ألعاب الأطفال بالجملة في طنطا وجميع المحافظات: سيارات وعرائس وألعاب تعليمية وبالونات لاتكس وفويل ومستلزمات الحفلات والهدايا. أسعار جملة معلنة وحد أدنى واضح لكل صنف، مع بيع قطاعي للأفراد وشحن لكل مصر.",
-  url: "https://omrantoys.store",
-  ogImage: "https://omrantoys.store/og.jpg",
-  
-  phone: DISPLAY_PHONE,
-  phoneDisplay: DISPLAY_PHONE,
-  phoneRaw: RAW_WHATSAPP,
-  phoneHref: `tel:+${RAW_WHATSAPP}`,
-  whatsappUrl: `https://wa.me/${RAW_WHATSAPP}`,
-  whatsappNumber: RAW_WHATSAPP,
-  email: OFFICIAL_EMAIL,
-  
-  address: "طنطا — ميدان السيد البدوي — شارع درب الابشيهي / الاستاد أمام نادي سيتي كلوب",
-  city: "طنطا",
-  governorate: "محافظة الغربية",
-  country: "مصر",
-  workingHours: "السبت إلى الخميس، من 9 صباحاً حتى 6 مساءً",
-  currency: "EGP",
-  currencySymbol: "ج.م",
-
-  navLinks,
-  branches,
-
-  links: {
-    whatsapp: `https://wa.me/${RAW_WHATSAPP}`,
+  tagline: "أكبر تشكيل لعب أطفال",
+  logoUrl: "",
+  footerDescription: "كل اللي تحتاجه لأطفالك في مكان واحد! 🎈✨\n\"أكبر تشكيل لعب أطفال 🎯\nأسعار جملة.. برة المنافسة\"",
+  contact: {
+    phone: "01555570269",
+    whatsapp: "201555570269",
+    email: ""
   },
+  workingHours: "يوميا من 9 صباحا : 11 مساء",
+  branches: [
+    {
+      id: "c976c79a",
+      name: "فرع ميدان السيد البدوي",
+      address: "طنطا - ميدان السيد البدوي",
+      mapUrl: "https://www.google.com/maps/dir/%D8%A7%D9%84%D8%A7%D8%B3%D9%80%D8%AA%D9%80%D9%80%D8%A7%D8%AF%D8%8C+%D8%B7%D9%86%D8%B7%D8%A7+(%D9%82%D8%B3%D9%85+2)%D8%8C+%D9%82%D8%B3%D9%85+%D8%AB%D8%A7%D9%86+%D8%B7%D9%86%D8%B7%D8%A7%D8%8C+%D9%85%D8%AD%D8%A7%D9%81%D8%B8%D8%A9+%D8%A7%D9%84%D8%BA%D8%B1%D8%A8%D9%8A%D8%A9%E2%80%AD/%D8%B4%D8%B1%D9%83%D8%A9+%D8%B9%D9%85%D8%B1%D8%A7%D9%8BD8%A7%D9%84%D8%AA%D8%AC%D8%A7%D8%B1%D9%8A%D8%A9%D8%8C+%D8%A7%D9%85%D8%A7%D9%85+%D9%86%D8%A7%D8%AF%D9%8A+%D8%B3%D9%8A%D8%AA%D9%8A+%D9%83%D9%84%D9%88%D8%A8+%D9%88+%D9%85%D8%B7%D8%B9%D9%85+%D8%B3%D9%8A+%D8%A7%D9%84%D8%B3%D9%8A%D8%AF%D8%8C+%D8%A7%D9%84%D8%A7%D8%B3%D9%80%D8%AA%D9%80%D9%80%D8%A7%D8%AF%D8%8C+%D8%B7%D9%86%D8%B7%D8%A7+(%D9%82%D8%B3%D9%85+2)%D8%8C+%D9%82%D8%B3%D9%85+%D8%AB%D8%A7%D9%86+%D8%B7%D9%86%D8%B7%D8%A7%D8%8C+%D9%85%D8%AD%D8%A7%D9%81%D8%B8%D8%A9+%D8%A7%D9%84%D8%BA%D8%B1%D8%A8%D9%8A%D8%A9+31511%E2%80%AD/@30.8119293,30.9939895,76m/data=!3m1!1e3!4m13!4m12!1m5!1m1!1s0x14f7c985cceb169b:0x20e938a2a98b7882!2m2!1d30.9942558!2d30.8109845!1m5!1m1!1s0x14f7c9763b305b7b:0xea81425db7047c2e!2m2!1d30.9939374!2d30.8120613?entry=ttu&g_ep=EgoyMDI2MDcyMi4wIKXMDSoASAFQAw%3D%3D",
+      active: true
+    },
+    {
+      id: "cef83e67",
+      name: "فرع الاستاد",
+      address: "الاستاد امام نادي سيتي كلوب و مطعم سي السيد",
+      mapUrl: "https://www.google.com/maps/dir/%D8%A7%D9%84%D8%A7%D8%B3%D9%80%D8%AA%D9%80%D9%80%D8%A7%D8%AF%D8%8C+%D8%B7%D9%86%D8%B7%D8%A7+(%D9%82%D8%B3%D9%85+2)%D8%8C+%D9%82%D8%B3%D9%85+%D8%AB%D8%A7%D9%86+%D8%B7%D9%86%D8%B7%D8%A7%D8%8C+%D9%85%D8%AD%D8%A7%D9%81%D8%B8%D8%A9+%D8%A7%D9%84%D8%BA%D8%B1%D8%A8%D9%8A%D8%A9%E2%80%AD/%D8%B4%D8%B1%D9%83%D8%A9+%D8%B9%D9%85%D8%B1%D8%A7%D9%8BD8%A7%D9%84%D8%AA%D8%AC%D8%A7%D8%B1%D9%8A%D8%A9%D8%8C+%D8%A7%D9%85%D8%A7%D9%85+%D9%86%D8%A7%D8%AF%D9%8A+%D8%B3%D9%8A%D8%AA%D9%8A+%D9%83%D9%84%D9%88%D8%A8+%D9%88+%D9%85%D8%B7%D8%B9%D9%85+%D8%B3%D9%8A+%D8%A7%D9%84%D8%B3%D9%8A%D8%AF%D8%8C+%D8%A7%D9%84%D8%A7%D8%B3%D9%80%D8%AA%D9%80%D9%80%D8%A7%D8%AF%D8%8C+%D8%B7%D9%86%D8%B7%D8%A7+(%D9%82%D8%B3%D9%85+2)%D8%8C+%D9%82%D8%B3%D9%85+%D8%AB%D8%A7%D9%86+%D8%B7%D9%86%D8%B7%D8%A7%D8%8C+%D9%85%D8%AD%D8%A7%D9%81%D8%B8%D8%A9+%D8%A7%D9%84%D8%BA%D8%B1%D8%A8%D9%8A%D8%A9+31511%E2%80%AD/@30.8119293,30.9939895,76m/data=!3m1!1e3!4m13!4m12!1m5!1m1!1s0x14f7c985cceb169b:0x20e938a2a98b7882!2m2!1d30.9942558!2d30.8109845!1m5!1m1!1s0x14f7c9763b305b7b:0xea81425db7047c2e!2m2!1d30.9939374!2d30.8120613?entry=ttu&g_ep=EgoyMDI2MDcyMi4wIKXMDSoASAFQAw%3D%3D",
+      active: true
+    }
+  ],
+  operations: {
+    maintenanceMode: false,
+    announcementEnabled: true,
+    announcementText: "شحن مجاني للطلبات فوق 1000 جنيه",
+    wholesaleNotice: "يرجى العلم: أسعار التوريد بالجملة مخصصة للكميات التجارية بدءاً من دستة كاملة (12 قطعة) من نفس الصنف. كما يتيح المتجر إمكانية الشراء الفردي بأسعار القطاعي المحددة."
+  },
+  social: {
+    facebook: "https://www.facebook.com/profile.php?id=61590544803396",
+    instagram: "https://www.instagram.com/omrantoys.store",
+    telegram: ""
+  },
+  seo: {
+    metaTitle: "شركة عمران التجارية | لعب أطفال - هدايا - جملة وقطاعي",
+    metaDescription: "ألعاب أطفال، جملة، العاب تعليمية، طنطا، شركة عمران التجارية."
+  }
 };
