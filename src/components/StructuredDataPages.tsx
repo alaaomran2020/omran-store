@@ -1,12 +1,8 @@
-import { Hero } from "@/components/Hero";
-import { CatalogSection } from "@/components/CatalogSection";
-import { FeaturedCategories, PromoBanners, BestSellers, NewArrivals, FlashDeals, TrendingProducts, CustomerReviews, BrandAdvantages, FAQPreview, Newsletter } from "@/components/PremiumSections";
 import { siteConfig } from "@/lib/site";
 import { products } from "@/lib/products";
 import { categoryMap } from "@/lib/categories";
 
-/** بيانات منظمة لمحركات البحث */
-function StructuredData() {
+export function StructuredData({ type }: { type?: "catalog" | "about" | "contact" }) {
   const organization = {
     "@context": "https://schema.org",
     "@type": "Organization",
@@ -52,27 +48,9 @@ function StructuredData() {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organization) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(catalog) }} />
-    </>
-  );
-}
-
-export default function HomePage() {
-  return (
-    <>
-      <StructuredData />
-      <Hero />
-      <PromoBanners />
-      <FeaturedCategories />
-      <BestSellers />
-      <NewArrivals />
-      <FlashDeals />
-      <TrendingProducts />
-      <CatalogSection />
-      <CustomerReviews />
-      <BrandAdvantages />
-      <FAQPreview />
-      <Newsletter />
+      {(type === "catalog" || !type) && (
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(catalog) }} />
+      )}
     </>
   );
 }

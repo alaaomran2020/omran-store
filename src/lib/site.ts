@@ -1,10 +1,18 @@
 export interface SiteConfig {
   name: string;
   tagline: string;
-  description: string; // <-- إضافة الخاصية المطلوبة لملف layout.tsx
+  description: string;
   url: string;
   logoUrl: string;
   footerDescription: string;
+  currency: string;
+  currencySymbol: string;
+  legalName: string;
+  email: string;
+  whatsappNumber: string;
+  phoneHref: string;
+  phoneDisplay: string;
+  address: string;
   contact: {
     phone: string;
     whatsapp: string;
@@ -36,25 +44,25 @@ export interface SiteConfig {
 }
 
 export const navLinks = [
-  { name: "الرئيسية", href: "/" },
-  { name: "المنتجات", href: "/products" },
-  { name: "عن الشركة", href: "/about" },
-  { name: "تواصل معنا", href: "/contact" },
+  { name: "الرئيسية", href: "/", label: "الرئيسية" },
+  { name: "المنتجات", href: "/products", label: "المنتجات" },
+  { name: "عن الشركة", href: "/about", label: "عن الشركة" },
+  { name: "تواصل معنا", href: "/contact", label: "تواصل معنا" },
 ];
 
 export const siteConfig: SiteConfig = {
-  name: "شركة عمران التجارية",
-  tagline: "أكبر تشكيل لعب أطفال",
-  description: "أكبر تشكيل لعب أطفال وهدايا بأعلى جودة وأفضل أسعار جملة وقطاعي في مصر.",
+  name: "عمران للألعاب",
+  tagline: "أكبر تشكيل ألعاب أطفال — جملة وقطاعي",
+  description: "متجر عمران للألعاب — أفضل وجهتك لألعاب الأطفال والهدايا والبالونات بأعلى جودة وأفضل الأسعار في مصر.",
   url: "https://omrantoys.store",
-  logoUrl: "",
-  footerDescription: "كل اللي تحتاجه لأطفالك في مكان واحد! 🎈✨\n\"أكبر تشكيل لعب أطفال 🎯\nأسعار جملة.. برة المنافسة\"",
+  logoUrl: "/logo.svg",
+  footerDescription: "كل اللي تحتاجه لأطفالك في مكان واحد! 🎈✨\nأكبر تشكيل لعب أطفال · جملة وقطاعي · طنطا وجميع المحافظات",
   contact: {
     phone: "01555570269",
     whatsapp: "201555570269",
-    email: ""
+    email: "hello@omrantoys.store"
   },
-  workingHours: "يوميا من 9 صباحا : 11 مساء",
+  workingHours: "يومياً من 9 صباحاً إلى 11 مساءً",
   branches: [
     {
       id: "c976c79a",
@@ -83,7 +91,15 @@ export const siteConfig: SiteConfig = {
     telegram: ""
   },
   seo: {
-    metaTitle: "شركة عمران التجارية | لعب أطفال - هدايا - جملة وقطاعي",
-    metaDescription: "ألعاب أطفال، جملة، العاب تعليمية، طنطا، شركة عمران التجارية."
-  }
+    metaTitle: "عمران للألعاب | لعب أطفال - هدايا - جملة وقطاعي",
+    metaDescription: "متجر عمران للألعاب — ألعاب أطفال، عرائس، ألعاب تعليمية، سيارات، هدايا وبالونات بأعلى جودة وأفضل الأسعار. جملة وقطاعي في طنطا وجميع محافظات مصر."
+  },
+  currency: "EGP",
+  currencySymbol: "ج.م",
+  legalName: "عمران للألعاب — شركة عمران التجارية",
+  email: "hello@omrantoys.store",
+  whatsappNumber: "201555570269",
+  phoneHref: "tel:+201555570269",
+  phoneDisplay: "01555570269",
+  address: "طنطا - ميدان السيد البدوي — فرع الاستاد",
 };
