@@ -1,109 +1,113 @@
 import Image from "next/image";
-import { Mail, MapPin, Phone } from "lucide-react";
-import { CategoryBrowseLink } from "@/components/CategoryBrowseLink";
+import Link from "next/link";
+import { Mail, MapPin, Phone, Clock, ShieldCheck, Truck, Sparkles, CreditCard } from "lucide-react";
 import { categories } from "@/lib/categories";
 import { navLinks, siteConfig } from "@/lib/site";
 
-/** تذييل الموقع */
 export function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="bg-ink-950 text-ink-300">
-      <div className="container-page py-12">
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
-          {/* الشركة */}
-          <div>
-            <div className="mb-3 flex items-center gap-2.5">
-              <Image
-                src="/logo.svg"
-                alt=""
-                width={40}
-                height={40}
-                className="size-10 rounded-xl"
-              />
-              <span className="text-base font-extrabold text-white">
-                {siteConfig.name}
+    <footer className="relative overflow-hidden bg-gradient-to-b from-brand-950 via-brand-900 to-ink-950 text-ink-200">
+      {/* Background decoration */}
+      <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+        <div className="absolute top-0 start-1/2 -translate-x-1/2 size-[40rem] rounded-full bg-brand-800/20 blur-3xl" />
+      </div>
+
+      <div className="container-page relative py-14 sm:py-20">
+        {/* Trust badges strip */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-12">
+          {[
+            { icon: Truck, title: "شحن موثوق", desc: "لجميع المحافظات" },
+            { icon: ShieldCheck, title: "ضمان جودة", desc: "فحص دقيق قبل التوريد" },
+            { icon: Sparkles, title: "أسعار معلنة", desc: "جملة وقطاعي بلا مفاجآت" },
+            { icon: CreditCard, title: "دفع آمن", desc: "مع شركات شحن معتمدة" },
+          ].map((badge) => (
+            <div key={badge.title} className="flex items-center gap-3 rounded-2xl bg-white/5 border border-white/10 px-4 py-3.5 backdrop-blur-sm">
+              <span className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-brand-700 text-white">
+                <badge.icon className="size-4" aria-hidden="true" />
               </span>
+              <div>
+                <p className="text-xs font-extrabold text-white">{badge.title}</p>
+                <p className="text-[10px] text-ink-400">{badge.desc}</p>
+              </div>
             </div>
-            <p className="text-sm leading-relaxed">
-              شركة متخصصة في توريد وتوزيع ألعاب الأطفال والبالونات ومستلزمات
-              الحفلات والهدايا بالجملة لمحلات التجزئة ومنافذ التوزيع في جميع
-              المحافظات، مع بيع قطاعي للأفراد من معرضينا بطنطا.
+          ))}
+        </div>
+
+        {/* Main footer grid */}
+        <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
+          {/* Brand */}
+          <div>
+            <Link href="/" className="flex items-center gap-2.5 mb-4">
+              <div className="relative flex items-center justify-center size-10 rounded-xl bg-gradient-to-br from-brand-500 to-brand-900 text-white shadow-lg shadow-brand-900/20">
+                <Image src="/logo.svg" alt="" width={28} height={28} className="size-7" />
+              </div>
+              <span className="text-base font-extrabold text-white tracking-tight">عمران للألعاب</span>
+            </Link>
+            <p className="text-sm leading-relaxed text-ink-400">
+              مورّد متخصص في ألعاب الأطفال والعرائس والألعاب التعليمية ومستلزمات الحفلات والهدايا بالجملة والقطاعي في طنطا وجميع محافظات مصر.
             </p>
           </div>
 
-          {/* روابط */}
-          <nav aria-label="روابط التذييل">
-            <h2 className="mb-3 text-sm font-bold text-white">روابط سريعة</h2>
-            <ul className="space-y-2 text-sm">
+          {/* Quick links */}
+          <nav aria-label="روابط سريعة">
+            <h3 className="mb-4 text-sm font-extrabold text-white tracking-wide">روابط سريعة</h3>
+            <ul className="space-y-2.5 text-sm">
               {navLinks.map((link) => (
                 <li key={link.href}>
-                  <a href={link.href} className="transition-colors hover:text-white">
-                    {link.label}
-                  </a>
+                  <a href={link.href} className="text-ink-400 hover:text-white transition-colors font-medium">{link.label}</a>
                 </li>
               ))}
+              <li><a href="#" className="text-ink-400 hover:text-white transition-colors font-medium">سياسة الشحن</a></li>
+              <li><a href="#" className="text-ink-400 hover:text-white transition-colors font-medium">سياسة الإرجاع</a></li>
             </ul>
           </nav>
 
-          {/* الأقسام */}
+          {/* Categories */}
           <div>
-            <h2 className="mb-3 text-sm font-bold text-white">الأقسام</h2>
-            <ul className="space-y-2 text-sm">
-              {categories.map((category) => (
-                <li key={category.id}>
-                  <CategoryBrowseLink
-                    categoryId={category.id}
-                    className="transition-colors hover:text-white"
-                  >
-                    {category.name}
-                  </CategoryBrowseLink>
+            <h3 className="mb-4 text-sm font-extrabold text-white tracking-wide">الأقسام</h3>
+            <ul className="space-y-2.5 text-sm">
+              {categories.map((cat) => (
+                <li key={cat.id}>
+                  <a href="#products" className="text-ink-400 hover:text-white transition-colors font-medium">{cat.name}</a>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* التواصل */}
+          {/* Contact */}
           <div>
-            <h2 className="mb-3 text-sm font-bold text-white">التواصل</h2>
-            <ul className="space-y-2.5 text-sm">
+            <h3 className="mb-4 text-sm font-extrabold text-white tracking-wide">تواصل معنا</h3>
+            <ul className="space-y-3 text-sm">
               <li>
-                <a
-                  href={siteConfig.phoneHref}
-                  className="flex items-center gap-2 transition-colors hover:text-white"
-                >
-                  <Phone className="size-4 shrink-0" aria-hidden="true" />
-                  <span className="num">{siteConfig.phoneDisplay}</span>
+                <a href={siteConfig.phoneHref} className="flex items-center gap-2.5 text-ink-400 hover:text-white transition-colors group">
+                  <span className="flex size-7 items-center justify-center rounded-lg bg-brand-800 text-brand-200 group-hover:text-white transition-colors"><Phone className="size-3.5" /></span>
+                  <span className="num font-medium">{siteConfig.phoneDisplay}</span>
                 </a>
               </li>
               <li>
-                <a
-                  href={`mailto:${siteConfig.email}`}
-                  className="flex items-center gap-2 transition-colors hover:text-white"
-                >
-                  <Mail className="size-4 shrink-0" aria-hidden="true" />
+                <a href={`mailto:${siteConfig.email}`} className="flex items-center gap-2.5 text-ink-400 hover:text-white transition-colors group">
+                  <span className="flex size-7 items-center justify-center rounded-lg bg-brand-800 text-brand-200 group-hover:text-white transition-colors"><Mail className="size-3.5" /></span>
                   <span className="num">{siteConfig.email}</span>
                 </a>
               </li>
-              <li className="flex items-start gap-2">
-                <MapPin className="mt-0.5 size-4 shrink-0" aria-hidden="true" />
-                {siteConfig.address}
+              <li className="flex items-start gap-2.5 text-ink-400">
+                <span className="flex size-7 shrink-0 items-center justify-center rounded-lg bg-brand-800 text-brand-200"><MapPin className="size-3.5" /></span>
+                <span>{siteConfig.address}</span>
               </li>
-              <li className="text-xs text-ink-400">{siteConfig.workingHours}</li>
+              <li className="flex items-center gap-2.5 text-ink-400">
+                <span className="flex size-7 shrink-0 items-center justify-center rounded-lg bg-brand-800 text-brand-200"><Clock className="size-3.5" /></span>
+                <span>{siteConfig.workingHours}</span>
+              </li>
             </ul>
           </div>
         </div>
 
-        <div className="mt-10 flex flex-col items-center justify-between gap-3 border-t border-white/10 pt-6 text-xs sm:flex-row">
-          <p>
-            © <span className="num">{year}</span> {siteConfig.legalName}. جميع
-            الحقوق محفوظة.
-          </p>
-          <p>
-            الأسعار المعروضة استرشادية، ويتم تأكيدها مع قيمة الشحن من فريق
-            المبيعات قبل تنفيذ أي طلب.
-          </p>
+        {/* Bottom bar */}
+        <div className="mt-12 flex flex-col md:flex-row items-center justify-between gap-4 border-t border-white/10 pt-8 text-xs text-ink-400">
+          <p>© <span className="num">{year}</span> {siteConfig.legalName}. جميع الحقوق محفوظة.</p>
+          <p className="text-center">الأسعار المعروضة استرشادية ويجب تأكيدها مع قيمة الشحن قبل تنفيذ الطلب.</p>
         </div>
       </div>
     </footer>
