@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 // خط القاهرة المتغيّر مستضاف محلياً — معرّف في globals.css
 import "./globals.css";
 import { preload } from "react-dom";
+import { Analytics } from "@vercel/analytics/next";
 import { StoreProvider } from "@/context/StoreProvider";
 import { Header } from "@/components/Header";
 import { DeferredCartDrawer } from "@/components/DeferredCartDrawer";
@@ -107,6 +108,7 @@ export default function RootLayout({
           <AddedToast />
           <BackToTop />
         </StoreProvider>
+        <Analytics />
       </body>
     </html>
   );
