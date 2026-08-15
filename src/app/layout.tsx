@@ -3,7 +3,6 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { preload } from "react-dom";
 import { Analytics } from "@vercel/analytics/next";
-import { SpeedInsights } from "@vercel/speed-insights/next";
 import { StoreProvider } from "@/context/StoreProvider";
 import { Header } from "@/components/Header";
 import { DeferredCartDrawer } from "@/components/DeferredCartDrawer";
@@ -110,7 +109,6 @@ export default function RootLayout({
           <BackToTop />
         </StoreProvider>
         <Analytics />
-        <SpeedInsights />
       </body>
     </html>
   );
