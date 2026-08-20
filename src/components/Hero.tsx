@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import {
   ArrowLeft,
   MessageCircle,
@@ -135,11 +136,14 @@ export function Hero() {
           {/* Hero Image / Card */}
           <div className="relative">
             <div className="relative rounded-[2.5rem] overflow-hidden shadow-2xl shadow-black/20 ring-1 ring-white/10 bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm">
-              <img
+              <Image
                 src={slide.image}
-                alt="منتجات عمران للألعاب"
+                alt={`${slide.title} — منتجات عمران للألعاب`}
+                width={720}
+                height={540}
+                priority
+                sizes="(min-width: 1024px) 40vw, 100vw"
                 className="w-full h-auto object-contain p-6 sm:p-8"
-                loading="eager"
               />
               {/* Floating badges */}
               <div className="absolute top-6 start-6 flex flex-col gap-2">

@@ -9,6 +9,7 @@ import { DeferredCartDrawer } from "@/components/DeferredCartDrawer";
 import { FloatingCartBar } from "@/components/FloatingCartBar";
 import { AddedToast } from "@/components/AddedToast";
 import { BackToTop } from "@/components/BackToTop";
+import { LeadCaptureModal } from "@/components/LeadCaptureModal";
 import { Footer } from "@/components/Footer";
 import { siteConfig } from "@/lib/site";
 
@@ -107,6 +108,7 @@ export default function RootLayout({
           <FloatingCartBar />
           <AddedToast />
           <BackToTop />
+          <LeadCaptureModal />
         </StoreProvider>
         <Analytics />
       </body>

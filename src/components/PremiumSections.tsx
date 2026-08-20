@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   ArrowLeft,
   Star,
@@ -11,7 +11,6 @@ import {
   Sparkles,
   ChevronDown,
   Heart,
-  Send,
   CheckCircle2,
   MessageSquare,
   PackageCheck,
@@ -22,6 +21,7 @@ import {
 import { products } from "@/lib/products";
 import { categories } from "@/lib/categories";
 import { ProductCard } from "@/components/ProductCard";
+import { buildInquiryUrl } from "@/lib/whatsapp";
 import { formatPrice, formatNumber } from "@/lib/format";
 import { siteConfig } from "@/lib/site";
 import type { Product } from "@/lib/types";
@@ -200,8 +200,8 @@ export function NewArrivals() {
 export function FlashDeals() {
   const [timeLeft, setTimeLeft] = useState({ h: 23, m: 45, s: 30 });
 
-  useState(() => {
-    const timer = setInterval(() => {
+  useEffect(() => {
+    const timer = window.setInterval(() => {
       setTimeLeft((prev) => {
         let s = prev.s - 1;
         let m = prev.m;
@@ -212,8 +212,9 @@ export function FlashDeals() {
         return { h, m, s };
       });
     }, 1000);
-    return () => clearInterval(timer);
-  });
+
+    return () => window.clearInterval(timer);
+  }, []);
 
   return (
     <section className="py-10 sm:py-14">
@@ -337,7 +338,7 @@ export function CustomerReviews() {
                   />
                 ))}
               </div>
-              <blockquote className="mt-4 text-sm text-ink-700 leading-relaxed">"{r.text}"</blockquote>
+              <blockquote className="mt-4 text-sm text-ink-700 leading-relaxed">&ldquo;{r.text}&rdquo;</blockquote>
               <div className="mt-5 pt-5 border-t border-ink-100 flex items-center gap-3">
                 <span className="flex size-9 items-center justify-center rounded-full bg-brand-700 text-white text-xs font-extrabold">{r.name[0]}</span>
                 <div>
@@ -415,8 +416,8 @@ export function FAQPreview() {
             <span className="inline-flex items-center gap-1.5 rounded-full bg-brand-50 px-3.5 py-1 text-[11px] font-extrabold text-brand-700">الأسئلة الشائعة</span>
             <h2 className="mt-3 text-3xl sm:text-4xl font-extrabold text-ink-900 tracking-tight">أسئلة يتكرر طرحها</h2>
             <p className="mt-3 text-sm text-ink-500 leading-relaxed">إجابات سريعة على أكثر الاستفسارات التي تصلنا من التجار والأفراد يومياً.</p>
-            <a href="#" className="mt-6 inline-flex items-center gap-2 rounded-xl bg-brand-700 px-6 py-3 text-sm font-extrabold text-white hover:bg-brand-800 transition-colors shadow-lg shadow-brand-900/15">
-              عرض كل الأسئلة
+            <a href="/contact" className="mt-6 inline-flex items-center gap-2 rounded-xl bg-brand-700 px-6 py-3 text-sm font-extrabold text-white shadow-lg shadow-brand-900/15 transition-colors hover:bg-brand-800">
+              تواصل معنا لسؤال آخر
               <ArrowLeft className="size-4 rotate-180" aria-hidden="true" />
             </a>
           </div>
@@ -458,29 +459,18 @@ export function Newsletter() {
           </div>
           <div className="relative z-10 grid lg:grid-cols-2 gap-8 items-center p-8 sm:p-14">
             <div>
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight">اشترك في النشرة البريدية</h2>
-              <p className="mt-3 text-sm text-brand-100 leading-relaxed">احصل على أحدث العروض والمنتجات الجديدة مباشرة على بريدك — بدون إزعاج، فقط ما يهمك.</p>
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight">احصل على أحدث العروض</h2>
+              <p className="mt-3 text-sm text-brand-100 leading-relaxed">تواصل معنا مباشرة لمعرفة الأصناف الجديدة وعروض الجملة والقطاعي المتاحة حالياً.</p>
             </div>
-            <form
-              className="flex flex-col sm:flex-row gap-3"
-              onSubmit={(e) => { e.preventDefault(); alert("تم الاشتراك بنجاح! شكراً لك."); }}
+            <a
+              href={buildInquiryUrl("أحدث العروض والمنتجات الجديدة")}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-white px-6 py-3.5 text-sm font-extrabold text-brand-900 shadow-xl transition-colors hover:bg-brand-50 sm:w-auto sm:justify-self-end"
             >
-              <label htmlFor="newsletter-email" className="sr-only">بريدك الإلكتروني</label>
-              <input
-                id="newsletter-email"
-                type="email"
-                placeholder="example@email.com"
-                required
-                className="flex-1 rounded-2xl bg-white/10 border border-white/15 px-5 py-3.5 text-sm text-white placeholder:text-brand-200 outline-none focus:border-white/40 focus:bg-white/15 transition-colors"
-              />
-              <button
-                type="submit"
-                className="inline-flex items-center justify-center gap-2 rounded-2xl bg-white px-6 py-3.5 text-sm font-extrabold text-brand-900 hover:bg-brand-50 transition-colors shadow-xl"
-              >
-                <Send className="size-4" aria-hidden="true" />
-                اشتراك
-              </button>
-            </form>
+              <MessageSquare className="size-4" aria-hidden="true" />
+              تواصل عبر واتساب
+            </a>
           </div>
         </div>
       </div>
