@@ -1,5 +1,6 @@
 import { Hero } from "@/components/Hero";
 import { CatalogSection } from "@/components/CatalogSection";
+import { InstagramFeed } from "@/components/InstagramFeed";
 import { FeaturedCategories, PromoBanners, BestSellers, NewArrivals, FlashDeals, TrendingProducts, CustomerReviews, BrandAdvantages, FAQPreview, Newsletter } from "@/components/PremiumSections";
 import { siteConfig } from "@/lib/site";
 import { products } from "@/lib/products";
@@ -69,6 +70,7 @@ export default function HomePage() {
       <FlashDeals />
       <TrendingProducts />
       <CatalogSection />
+      <InstagramFeed />
       <CustomerReviews />
       <BrandAdvantages />
       <FAQPreview />
