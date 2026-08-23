@@ -1,58 +1,38 @@
-import {
-  ClipboardList,
-  FileText,
-  MessageCircle,
-  PackageSearch,
-  Truck,
-} from "lucide-react";
+import { MessageCircle, Search, Eye, Package } from "lucide-react";
 import { buildInquiryUrl } from "@/lib/whatsapp";
 
 const steps = [
   {
-    icon: PackageSearch,
-    title: "١ — حدّد أصنافك وكمياتك",
-    body: "فعّل عرض «سعر الجملة» من أعلى الصفحة، وتصفّح الكتالوج وأضف الأصناف والكميات إلى السلة — كل شيء بأسعار معلنة.",
+    icon: Search,
+    title: "١ — تصفح الكتالوج",
+    body: "استخدم البحث أو تصفية الأقسام للوصول إلى المنتج المطلوب بسرعة — 12 منتجاً بصور حقيقية.",
+  },
+  {
+    icon: Eye,
+    title: "٢ — افتح التفاصيل",
+    body: "اضغط على بطاقة المنتج لرؤية الصور الإضافية والوصف والمواصفات والكود.",
   },
   {
     icon: MessageCircle,
-    title: "٢ — أرسل الطلب بضغطة واحدة",
-    body: "اضغط «تأكيد الطلب عبر واتساب» فيصل طلبك مفصلاً بالأكواد والكميات والإجمالي إلى فريق المبيعات مباشرة.",
+    title: "٣ — استفسر عبر واتساب",
+    body: "اضغط زر واتساب في البطاقة أو صفحة التفاصيل، تفتح رسالة جاهزة باسم المنتج وكوده.",
   },
   {
-    icon: ClipboardList,
-    title: "٣ — راجع عرضك النهائي",
-    body: "نراجع التوفر ونرد عليك خلال مواعيد العمل بعرض سعر نهائي يشمل قيمة الشحن وموعد التسليم المتوقع.",
-  },
-  {
-    icon: Truck,
-    title: "٤ — استلم شحنتك أينما كنت",
-    body: "نجهّز الكراتين بعد فحصها ونشحنها عبر شركة الشحن المتفق عليها إلى محلك في أي محافظة، مع بيان كامل بمحتويات الشحنة.",
+    icon: Package,
+    title: "٤ — احصل على السعر والتوفر",
+    body: "يرد فريق المبيعات خلال مواعيد العمل بالسعر والتوفر وخيارات التوصيل.",
   },
 ];
 
-const terms = [
-  "أسعار الجملة سارية فور الوصول إلى الحد الأدنى للكمية الموضح مع كل صنف.",
-  "يمكنك خلط أصناف مختلفة في الشحنة الواحدة، ويُحتسب سعر الجملة لكل صنف على حدة.",
-  "الأسعار المعروضة لا تشمل الشحن؛ تُحدد قيمته بوضوح حسب الوزن والوجهة قبل تنفيذ الطلب.",
-  "تُراجع الكميات المتوفرة قبل تأكيد الطلب، ويُخطر العميل فوراً بأي صنف غير متاح مع اقتراح بدائل.",
-  "نرحب باتفاقات التوريد الدوري للمحلات بجدول مسبق للكميات ومواعيد التسليم.",
-];
-
-/** قسم خدمة الجملة: خطوات التعامل وشروط التوريد */
+/** قسم كيفية استخدام الكتالوج — بدون سلة */
 export function WholesaleSection() {
   return (
-    <section id="wholesale" className="scroll-mt-28 bg-white py-14 sm:py-20">
+    <section id="how-it-works" className="scroll-mt-28 bg-white py-14 sm:py-20">
       <div className="container-page">
         <div className="mb-8 max-w-2xl">
-          <p className="mb-1.5 text-sm font-bold text-brand-700">خدمة الجملة</p>
-          <h2 className="text-2xl font-extrabold text-ink-900 sm:text-3xl">
-            من الكتالوج إلى محلك في أربع خطوات
-          </h2>
-          <p className="mt-2 text-sm text-ink-600">
-            نخدم محلات الألعاب والهدايا وموزّعي مستلزمات المناسبات بآلية تعامل
-            واضحة من اختيار الأصناف حتى استلام الشحنة — بدون وسطاء وبدون
-            التزامات مخفية.
-          </p>
+          <p className="mb-1.5 text-sm font-bold text-brand-700">كيف يعمل الكتالوج؟</p>
+          <h2 className="text-2xl font-extrabold text-ink-900 sm:text-3xl">من التصفح إلى الاستفسار في 4 خطوات</h2>
+          <p className="mt-2 text-sm text-ink-600">كتالوج احترافي بدون سلة أو دفع — تصفح واستفسر فقط عبر واتساب.</p>
         </div>
 
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
@@ -67,43 +47,16 @@ export function WholesaleSection() {
           ))}
         </div>
 
-        <div className="mt-6 grid gap-4 lg:grid-cols-[1.4fr_1fr]">
-          <div className="card-surface p-6">
-            <h3 className="mb-4 flex items-center gap-2 text-base font-bold text-ink-900">
-              <FileText className="size-5 text-brand-700" aria-hidden="true" />
-              شروط التوريد
-            </h3>
-            <ul className="space-y-2.5">
-              {terms.map((term) => (
-                <li key={term} className="flex gap-2.5 text-sm text-ink-600">
-                  <span
-                    className="mt-2 size-1.5 shrink-0 rounded-full bg-brand-600"
-                    aria-hidden="true"
-                  />
-                  {term}
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div className="flex flex-col justify-center gap-4 rounded-2xl bg-brand-900 p-6 text-white">
-            <h3 className="text-lg font-extrabold">
-              تريد قائمة الأسعار كاملة بصيغة PDF؟
-            </h3>
-            <p className="text-sm leading-relaxed text-brand-100">
-              أرسل لك فريق المبيعات أحدث قائمة أسعار مع بيان الكميات المتوفرة
-              ومواعيد التوريد القادمة — لتدرسها بهدوء وتقرر طلبك وأنت مطمئن.
-            </p>
-            <a
-              href={buildInquiryUrl("قائمة أسعار الجملة بصيغة PDF")}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center justify-center gap-2 rounded-xl bg-emerald-600 px-5 py-3 text-sm font-bold text-white transition-colors hover:bg-emerald-700"
-            >
-              <MessageCircle className="size-4" aria-hidden="true" />
-              اطلب القائمة عبر واتساب
-            </a>
-          </div>
+        <div className="mt-8 flex justify-center">
+          <a
+            href={buildInquiryUrl("الاستفسار عن منتجات كتالوج عمران")}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 rounded-2xl bg-brand-900 px-8 py-4 text-sm font-extrabold text-white shadow-xl hover:bg-brand-800 transition-colors"
+          >
+            <MessageCircle className="size-5" aria-hidden="true" />
+            ابدأ التصفح والاستفسار
+          </a>
         </div>
       </div>
     </section>

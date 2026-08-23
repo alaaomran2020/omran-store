@@ -1,23 +1,28 @@
 import type { NextConfig } from "next";
 
 /**
- * إعدادات النشر على GitHub Pages بدومين خاص (omrantoys.store).
+ * إعدادات النشر — تعمل على كل من GitHub Pages (دومين خاص) و Vercel
  *
- * - التصدير ثابت بالكامل إلى مجلد out/ (لا يوجد خادم Node).
- * - الدومين الخاص يعمل من الجذر، لذا لا حاجة لأي basePath أو assetPrefix
- *   (احذفها إن أضيفت مستقبلاً — وجودها يكسر المسارات على الدومين الخاص).
- * - الصور غير محسّنة لأن محسّن صور Next يتطلب خادماً؛ الصور أصلاً SVG خفيفة.
- * - ملاحظة: GitHub Pages لا يدعم ترويسات HTTP مخصصة، لذلك لا نستخدم headers().
+ * - على GitHub Pages: تصدير ثابت كامل إلى مجلد out/ (لا يوجد خادم Node)
+ *   الدومين الخاص يعمل من الجذر، لذا لا حاجة لأي basePath أو assetPrefix
+ * - على Vercel: بناء Next.js عادي بدون output: export حتى يستفيد من التحسينات
+ *   الصور غير محسّنة في كلا الحالتين لأن الصور الحالية خفيفة ومحلية
+ *
+ * يتم الكشف عن بيئة Vercel عبر متغير VERCEL الذي تضعه Vercel تلقائياً
  */
+const isVercel = Boolean(process.env.VERCEL);
+
 const nextConfig: NextConfig = {
-  output: "export",
+  // على Vercel نترك Next.js يبني كـ SSR/SSG عادي، على Pages نصدّر ثابت
+  ...(isVercel ? {} : { output: "export" as const }),
   reactStrictMode: true,
   poweredByHeader: false,
   images: {
     unoptimized: true,
   },
-  // تقليد Pages في خدمة الملفات: كل مسار ينتهي بسلاش ويقرأ index.html
-  trailingSlash: true,
+  // GitHub Pages يحتاج trailingSlash ليخدم كل مسار كـ index.html
+  // Vercel لا يحتاج ذلك ويفضل false
+  trailingSlash: isVercel ? false : true,
 };
 
 export default nextConfig;

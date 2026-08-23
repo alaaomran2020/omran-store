@@ -19,30 +19,30 @@ import { siteConfig } from "@/lib/site";
 const slides = [
   {
     title: "اكتشف ألعاب الأطفال والهدايا",
-    subtitle: "كتالوج مصوّر يساعدك على التعرف على المنتجات المتاحة والاستفسار عنها بسهولة",
+    subtitle: "كتالوج مصوّر احترافي — تصفح المنتجات الحقيقية واستفسر عن السعر والتوفر عبر واتساب مباشرة",
     cta: "تصفح الكتالوج",
     ctaHref: "#products",
     accent: "from-brand-800 via-brand-700 to-brand-900",
     glow: "bg-brand-400/20",
-    image: "/products/vehicles-01-a.svg",
+    image: "/catalog-facebook/facebook-6.jpg",
   },
   {
     title: "عرائس ودمى ومجسمات",
-    subtitle: "تعرّف على التشكيلة من الصور والتفاصيل الأولية وتواصل معنا لمعرفة المتاح",
+    subtitle: "تشكيلة دمى وعرائس بملابس وإكسسوارات — صور حقيقية من الكتالوج",
     cta: "عرض منتجات الدمى",
     ctaHref: "#products",
     accent: "from-rose-800 via-rose-700 to-rose-900",
     glow: "bg-rose-400/20",
-    image: "/products/dolls-01-a.svg",
+    image: "/catalog-facebook/facebook-8.jpg",
   },
   {
     title: "ألعاب تعليمية وتنمية مهارات",
-    subtitle: "مجموعة مختارة للأطفال مع معلومات قابلة للتحديث عند اعتماد بيانات المنتج",
+    subtitle: "حقائب رسم، بازل، وألعاب تفكير — منتجات مختارة بعناية للأطفال",
     cta: "اكتشف الألعاب التعليمية",
     ctaHref: "#products",
     accent: "from-teal-800 via-teal-700 to-teal-900",
     glow: "bg-teal-400/20",
-    image: "/products/educational-01-a.svg",
+    image: "/catalog-facebook/facebook-5.jpg",
   },
 ];
 
