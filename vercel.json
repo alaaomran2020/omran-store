@@ -3,7 +3,6 @@
   "framework": "nextjs",
   "buildCommand": "npm run build",
   "installCommand": "npm ci",
-  "outputDirectory": ".next",
   "cleanUrls": true,
   "trailingSlash": false,
   "headers": [
@@ -41,12 +40,6 @@
           "value": "public, max-age=86400"
         }
       ]
-    }
-  ],
-  "rewrites": [
-    {
-      "source": "/(.*)",
-      "destination": "/$1"
     }
   ]
 }
