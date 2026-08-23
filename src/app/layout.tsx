@@ -6,7 +6,6 @@ import { Analytics } from "@vercel/analytics/next";
 import { StoreProvider } from "@/context/StoreProvider";
 import { Header } from "@/components/Header";
 import { BackToTop } from "@/components/BackToTop";
-import { LeadCaptureModal } from "@/components/LeadCaptureModal";
 import { Footer } from "@/components/Footer";
 import { siteConfig } from "@/lib/site";
 
@@ -97,7 +96,6 @@ export default function RootLayout({
           <main>{children}</main>
           <Footer />
           <BackToTop />
-          <LeadCaptureModal />
         </StoreProvider>
         <Analytics />
       </body>

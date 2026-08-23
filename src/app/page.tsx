@@ -1,9 +1,17 @@
 import { Hero } from "@/components/Hero";
 import { CatalogSection } from "@/components/CatalogSection";
-import { FeaturedCategories } from "@/components/PremiumSections";
+import {
+  FeaturedCategories,
+  BrandAdvantages,
+  FAQPreview,
+  Newsletter,
+} from "@/components/PremiumSections";
 import { siteConfig } from "@/lib/site";
 import { catalogProducts } from "@/lib/products";
 import { categoryMap } from "@/lib/categories";
+import { InstagramFeed } from "@/components/InstagramFeed";
+import { AboutSection } from "@/components/AboutSection";
+import { ContactSection } from "@/components/ContactSection";
 
 /** بيانات منظمة لمحركات البحث */
 function StructuredData() {
@@ -56,7 +64,12 @@ export default function HomePage() {
       <Hero />
       <FeaturedCategories />
       <CatalogSection />
-
+      <BrandAdvantages />
+      <AboutSection />
+      <InstagramFeed />
+      <FAQPreview />
+      <Newsletter />
+      <ContactSection />
     </>
   );
 }

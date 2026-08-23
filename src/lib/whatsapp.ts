@@ -6,23 +6,15 @@ export interface OrderMessageInput {
   items: ResolvedCartItem[];
   totals: CartTotals;
   mode: PricingMode;
-  /** ملاحظات اختيارية يكتبها العميل */
   notes?: string;
-  /** اسم العميل أو المحل (اختياري) */
   customerName?: string;
 }
 
 /**
- * يبني نص رسالة الطلب المرسلة عبر واتساب.
- * الرسالة تتضمن: المنتجات، الكميات، وضع التسعير، والإجمالي.
+ * يبني نص رسالة الطلب المرسلة عبر واتساب — محفوظ للتوافق مع الاختبارات القديمة
+ * في نسخة الكتالوج الجديدة لا تُستخدم السلة في الواجهة
  */
-export function buildOrderMessage({
-  items,
-  totals,
-  mode,
-  notes,
-  customerName,
-}: OrderMessageInput): string {
+export function buildOrderMessage({ items, totals, mode, notes, customerName }: OrderMessageInput): string {
   const lines: string[] = [];
 
   lines.push(`طلب جديد من موقع ${siteConfig.name}`);
@@ -41,9 +33,7 @@ export function buildOrderMessage({
     lines.push(`   الكمية: ${formatNumber(quantity)} قطعة`);
     if (mode === "wholesale") {
       lines.push(
-        `   ما يعادل: ${formatNumber(item.cartons)} كرتونة (${formatNumber(
-          product.packaging.unitsPerCarton,
-        )} قطعة / كرتونة)`,
+        `   ما يعادل: ${formatNumber(item.cartons)} كرتونة (${formatNumber(product.packaging.unitsPerCarton)} قطعة / كرتونة)`
       );
     }
     lines.push(`   سعر القطعة: ${formatPrice(unitPrice)}`);
@@ -62,9 +52,7 @@ export function buildOrderMessage({
     lines.push("");
   }
 
-  lines.push(
-    "برجاء تأكيد توفر الأصناف وقيمة الشحن وموعد التسليم المتوقع. بانتظار ردكم لاستكمال الطلب — شكراً لكم.",
-  );
+  lines.push("برجاء تأكيد توفر الأصناف وقيمة الشحن وموعد التسليم المتوقع. بانتظار ردكم لاستكمال الطلب — شكراً لكم.");
 
   return lines.join("\n");
 }
@@ -75,25 +63,26 @@ export function buildWhatsAppUrl(message: string, phone?: string): string {
   return `https://wa.me/${number}?text=${encodeURIComponent(message)}`;
 }
 
-/** رابط واتساب لاستفسار عام (بدون سلة) */
+/** رابط واتساب لاستفسار عام (بدون سلة) — كتالوج احترافي */
 export function buildInquiryUrl(topic: string): string {
-  const message = `السلام عليكم، أرغب في الاستفسار عن: ${topic}.\nمن موقع ${siteConfig.name}.`;
+  const message = `السلام عليكم، أرغب في الاستفسار عن: ${topic}.\nمن كتالوج ${siteConfig.name} - ${siteConfig.url}`;
   return buildWhatsAppUrl(message);
 }
 
-/** رابط واتساب لاستفسار عن منتج محدد */
-export function buildProductInquiryUrl(
-  productName: string,
-  sku: string,
-  mode: PricingMode,
-): string {
+/** رابط واتساب لاستفسار عن منتج محدد — نسخة كتالوج احترافي */
+export function buildProductInquiryUrl(productName: string, sku: string, _mode?: PricingMode): string {
   const message = [
-    `السلام عليكم، أرغب في الاستفسار عن المنتج التالي:`,
+    `السلام عليكم، أرغب في الاستفسار عن المنتج التالي من كتالوج ${siteConfig.name}:`,
     `المنتج: ${productName}`,
     `الكود: ${sku}`,
-    `نوع التسعير المطلوب: ${pricingModeLabel(mode)}`,
+    `الرابط: ${siteConfig.url}/products`,
     "",
-    `من موقع ${siteConfig.name}.`,
+    `برجاء إفادتي بالسعر والتوفر وخيارات التوصيل. شكراً لكم.`,
   ].join("\n");
   return buildWhatsAppUrl(message);
+}
+
+/** نسخة مختصرة للاستفسار السريع بدون mode — للتوافق مع الكتالوج الجديد */
+export function buildSimpleProductInquiryUrl(productName: string, sku: string): string {
+  return buildProductInquiryUrl(productName, sku);
 }

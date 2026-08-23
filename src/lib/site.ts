@@ -82,8 +82,8 @@ export const siteConfig: SiteConfig = {
   operations: {
     maintenanceMode: false,
     announcementEnabled: true,
-    announcementText: "تصفّح الكتالوج واستفسر عن المنتج مباشرة عبر واتساب",
-    wholesaleNotice: "بيانات المنتجات والأسعار الحالية أولية، وسيتم تحديثها عند اعتماد التفاصيل. للاستفسار عن التوفر والسعر تواصل معنا عبر واتساب."
+    announcementText: "كتالوج احترافي — استفسر عن أي منتج مباشرة عبر واتساب",
+    wholesaleNotice: "كتالوج مصوّر احترافي — جميع المنتجات معروضة للاستفسار عبر واتساب، الأسعار والتوفر يُحددان عند التواصل."
   },
   social: {
     facebook: "https://www.facebook.com/profile.php?id=61590544803396",

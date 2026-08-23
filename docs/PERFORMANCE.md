@@ -1,59 +1,32 @@
-# دليل الأداء وتحسين PageSpeed
+# دليل الأداء — كتالوج عمران (Catalog-Only)
 
-توثيق لتحسينات الأداء المطبقة في المشروع، وبنود مراجعة دورية للحفاظ على تقييم مرتفع في Lighthouse / PageSpeed Insights.
-
----
+توثيق لتحسينات الأداء في نسخة الكتالوج الاحترافي بدون سلة.
 
 ## 1. الخطوط — أكبر مكسب
+- ملفان متغيران فقط (عربي + لاتيني) ~68KB
+- مستضاف محلياً في `public/fonts/` — لا طلبات خارجية
+- `preload` من أول بايت عبر `react-dom` في `layout.tsx`
+- `font-display: swap`
 
-| | قبل | بعد |
-|---|---|---|
-| الملفات | 24 ملف woff2 (5 أوزان عربية + 3 لاتينية عبر `@fontsource`) | ملفان متغيّران فقط |
-| الحجم | ~292 KB عند تحميل كل الأوزان | ~68 KB تغطي 200–1000 |
-| الاكتشاف | بعد تنزيل وتحليل CSS | `preload` من أول بايت في `<head>` |
-| الظهور | — | `font-display: swap` (لا نص خفي) |
+## 2. تقسيم الحزم
+- `QuickViewModal` ديناميكي عبر `next/dynamic` — لا يُحمّل إلا عند الفتح
+- تم حذف `CartDrawer` و `FloatingCartBar` و `PricingToggle` بالكامل — تقليل JS
+- `Hero` و `CatalogSection` محسنّان للـ LCP
 
-- الخط مستضاف محلياً في `public/fonts/` — لا DNS/connection خارجية.
-- معرّف في `src/app/globals.css` بوصفة `woff2-variations` مع `unicode-range` للعربية واللاتينية.
-- التحميل المسبق عبر `ReactDOM.preload()` داخل `src/app/layout.tsx`.
-- الترخيص: SIL OFL (`public/fonts/OFL-LICENSE.txt`).
+## 3. الصور
+- 12 صورة حقيقية JPG في `public/catalog-facebook/` — متوسط 10-15KB
+- `next/image` مع `unoptimized: true` (يعمل على Pages و Vercel)
+- `sizes` دقيقة لكل سياق، `priority` للشعار
 
-**قاعدة مراجعة:** عند تغيير الخط استخدم دائماً خطاً متغيراً (variable) واحداً لكل subset، وأضف `preload` + `swap`.
+## 4. النشر المزدوج
+- `next.config.ts` ذكي: `output: export` فقط على Pages، عادي على Vercel
+- `vercel.json` يضيف Cache-Control للخطوط (1 سنة) والصور (يوم)
+- لا headers مخصصة في `next.config` لأن Pages لا يدعمها — تم نقلها لـ vercel.json
 
-## 2. تقسيم حزم JavaScript
-
-- `QuickViewModal` و`CartDrawer` في حزم منفصلة عبر `next/dynamic` — لا تُحمَّل إلا عند الفتح فعلياً (`DeferredCartDrawer` يتحقق من `isCartOpen`).
-- `Hero` مكوّن خادم (بلا `"use client"`) — نصوص الصفحة الأولى ترسم HTML بدون JS.
-
-**قاعدة مراجعة:** أي نافذة/درج/مكوّن لا يظهر عند التحميل الأولي يجب أن يكون `dynamic` مضبوطاً على عدم الرسم المسبق غير الضروري.
-
-## 3. ترويسات التخزين المؤقت
-
-> **ملاحظة النشر على GitHub Pages:** الترويسات المخصصة (`async headers`) لا تدعمها
-> صفحات GitHub، لذا أُزيلت من `next.config.ts` مع التحول إلى `output: "export"`.
-> يطبق Pages كاشاً افتراضياً قصيراً (~10 دقائق) مع ETags — للحصول على كاش أطول
-> يمكن لاحقاً وضع Cloudflare أمام الدومين مجاناً وتفعيل كاش الأصول الثابتة هناك.
-> إن انتقل الموقع لاستضافة Node (`next start`)، أعد الترويسات التالية:
-
-| المسار | السياسة المقترحة | السبب |
-|--------|------------------|-------|
-| `/fonts/*` | `max-age=31536000, immutable` | أسماء ثابتة لا تتغير |
-| `/products/*` | `max-age=2592000, stale-while-revalidate` | صور تتجدد دورياً |
-| `/logo.svg`, `/icon.svg`, `/og-image.svg` | `max-age=604800, SWR` | هوية شبه ثابتة |
-
-## 4. ممارسات مثبتة أصلاً في المشروع (لا تُكسر)
-
-- الصور عبر `next/image` مع `sizes` دقيقة لكل سياق، و`priority` للشعار فوق الطية.
-- `images.formats: [avif, webp]` — المتصفح يأخذ الأخف.
-- الصفحة مرسومة مسبقاً بالكامل (SSG) — TTFB ضئيل.
-- لا مكتبات طرف ثالث ثقيلة: أيقونات lucide فقط (tree-shaken).
-- `prefers-reduced-motion` محترم في CSS — يمنع تكلفة الحركات على الأجهزة الضعيفة.
-
-## 5. قياس دوري
-
+## 5. قياس
 ```bash
-npm run build          # تأكد من نظافة البناء وعدد الحزم
-npx lighthouse http://localhost:3100 --preset=desktop   # بعد npx next start
+npm run build
+npm run typecheck
+npm test
 ```
-
-أهداف مرجعية للهيكل الحالي: FCP < 1.5s · LCP < 2.5s · CLS ≈ 0 (الخطوط المحلية مع preload تقضي على إزاحة النص) · JS أولي gzip ≈ 210 KB.
+أهداف: FCP <1.5s, LCP <2.5s, CLS≈0, JS أولي <200KB بعد حذف السلة

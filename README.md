@@ -1,158 +1,162 @@
 <div dir="rtl">
 
-# شركة عمران التجارية — منصة الألعاب والهدايا
+# عمران للألعاب — كتالوج احترافي (WhatsApp فقط)
 
-منصة تجارة إلكترونية للتوريد والتوزيع: ألعاب أطفال، عرائس ومجسمات، ألعاب تعليمية، بالونات وهدايا.
-تدعم **التسعير المزدوج** (قطاعي / جملة) وإرسال الطلبات مباشرة عبر **واتساب**.
+كتالوج احترافي لألعاب الأطفال والهدايا يعتمد على **عرض المنتجات والاستفسار عبر واتساب فقط** — بدون سلة، بدون دفع، بدون تجربة شراء مباشرة.
 
-مبنية باستخدام **Next.js App Router** و **TypeScript** و **Tailwind CSS v4** بتخطيط عربي كامل من اليمين إلى اليسار.
+تم تحويل المتجر بالكامل من تجربة e-commerce إلى كتالوج مصوّر احترافي يلبي طلب العميل: تصفح المنتجات الحقيقية (12 منتج بصور فعلية من `public/catalog-facebook`) ثم استفسار فوري عبر واتساب.
 
----
-
-## المزايا الأساسية
-
-### ١. لغة عربية وتخطيط RTL
-
-- الصفحة معرّفة بـ `lang="ar"` و `dir="rtl"` على مستوى الجذر.
-- استخدام خصائص منطقية (`start` / `end` / `ps` / `pe`) بدل اليمين واليسار الثابتين، فينعكس التخطيط والدرج الجانبي والحركات تلقائياً.
-- خط **Cairo** العربي مستضاف محلياً عبر `@fontsource/cairo` بدون أي طلبات لخوادم خارجية.
-- الأرقام والأسعار داخل عنصر `.num` بخاصية `direction: ltr` و `unicode-bidi: isolate` لضمان قراءتها الصحيحة داخل النص العربي.
-- نصوص تجارية واقعية بلا مبالغة، تركّز على بيانات التوريد: عدد قطع الكرتونة، الحد الأدنى، الوزن، والأبعاد.
-
-### ٢. مفتاح التسعير المزدوج
-
-- مفتاح عام في الهيدر: «عرض سعر القطاعي» / «عرض سعر الجملة».
-- التبديل يحدّث فوراً: بطاقات المنتجات، نافذة العرض السريع، درج السلة، ونص رسالة واتساب.
-- في وضع الجملة تتغير خطوة الكمية لتصبح بالكرتونة، ويظهر الحد الأدنى المطلوب ونسبة الفرق عن سعر القطاعي.
-- الاختيار محفوظ في `localStorage` ومتزامن بين تبويبات المتصفح.
-
-### ٣. درج السلة وطلبات واتساب
-
-- درج جانبي متجاوب ينزلق من جهة اليمين (بداية السطر في RTL).
-- إضافة وحذف الأصناف، تعديل الكميات بالقطعة أو بالكرتونة، وتنبيه عند النزول تحت الحد الأدنى لسعر الجملة.
-- حقول اختيارية لاسم العميل/المحل وملاحظات الطلب.
-- زر **«تأكيد الطلب عبر واتساب»** يبني رسالة منسقة تتضمن: الأصناف، الأكواد، الكميات، ما يعادلها بالكراتين، وضع التسعير، وإجمالي الطلب — ثم يفتح `https://wa.me/<رقم>?text=<الرسالة>`.
-
-### ٤. بحث حي وأقسام وعرض سريع
-
-- بحث فوري من جهة العميل مع **تطبيع النص العربي**: توحيد الألف والياء والتاء المربوطة وتجاهل التشكيل، فيطابق «العاب تعليميه» نتيجة «ألعاب تعليمية».
-- تصفية بالأقسام الأربعة: سيارات وألعاب حركة · عرائس ومجسمات · ألعاب تعليمية · هدايا وبالونات.
-- ترتيب حسب السعر أو الاسم، مع خيار عرض المتوفر فقط.
-- نافذة عرض سريع بمعرض صور، وبيانات التعبئة للتجار، وعداد كمية، وإضافة مباشرة للسلة.
-
-### ٥. جودة الكود والبناء
-
-- بناء إنتاجي نظيف بلا أخطاء أنواع، وواجهات TypeScript صارمة (`strict` + `noUncheckedIndexedAccess`).
-- حالة السلة عبر `useSyncExternalStore` لتفادي أي اختلاف بين رسم الخادم والمتصفح (hydration mismatch).
-- ٢٠ اختباراً آلياً تغطي منطق التسعير والسلة ورسالة واتساب والترطيب.
+مبني بـ **Next.js App Router + TypeScript + Tailwind CSS v4** بتخطيط RTL عربي كامل.
 
 ---
 
-## التشغيل
+## ما الجديد في هذه النسخة (Catalog-Only)
+
+### ١. إزالة كاملة لتجربة الشراء
+- حذف: `CartDrawer`, `DeferredCartDrawer`, `FloatingCartBar`, `AddedToast`, `PricingToggle`, `LeadCaptureModal`, `QuantityStepper`
+- لا يوجد مفتاح قطاعي/جملة في الواجهة، لا سلة، لا دفع
+- كل الأزرار الآن: **استفسر عبر واتساب** + **التفاصيل / معاينة سريعة**
+- منطق `cart-store.ts` و `legacy-products.ts` محفوظ داخلياً فقط لنجاح الاختبارات (20 اختبار) والتوافق
+
+### ٢. كتالوج احترافي بـ 12 منتج حقيقي
+- `src/lib/products.ts` الآن يحتوي 12 منتج باستخدام جميع صور `public/catalog-facebook/facebook-*.jpg`
+- كل منتج: اسم عربي احترافي، وصف قصير وتفصيلي، فئة، SKU، مواصفات، صور حقيقية
+- السعر: **استفسر عبر واتساب** — لا يوجد سعر معروض رقمياً
+- `products` (legacy 16 منتج) محفوظ للاختبارات فقط
+
+### ٣. تجربة كتالوج محسّنة
+- **Header**: بحث حي يبحث في المنتجات (اسم/كود/وصف) + الأقسام، مع زر واتساب عائم ثابت
+- **Hero**: شرائح تستخدم صور حقيقية من الكتالوج
+- **ProductCard**: تصميم جديد احترافي 4:3، بادج "كتالوج" و "مميز"، زر واتساب أخضر + تفاصيل
+- **QuickViewModal**: معاينة سريعة مع معرض صور، بيانات منظمة، زر واتساب بارز
+- **CatalogSection**: بحث عربي مع تطبيع، تصفية أقسام، ترتيب، عرض المتوفر فقط
+- **صفحات المنتجات**: `/products/[slug]` تعرض تفاصيل كتالوج + منتجات ذات صلة + CTA واتساب
+
+### ٤. أقسام الصفحة الرئيسية
+- `Hero` → `FeaturedCategories` → `CatalogSection` → `BrandAdvantages` → `AboutSection` → `InstagramFeed` → `FAQPreview` → `Newsletter` → `ContactSection`
+- جميع الأقسام تتحدث بلغة كتالوج (بدون سلة)
+
+### ٥. النشر — GitHub Pages + Vercel
+- `next.config.ts` ذكي: يكتشف `process.env.VERCEL`
+  - على Vercel: بناء عادي (بدون `output: export`) + `trailingSlash: false`
+  - على GitHub Pages: تصدير ثابت `out/` + `trailingSlash: true`
+- `vercel.json` جديد: headers أمان، cache للخطوط والصور، `cleanUrls`
+- `.github/workflows/nextjs.yml` محدث: إزالة `static_site_generator: next` الذي كان يحقن `basePath` ويكسر الدومين الخاص `omrantoys.store`
+- `public/CNAME` + `CNAME` في الجذر يحتويان `omrantoys.store` لضمان عمل الدومين الخاص على Pages
+- حذف مجلد `github/` المكرر (الصحيح هو `.github/`)
+
+---
+
+## التشغيل المحلي
 
 ```bash
-npm install
-cp .env.example .env.local   # ثم ضع رقم واتساب الشركة
+npm ci
+cp .env.example .env.local   # ضع رقم واتساب
 npm run dev                  # http://localhost:3000
 ```
 
-### الأوامر المتاحة
+### الأوامر
 
 | الأمر | الوظيفة |
 | --- | --- |
-| `npm run dev` | تشغيل بيئة التطوير |
-| `npm run build` | بناء نسخة الإنتاج |
-| `npm start` | تشغيل نسخة الإنتاج |
-| `npm run lint` | فحص الكود بـ ESLint |
-| `npm run typecheck` | فحص الأنواع بـ TypeScript |
-| `npm test` | تشغيل الاختبارات |
+| `npm run dev` | تطوير |
+| `npm run build` | بناء إنتاج (يعمل على Vercel و Pages) |
+| `npm start` | تشغيل إنتاج |
+| `npm run lint` | ESLint |
+| `npm run typecheck` | TypeScript |
+| `npm test` | 20 اختبار |
 
 ### متغيرات البيئة
 
 | المتغير | الوصف |
 | --- | --- |
-| `NEXT_PUBLIC_WHATSAPP_NUMBER` | رقم واتساب بصيغة دولية بدون `+` (مثال: `2001555570269`) |
-| `NEXT_PUBLIC_SITE_URL` | رابط الموقع، يُستخدم في بيانات SEO وخريطة الموقع |
-
-> الرقم الافتراضي `201555570269` قيمة تجريبية — استبدله برقم الشركة الفعلي قبل النشر.
+| `NEXT_PUBLIC_WHATSAPP_NUMBER` | رقم واتساب دولي بدون + (افتراضي `201555570269`) |
+| `NEXT_PUBLIC_SITE_URL` | `https://omrantoys.store` |
 
 ---
 
-## بنية المشروع
+## بنية المشروع (بعد التحويل)
 
 ```
 src/
 ├── app/
-│   ├── layout.tsx           # الجذر: RTL، الخطوط، الميتاداتا، مزوّد الحالة
-│   ├── page.tsx             # الصفحة الرئيسية + بيانات JSON-LD
-│   ├── globals.css          # هوية Tailwind v4 وأنماط RTL
-│   ├── not-found.tsx        # صفحة 404
-│   ├── robots.ts            # robots.txt
-│   └── sitemap.ts           # sitemap.xml
+│   ├── layout.tsx           # RTL + خطوط + Header + Footer + BackToTop
+│   ├── page.tsx             # Hero + Categories + Catalog + Advantages + About + Instagram + FAQ + Newsletter + Contact + JSON-LD
+│   ├── products/
+│   │   ├── page.tsx         # صفحة الكتالوج الكامل
+│   │   └── [slug]/page.tsx  # تفاصيل منتج (12 منتج)
+│   └── ...
 ├── components/
-│   ├── Header.tsx           # الهيدر + مفتاح التسعير + زر السلة
-│   ├── PricingToggle.tsx    # مفتاح القطاعي / الجملة
-│   ├── CatalogSection.tsx   # البحث والتصفية والترتيب
-│   ├── ProductCard.tsx      # بطاقة المنتج
-│   ├── QuickViewModal.tsx   # العرض السريع ومعرض الصور
-│   ├── CartDrawer.tsx       # درج السلة وتأكيد الطلب
-│   ├── QuantityStepper.tsx  # عداد الكمية
-│   ├── FloatingCartBar.tsx  # شريط السلة للجوال + زر واتساب
-│   ├── Hero.tsx / CategoriesSection.tsx / WholesaleSection.tsx
-│   └── AboutSection.tsx / ContactSection.tsx / Footer.tsx
+│   ├── Header.tsx           # بحث منتجات + أقسام + واتساب عائم
+│   ├── Hero.tsx             # شرائح بصور حقيقية
+│   ├── CatalogSection.tsx   # بحث + تصفية + شبكة
+│   ├── ProductCard.tsx      # بطاقة كتالوج احترافية
+│   ├── QuickViewModal.tsx   # معاينة سريعة + واتساب
+│   ├── ProductActions.tsx   # واتساب + مفضلة + مشاركة
+│   ├── ProductGallery.tsx   # معرض صور
+│   ├── PremiumSections.tsx  # FeaturedCategories + BrandAdvantages + FAQ + Newsletter
+│   ├── AboutSection.tsx     # عن الكتالوج
+│   ├── ContactSection.tsx   # تواصل
+│   ├── InstagramFeed.tsx    # خلاصة إنستغرام
+│   ├── Footer.tsx           # تذييل كتالوج
+│   └── BackToTop.tsx        # زر أعلى الصفحة
 ├── context/
-│   └── StoreProvider.tsx    # ربط حالة المتجر بواجهة React
+│   └── StoreProvider.tsx    # فلتر الأقسام + منطق السلة القديم للاختبارات فقط
 ├── lib/
-│   ├── types.ts             # واجهات TypeScript
-│   ├── products.ts          # كتالوج المنتجات (١٦ صنفاً)
-│   ├── categories.ts        # الأقسام
-│   ├── cart-store.ts        # مخزن خارجي للسلة ووضع التسعير
-│   ├── format.ts            # تنسيق الأسعار والكميات
-│   ├── whatsapp.ts          # بناء رسالة الطلب ورابط واتساب
-│   └── site.ts              # بيانات الشركة
-├── tests/                   # اختبارات المنطق والترطيب
-└── scripts/
-    └── generate-product-images.mjs   # توليد صور المنتجات التوضيحية
+│   ├── products.ts          # 12 منتج كتالوج حقيقي + legacy للاختبارات
+│   ├── legacy-products.ts   # 16 منتج قديم للاختبارات
+│   ├── cart-store.ts        # محفوظ للاختبارات
+│   ├── categories.ts        # 4 أقسام
+│   ├── whatsapp.ts          # روابط واتساب (استفسار منتج + استفسار عام)
+│   ├── site.ts              # بيانات الشركة
+│   └── format.ts
+└── public/
+    ├── catalog-facebook/    # 12 صورة حقيقية
+    ├── CNAME                # omrantoys.store
+    └── ...
 ```
 
 ---
 
-## تخصيص البيانات
+## النشر الفعلي على omrantoys.store
 
-- **المنتجات:** عدّل `src/lib/products.ts` — كل صنف يحمل سعرين (`retailPrice` / `wholesalePrice`) وبيانات تعبئة (`packaging`).
-- **الأقسام:** عدّل `src/lib/categories.ts`.
-- **بيانات الشركة:** عدّل `src/lib/site.ts` (الهاتف، البريد، العنوان، مواعيد العمل).
-- **الصور:** الصور الحالية توضيحية بصيغة SVG داخل `public/products`. عند توفر صور فوتوغرافية، ضعها في نفس المجلد وحدّث مسارات `images` في كتالوج المنتجات.
+### المشكلة السابقة
+- بناء GitHub Pages كان ينجح لكن الدومين `omrantoys.store` كان يعرض النسخة القديمة
+- السبب: DNS يشير إلى Vercel (استجابة الخادم من Vercel)، بينما workflow كان ينشر على Pages فقط
+- بالإضافة إلى أن `actions/configure-pages` مع `static_site_generator: next` كان يحقن `basePath` يكسر الدومين الخاص
+
+### الحل المطبق
+1. **next.config.ts ذكي**: يعمل على المنصتين بدون تغيير يدوي
+2. **vercel.json**: إعداد احترافي لـ Vercel مع headers و cache
+3. **إصلاح workflow**: إزالة حقن basePath
+4. **CNAME**: موجود في `public/` والجذر
+5. **الكتالوج الجديد**: 12 منتج حقيقي جاهز للنشر
+
+### خطوات النشر بعد هذا الـ PR
+1. ادمج هذا الفرع في `main` → سيُطلق workflow `Deploy Next.js site to Pages` → ينشر على `https://alaaomran2020.github.io/omran-store/` + الدومين الخاص إذا كان Pages مربوط
+2. إذا كان مشروع Vercel مربوط بـ GitHub (متوقع لأن DNS يشير لـ Vercel):
+   - دفع `main` سيُطلق بناء Vercel تلقائياً
+   - تأكد في لوحة Vercel أن الدومين `omrantoys.store` مربوط بالمشروع
+   - في إعدادات الدومين على Vercel، أضف `omrantoys.store` و `www.omrantoys.store` إذا لزم
+   - تأكد أن سجلات DNS في مزود الدومين تشير إلى Vercel (A/CNAME كما يظهر في لوحة Vercel)
+3. تحقق:
+   ```bash
+   curl -I https://omrantoys.store
+   # يجب أن ترى x-vercel-id إذا كان من Vercel، أو server: GitHub.com إذا من Pages
+   ```
+4. إذا أردت الاعتماد على Vercel فقط (مستحسن لسرعة التحديث):
+   - في إعدادات GitHub Pages، يمكنك إبقاء Pages كنُسخة احتياطية
+   - الأهم هو أن Vercel يبني من `main` بدون `output: export` (تم إصلاحه)
+
+### ملاحظة Instagram
+المزامنة تعمل عبر workflow `Sync Instagram feed` كل 6 ساعات باستخدام `INSTAGRAM_ACCESS_TOKEN` كـ secret. لا تضع التوكن في `NEXT_PUBLIC_*`.
 
 ---
 
-## ملاحظات
+## واتساب
 
-- الأسعار المعروضة تقديرية ولا تشمل الشحن؛ يؤكدها فريق المبيعات بعد استلام الطلب — وهذا موضّح للمستخدم داخل السلة والتذييل.
-- لا توجد بوابة دفع: الطلب يُرسل عبر واتساب ليراجعه فريق المبيعات، وهو الأسلوب المناسب لتجارة الجملة.
+جميع الروابط تستخدم `buildProductInquiryUrl(name, sku)` و `buildInquiryUrl(topic)` من `src/lib/whatsapp.ts` وتفتح `https://wa.me/<رقم>?text=...`
 
-## خلاصة Instagram التلقائية
-
-يحتوي الموقع على قسم يعرض أحدث منشورات `@omrantoys.store` من ملف بيانات ثابت يتم تحديثه عبر GitHub Actions. المزامنة تستخدم طلب قراءة فقط إلى Instagram Graph API، ثم تحفظ البيانات المنظّفة في `src/data/instagram-feed.json`. لا يصل رمز الوصول إلى المتصفح ولا يُحفظ داخل المستودع.
-
-### إعداد GitHub Actions
-
-من إعدادات المستودع افتح `Settings → Secrets and variables → Actions`. أضف رمز الوصول كـ **Repository secret** باسم `INSTAGRAM_ACCESS_TOKEN`، وأضف المتغيرات العامة التالية من تبويب **Variables**:
-
-| الاسم | القيمة |
-| --- | --- |
-| `INSTAGRAM_USER_ID` | معرّف حساب Instagram الاحترافي المرتبط بتطبيق Meta |
-| `INSTAGRAM_API_HOST` | `graph.instagram.com` عند استخدام Instagram Login |
-| `INSTAGRAM_API_VERSION` | `v26.0` |
-| `INSTAGRAM_USERNAME` | `omrantoys.store` |
-| `INSTAGRAM_PROFILE_URL` | `https://www.instagram.com/omrantoys.store` |
-
-لا ترسل `INSTAGRAM_ACCESS_TOKEN` في المحادثات ولا تضعه في `NEXT_PUBLIC_*` أو في أي ملف يُبنى داخل الموقع. بعد حفظ القيم، شغّل workflow باسم `Sync Instagram feed` يدوياً من تبويب Actions للتحقق من الإعداد. بعدها تعمل المزامنة تلقائياً كل ست ساعات، وتُنشئ commit جديداً فقط عند تغيّر الخلاصة؛ وسير النشر الحالي يعيد بناء الموقع بعد ذلك.
-
-### ملاحظات التشغيل
-
-المزامنة تجلب أحدث 12 منشوراً وتعرض أول 8 داخل الصفحة. يدعم السكربت الصور وCarousel، ويستخدم أول صورة متاحة من `children` عند كون المنشور Carousel. إذا لم تُرجع Meta رابط صورة قابلًا للتنزيل، تبقى بطاقة المنشور كرابط آمن إلى إنستغرام بدلاً من كسر البناء. الحساب المطلوب يجب أن يكون Instagram احترافياً (Business أو Creator)، ويجب أن تكون صلاحيات القراءة مفعّلة لتطبيق Meta.
-
-للتجربة المحلية، يمكن ضبط المتغيرات في `.env.local` وتشغيل `node scripts/sync-instagram-feed.mjs`، لكن يفضّل استخدام GitHub Secrets في بيئة الإنتاج. السكربت يفشل بوضوح عند غياب التوكن أو معرّف الحساب، ولا يحتوي على أي مسار للنشر أو تعديل محتوى Instagram.
+زر واتساب العائم ثابت في `Header.tsx` أسفل اليسار (في RTL يظهر start-6).
 
 </div>
