@@ -5,9 +5,6 @@ import { preload } from "react-dom";
 import { Analytics } from "@vercel/analytics/next";
 import { StoreProvider } from "@/context/StoreProvider";
 import { Header } from "@/components/Header";
-import { DeferredCartDrawer } from "@/components/DeferredCartDrawer";
-import { FloatingCartBar } from "@/components/FloatingCartBar";
-import { AddedToast } from "@/components/AddedToast";
 import { BackToTop } from "@/components/BackToTop";
 import { LeadCaptureModal } from "@/components/LeadCaptureModal";
 import { Footer } from "@/components/Footer";
@@ -22,17 +19,12 @@ export const metadata: Metadata = {
   description: siteConfig.description,
   applicationName: siteConfig.name,
   keywords: [
-    "ألعاب أطفال بالجملة",
-    "جملة ألعاب أطفال في طنطا",
-    "توزيع ألعاب أطفال",
-    "توريد ألعاب للمحلات",
-    "بالونات بالجملة",
-    "بالونات لاتكس وفويل",
-    "مستلزمات حفلات وأعياد ميلاد",
-    "علب هدايا بالجملة",
-    "عرائس ودمى بالجملة",
-    "ألعاب تعليمية بالجملة",
-    "سيارات أطفال جملة",
+    "كتالوج ألعاب أطفال",
+    "ألعاب أطفال في طنطا",
+    "منتجات عمران للألعاب",
+    "ألعاب تعليمية للأطفال",
+    "عرائس ودمى",
+    "هدايا وألعاب أطفال",
     "شركة عمران التجارية",
   ],
   authors: [{ name: siteConfig.legalName }],
@@ -104,9 +96,6 @@ export default function RootLayout({
           <Header />
           <main>{children}</main>
           <Footer />
-          <DeferredCartDrawer />
-          <FloatingCartBar />
-          <AddedToast />
           <BackToTop />
           <LeadCaptureModal />
         </StoreProvider>

@@ -5,28 +5,17 @@ import Link from "next/link";
 import { useEffect, useState, useMemo } from "react";
 import {
   Menu,
-  Phone,
-  ShoppingCart,
   X,
   Search,
-  Heart,
-  User,
   Sparkles,
   ChevronDown,
-  Truck,
-  ShieldCheck,
   Clock,
-  CreditCard,
 } from "lucide-react";
-import { useStore } from "@/context/StoreProvider";
-import { PricingToggle } from "@/components/PricingToggle";
-import { formatNumber } from "@/lib/format";
 import { navLinks, siteConfig } from "@/lib/site";
 import { categories } from "@/lib/categories";
 
 /** الهيدر المميز — ثابت، فاخر، وقابل للبحث مع زر واتساب عائم */
 export function Header() {
-  const { totals, openCart, hydrated } = useStore();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
@@ -39,8 +28,6 @@ export function Header() {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
-
-  const itemCount = hydrated ? totals.itemCount : 0;
 
   const searchResults = useMemo(() => {
     if (!searchQuery.trim()) return [];
@@ -63,16 +50,16 @@ export function Header() {
         <div className="container-page relative flex h-9 items-center justify-between text-[11px] sm:text-xs">
           <div className="flex items-center gap-4">
             <span className="hidden sm:inline-flex items-center gap-1.5 text-brand-100">
-              <Truck className="size-3.5" aria-hidden="true" />
-              شحن لجميع المحافظات
+              <Sparkles className="size-3.5" aria-hidden="true" />
+              كتالوج مصوّر يتحدث باستمرار
             </span>
             <span className="hidden md:inline-flex items-center gap-1.5 text-brand-100">
-              <ShieldCheck className="size-3.5" aria-hidden="true" />
-              ضمان جودة
+              <Sparkles className="size-3.5" aria-hidden="true" />
+              تفاصيل قابلة للتحديث
             </span>
             <span className="hidden lg:inline-flex items-center gap-1.5 text-brand-100">
-              <CreditCard className="size-3.5" aria-hidden="true" />
-              دفع آمن
+              <Sparkles className="size-3.5" aria-hidden="true" />
+              استفسار مباشر عبر واتساب
             </span>
           </div>
           <div className="flex items-center gap-3 sm:gap-5">
@@ -205,37 +192,6 @@ export function Header() {
               )}
             </div>
 
-            {/* Wishlist */}
-            <a href="#" aria-label="المفضلة" className="hidden sm:flex items-center justify-center size-10 rounded-full bg-ink-50 text-ink-600 hover:bg-rose-50 hover:text-rose-600 transition-colors">
-              <Heart className="size-5" aria-hidden="true" />
-            </a>
-
-            {/* Account */}
-            <a href="#" aria-label="حسابي" className="hidden md:flex items-center justify-center size-10 rounded-full bg-ink-50 text-ink-600 hover:bg-brand-50 hover:text-brand-700 transition-colors">
-              <User className="size-5" aria-hidden="true" />
-            </a>
-
-            {/* Pricing Toggle */}
-            <div className="hidden md:block">
-              <PricingToggle />
-            </div>
-
-            {/* Cart */}
-            <button
-              type="button"
-              onClick={openCart}
-              aria-label={`فتح سلة الطلب، ${itemCount} صنف`}
-              className="relative flex items-center gap-2 rounded-full bg-gradient-to-r from-brand-700 to-brand-800 px-4 py-2.5 text-sm font-extrabold text-white shadow-lg shadow-brand-900/20 hover:shadow-brand-900/30 hover:from-brand-800 hover:to-brand-900 transition-all hover:-translate-y-0.5"
-            >
-              <ShoppingCart className="size-4.5" aria-hidden="true" />
-              <span className="hidden sm:inline">سلة الطلب</span>
-              {itemCount > 0 && (
-                <span className="num absolute -top-1.5 -end-1.5 flex size-5.5 items-center justify-center rounded-full bg-accent-500 text-[11px] font-extrabold text-white ring-2 ring-white shadow-md">
-                  {formatNumber(itemCount)}
-                </span>
-              )}
-            </button>
-
             {/* Mobile menu toggle */}
             <button
               type="button"
@@ -263,9 +219,6 @@ export function Header() {
                   {link.label}
                 </a>
               ))}
-              <div className="pt-2">
-                <PricingToggle size="sm" className="w-full justify-between rounded-xl" />
-              </div>
             </div>
           </div>
         )}

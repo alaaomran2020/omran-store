@@ -1,9 +1,8 @@
 import { Hero } from "@/components/Hero";
 import { CatalogSection } from "@/components/CatalogSection";
-import { InstagramFeed } from "@/components/InstagramFeed";
-import { FeaturedCategories, PromoBanners, BestSellers, NewArrivals, FlashDeals, TrendingProducts, CustomerReviews, BrandAdvantages, FAQPreview, Newsletter } from "@/components/PremiumSections";
+import { FeaturedCategories } from "@/components/PremiumSections";
 import { siteConfig } from "@/lib/site";
-import { products } from "@/lib/products";
+import { catalogProducts } from "@/lib/products";
 import { categoryMap } from "@/lib/categories";
 
 /** بيانات منظمة لمحركات البحث */
@@ -27,9 +26,9 @@ function StructuredData() {
   const catalog = {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    name: "كتالوج ألعاب أطفال بالجملة والقطاعي — عمران للألعاب",
-    numberOfItems: products.length,
-    itemListElement: products.slice(0, 12).map((product, index) => ({
+    name: "كتالوج ألعاب أطفال — عمران للألعاب",
+    numberOfItems: catalogProducts.length,
+    itemListElement: catalogProducts.slice(0, 12).map((product, index) => ({
       "@type": "ListItem",
       position: index + 1,
       item: {
@@ -38,14 +37,6 @@ function StructuredData() {
         sku: product.sku,
         description: product.shortDescription,
         category: categoryMap[product.categoryId]?.name,
-        offers: {
-          "@type": "Offer",
-          priceCurrency: siteConfig.currency,
-          price: product.retailPrice,
-          availability: product.inStock
-            ? "https://schema.org/InStock"
-            : "https://schema.org/OutOfStock",
-        },
       },
     })),
   };
@@ -63,18 +54,9 @@ export default function HomePage() {
     <>
       <StructuredData />
       <Hero />
-      <PromoBanners />
       <FeaturedCategories />
-      <BestSellers />
-      <NewArrivals />
-      <FlashDeals />
-      <TrendingProducts />
       <CatalogSection />
-      <InstagramFeed />
-      <CustomerReviews />
-      <BrandAdvantages />
-      <FAQPreview />
-      <Newsletter />
+
     </>
   );
 }

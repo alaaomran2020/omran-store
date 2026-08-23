@@ -1,5 +1,5 @@
 import { siteConfig } from "@/lib/site";
-import { products } from "@/lib/products";
+import { catalogProducts } from "@/lib/products";
 import { categoryMap } from "@/lib/categories";
 
 export function StructuredData({ type }: { type?: "catalog" | "about" | "contact" }) {
@@ -22,9 +22,9 @@ export function StructuredData({ type }: { type?: "catalog" | "about" | "contact
   const catalog = {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    name: "كتالوج ألعاب أطفال بالجملة والقطاعي — عمران للألعاب",
-    numberOfItems: products.length,
-    itemListElement: products.slice(0, 12).map((product, index) => ({
+    name: "كتالوج ألعاب أطفال — عمران للألعاب",
+    numberOfItems: catalogProducts.length,
+    itemListElement: catalogProducts.slice(0, 12).map((product, index) => ({
       "@type": "ListItem",
       position: index + 1,
       item: {
@@ -33,14 +33,6 @@ export function StructuredData({ type }: { type?: "catalog" | "about" | "contact
         sku: product.sku,
         description: product.shortDescription,
         category: categoryMap[product.categoryId]?.name,
-        offers: {
-          "@type": "Offer",
-          priceCurrency: siteConfig.currency,
-          price: product.retailPrice,
-          availability: product.inStock
-            ? "https://schema.org/InStock"
-            : "https://schema.org/OutOfStock",
-        },
       },
     })),
   };

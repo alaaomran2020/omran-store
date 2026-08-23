@@ -13,11 +13,10 @@ import {
   X,
 } from "lucide-react";
 import { ProductCard } from "@/components/ProductCard";
-import { PricingToggle } from "@/components/PricingToggle";
 import { useStore } from "@/context/StoreProvider";
 import { categories } from "@/lib/categories";
-import { products } from "@/lib/products";
-import { formatNumber, getUnitPrice } from "@/lib/format";
+import { catalogProducts } from "@/lib/products";
+import { formatNumber } from "@/lib/format";
 import type { IconName, Product, SortOption } from "@/lib/types";
 
 // نافذة العرض السريع في حزمة منفصلة — لا تُحمَّل إلا عند أول استخدام
@@ -35,8 +34,6 @@ const iconMap: Record<IconName, typeof Car> = {
 
 const sortOptions: { value: SortOption; label: string }[] = [
   { value: "featured", label: "الترتيب الافتراضي" },
-  { value: "price-asc", label: "السعر: من الأقل للأعلى" },
-  { value: "price-desc", label: "السعر: من الأعلى للأقل" },
   { value: "name-asc", label: "الاسم: أبجدياً" },
 ];
 
@@ -59,7 +56,7 @@ function normalizeArabic(input: string): string {
 
 /** قسم الكتالوج: البحث الفوري، تصفية الأقسام، الترتيب، والعرض السريع */
 export function CatalogSection() {
-  const { mode, categoryFilter, setCategoryFilter } = useStore();
+  const { categoryFilter, setCategoryFilter } = useStore();
   const [query, setQuery] = useState("");
   const category = categoryFilter;
   const setCategory = setCategoryFilter;
@@ -73,7 +70,7 @@ export function CatalogSection() {
   const searchIndex = useMemo(
     () =>
       new Map(
-        products.map((product) => [
+        catalogProducts.map((product) => [
           product.id,
           normalizeArabic(
             [
@@ -93,8 +90,8 @@ export function CatalogSection() {
   );
 
   const counts = useMemo(() => {
-    const result: Record<string, number> = { all: products.length };
-    for (const product of products) {
+    const result: Record<string, number> = { all: catalogProducts.length };
+    for (const product of catalogProducts) {
       result[product.categoryId] = (result[product.categoryId] ?? 0) + 1;
     }
     return result;
@@ -104,7 +101,7 @@ export function CatalogSection() {
     const needle = normalizeArabic(deferredQuery);
     const terms = needle ? needle.split(" ").filter(Boolean) : [];
 
-    const filtered = products.filter((product) => {
+    const filtered = catalogProducts.filter((product) => {
       if (category !== "all" && product.categoryId !== category) return false;
       if (onlyInStock && !product.inStock) return false;
       if (terms.length === 0) return true;
@@ -114,12 +111,6 @@ export function CatalogSection() {
 
     const sorted = [...filtered];
     switch (sort) {
-      case "price-asc":
-        sorted.sort((a, b) => getUnitPrice(a, mode) - getUnitPrice(b, mode));
-        break;
-      case "price-desc":
-        sorted.sort((a, b) => getUnitPrice(b, mode) - getUnitPrice(a, mode));
-        break;
       case "name-asc":
         sorted.sort((a, b) => a.name.localeCompare(b.name, "ar"));
         break;
@@ -129,7 +120,7 @@ export function CatalogSection() {
         );
     }
     return sorted;
-  }, [deferredQuery, category, onlyInStock, sort, mode, searchIndex]);
+  }, [deferredQuery, category, onlyInStock, sort, searchIndex]);
 
   const hasFilters = query !== "" || category !== "all" || onlyInStock;
 
@@ -148,15 +139,12 @@ export function CatalogSection() {
           <div>
             <p className="mb-1.5 text-sm font-bold text-brand-700">الكتالوج</p>
             <h2 className="text-2xl font-extrabold text-ink-900 sm:text-3xl">
-              الأصناف المتاحة بأسعار معلنة للجملة والقطاعي
+              اكتشف منتجات عمران للألعاب
             </h2>
             <p className="mt-2 max-w-2xl text-sm text-ink-600">
-              سعر القطاعي معلن للأفراد، وسعر الجملة الأقل متاح للتجار عند الالتزام
-              بالحد الأدنى الموضح على بطاقة كل صنف — تسعير واضح بلا مفاوضات ولا
-              أسعار مخفية.
+              تصفّح مجموعة مختارة من الألعاب والهدايا، وافتح تفاصيل أي منتج أو أرسل استفسارك مباشرة عبر واتساب. الأسعار والمواصفات النهائية تُضاف لاحقاً.
             </p>
           </div>
-          <PricingToggle className="hidden lg:inline-flex" />
         </div>
 
         {/* أدوات التصفية — لاصقة على الشاشات الكبيرة لتبقى متاحة أثناء التمرير */}
@@ -238,7 +226,7 @@ export function CatalogSection() {
               </span>
             </button>
 
-            {categories.map((item) => {
+            {categories.filter((item) => (counts[item.id] ?? 0) > 0).map((item) => {
               const Icon = iconMap[item.icon];
               const isActive = category === item.id;
               return (
@@ -273,7 +261,7 @@ export function CatalogSection() {
             </span>{" "}
             من{" "}
             <span className="num font-bold text-ink-900">
-              {formatNumber(products.length)}
+              {formatNumber(catalogProducts.length)}
             </span>{" "}
             صنف
           </p>
@@ -310,7 +298,7 @@ export function CatalogSection() {
               لا توجد أصناف مطابقة لبحثك
             </p>
             <p className="mt-1 text-sm text-ink-500">
-              جرّب كلمات أبسط، أو ابحث بكود الصنف، أو اختر قسماً آخر من الأعلى.
+              جرّب كلمات أبسط أو اختر قسماً آخر من الأعلى.
             </p>
             <button
               type="button"

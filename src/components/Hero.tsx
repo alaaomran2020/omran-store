@@ -7,13 +7,10 @@ import {
   ArrowLeft,
   MessageCircle,
   PackageCheck,
-  Truck,
   Sparkles,
   ShieldCheck,
-  ChevronRight,
-  Star,
 } from "lucide-react";
-import { products } from "@/lib/products";
+import { catalogProducts } from "@/lib/products";
 import { categories } from "@/lib/categories";
 import { formatNumber } from "@/lib/format";
 import { buildInquiryUrl } from "@/lib/whatsapp";
@@ -21,34 +18,31 @@ import { siteConfig } from "@/lib/site";
 
 const slides = [
   {
-    title: "ألعاب أطفال بجودة فائقة وأسعار تنافسية",
-    subtitle: "أكبر تشكيل ألعاب في طنطا — جملة وقطاعي — شحن لجميع المحافظات",
+    title: "اكتشف ألعاب الأطفال والهدايا",
+    subtitle: "كتالوج مصوّر يساعدك على التعرف على المنتجات المتاحة والاستفسار عنها بسهولة",
     cta: "تصفح الكتالوج",
     ctaHref: "#products",
     accent: "from-brand-800 via-brand-700 to-brand-900",
     glow: "bg-brand-400/20",
     image: "/products/vehicles-01-a.svg",
-    stat: { value: "16+", label: "صنف متاح" },
   },
   {
-    title: "عرائس ودمى ومجسمات بأعلى جودة",
-    subtitle: "تشكيلة ثابتة من العرائس والدببة والدمى القطنية — هدايا تناسب كل الأعمار",
+    title: "عرائس ودمى ومجسمات",
+    subtitle: "تعرّف على التشكيلة من الصور والتفاصيل الأولية وتواصل معنا لمعرفة المتاح",
     cta: "عرض منتجات الدمى",
     ctaHref: "#products",
     accent: "from-rose-800 via-rose-700 to-rose-900",
     glow: "bg-rose-400/20",
     image: "/products/dolls-01-a.svg",
-    stat: { value: "4", label: "أقسام متنوعة" },
   },
   {
-    title: "ألعاب تعليمية وتنمية مهارات للأطفال",
-    subtitle: "مكعبات تركيب، بازل حروف، لوحات رسم مغناطيسية — كل ما يحتاجه طفلك للتعلم",
+    title: "ألعاب تعليمية وتنمية مهارات",
+    subtitle: "مجموعة مختارة للأطفال مع معلومات قابلة للتحديث عند اعتماد بيانات المنتج",
     cta: "اكتشف الألعاب التعليمية",
     ctaHref: "#products",
     accent: "from-teal-800 via-teal-700 to-teal-900",
     glow: "bg-teal-400/20",
     image: "/products/educational-01-a.svg",
-    stat: { value: "100%", label: "ضمان جودة" },
   },
 ];
 
@@ -78,7 +72,7 @@ export function Hero() {
           <div className="relative z-10">
             <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 backdrop-blur-md px-4 py-1.5 text-xs font-extrabold tracking-wide mb-5">
               <Sparkles className="size-3.5 text-accent-300" aria-hidden="true" />
-              <span>متجر عمران للألعاب — توريد بالجملة والقطاعي</span>
+              <span>كتالوج عمران للألعاب — تصفّح واستفسر</span>
             </div>
 
             <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-extrabold leading-[1.1] tracking-tight text-balance">
@@ -97,13 +91,13 @@ export function Hero() {
                 <ArrowLeft className="size-4 rotate-180" aria-hidden="true" />
               </a>
               <a
-                href={buildInquiryUrl("طلب قائمة أسعار الجملة")}
+                href={buildInquiryUrl("الاستفسار عن منتجات الكتالوج")}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2.5 rounded-2xl border border-white/20 bg-white/10 px-7 py-4 text-sm font-extrabold text-white backdrop-blur-sm hover:bg-white/15 hover:-translate-y-0.5 transition-all duration-200"
               >
                 <MessageCircle className="size-4" aria-hidden="true" />
-                طلب أسعار الجملة
+                استفسر عبر واتساب
               </a>
             </div>
 
@@ -112,22 +106,22 @@ export function Hero() {
               <div>
                 <dt className="sr-only">عدد المنتجات</dt>
                 <dd>
-                  <span className="num block text-3xl font-extrabold text-accent-300">{formatNumber(products.length)}+</span>
-                  <span className="block text-xs text-brand-200 mt-1">صنف متاح للتوريد</span>
+                  <span className="num block text-3xl font-extrabold text-accent-300">{formatNumber(catalogProducts.length)}</span>
+                  <span className="block text-xs text-brand-200 mt-1">منتج في الكتالوج</span>
                 </dd>
               </div>
               <div>
                 <dt className="sr-only">الأقسام</dt>
                 <dd>
                   <span className="num block text-3xl font-extrabold text-white">{formatNumber(categories.length)}</span>
-                  <span className="block text-xs text-brand-200 mt-1">أقسام تغطي كل احتياجاتك</span>
+                  <span className="block text-xs text-brand-200 mt-1">أقسام الكتالوج</span>
                 </dd>
               </div>
               <div className="hidden sm:block">
                 <dt className="sr-only">متوسط الرد</dt>
                 <dd>
-                  <span className="num block text-3xl font-extrabold text-white">24</span>
-                  <span className="block text-xs text-brand-200 mt-1">ساعة متوسط الرد</span>
+                  <span className="block text-2xl font-extrabold text-white">واتساب</span>
+                  <span className="block text-xs text-brand-200 mt-1">للاستفسار المباشر</span>
                 </dd>
               </div>
             </dl>
@@ -149,11 +143,11 @@ export function Hero() {
               <div className="absolute top-6 start-6 flex flex-col gap-2">
                 <span className="inline-flex items-center gap-1.5 rounded-xl bg-white/15 backdrop-blur-md px-3 py-1.5 text-xs font-extrabold text-white border border-white/10">
                   <ShieldCheck className="size-3.5 text-accent-300" aria-hidden="true" />
-                  ضمان جودة
+                  معاينة مصوّرة
                 </span>
                 <span className="inline-flex items-center gap-1.5 rounded-xl bg-white/15 backdrop-blur-md px-3 py-1.5 text-xs font-extrabold text-white border border-white/10">
                   <PackageCheck className="size-3.5 text-teal-300" aria-hidden="true" />
-                  أسعار معلنة
+                  استفسار عبر واتساب
                 </span>
               </div>
               <div className="absolute bottom-6 end-6">

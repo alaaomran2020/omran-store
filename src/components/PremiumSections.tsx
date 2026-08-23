@@ -18,13 +18,14 @@ import {
   Award,
   RefreshCcw,
 } from "lucide-react";
-import { products } from "@/lib/products";
+import { catalogProducts } from "@/lib/products";
 import { categories } from "@/lib/categories";
 import { ProductCard } from "@/components/ProductCard";
 import { buildInquiryUrl } from "@/lib/whatsapp";
+import { useStore } from "@/context/StoreProvider";
 import { formatPrice, formatNumber } from "@/lib/format";
 import { siteConfig } from "@/lib/site";
-import type { Product } from "@/lib/types";
+import type { CategoryId, Product } from "@/lib/types";
 
 /* ------------------------------------------------------------------ */
 /*  Promotional Banner Cards                                          */
@@ -96,21 +97,29 @@ export function PromoBanners() {
 /*  Featured Categories Grid                                        */
 /* ------------------------------------------------------------------ */
 export function FeaturedCategories() {
+  const { setCategoryFilter } = useStore();
+
+  const focusCategory = (categoryId: CategoryId) => {
+    setCategoryFilter(categoryId);
+    window.setTimeout(() => document.getElementById("products")?.scrollIntoView({ behavior: "smooth", block: "start" }), 0);
+  };
+
   return (
     <section className="py-10 sm:py-14">
       <div className="container-page">
         <div className="text-center mb-10">
           <span className="inline-flex items-center gap-1.5 rounded-full bg-brand-50 px-3.5 py-1 text-[11px] font-extrabold text-brand-700">الأقسام</span>
           <h2 className="mt-3 text-3xl sm:text-4xl font-extrabold text-ink-900 tracking-tight">تصفّح حسب القسم</h2>
-          <p className="mt-2 text-sm text-ink-500">أقسام متنوعة تغطي كل احتياجات متجرك</p>
+          <p className="mt-2 text-sm text-ink-500">اختر فئة لتصل إلى المنتجات المرتبطة بها مباشرة</p>
         </div>
 
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {categories.map((cat) => (
-            <a
+          {categories.filter((cat) => catalogProducts.some((product) => product.categoryId === cat.id)).map((cat) => (
+            <button
               key={cat.id}
-              href="#products"
-              className="group relative overflow-hidden rounded-[2rem] bg-white border border-ink-200 p-6 shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300"
+              type="button"
+              onClick={() => focusCategory(cat.id)}
+              className="group relative w-full overflow-hidden rounded-[2rem] border border-ink-200 bg-white p-6 text-start shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:border-brand-200 hover:shadow-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
             >
               <div className="absolute top-0 end-0 size-32 rounded-full bg-gradient-to-br from-brand-50 to-transparent -translate-y-1/3 translate-x-1/4" aria-hidden="true" />
               <div className="relative z-10">
@@ -124,7 +133,7 @@ export function FeaturedCategories() {
                   <ArrowLeft className="size-4 rotate-180 group-hover:-translate-x-1 transition-transform" aria-hidden="true" />
                 </span>
               </div>
-            </a>
+            </button>
           ))}
         </div>
       </div>
@@ -136,7 +145,7 @@ export function FeaturedCategories() {
 /*  Best Sellers                                                     */
 /* ------------------------------------------------------------------ */
 export function BestSellers() {
-  const best = products.filter((p) => p.featured).slice(0, 4);
+  const best = catalogProducts.filter((p) => p.featured).slice(0, 4);
 
   return (
     <section className="py-10 sm:py-14">
@@ -167,7 +176,7 @@ export function BestSellers() {
 /*  New Arrivals                                                     */
 /* ------------------------------------------------------------------ */
 export function NewArrivals() {
-  const arrivals = products.slice(0, 4);
+  const arrivals = catalogProducts.slice(0, 4);
 
   return (
     <section className="py-10 sm:py-14 bg-gradient-to-b from-ink-50/50 to-white">
@@ -272,7 +281,7 @@ export function FlashDeals() {
 /*  Trending Products                                                 */
 /* ------------------------------------------------------------------ */
 export function TrendingProducts() {
-  const trending = products.filter((p) => p.inStock && p.featured).slice(0, 4);
+  const trending = catalogProducts.filter((p) => p.inStock && p.featured).slice(0, 4);
 
   return (
     <section className="py-10 sm:py-14">
@@ -359,10 +368,10 @@ export function CustomerReviews() {
 /* ------------------------------------------------------------------ */
 export function BrandAdvantages() {
   const advantages = [
-    { icon: Truck, title: "شحن معتمد", desc: "نتعاون مع شركات شحن موثوقة ونحدد لك قيمة الشحن قبل الطلب." },
-    { icon: ShieldCheck, title: "ضمان جودة", desc: "كل منتج يتم فحصه قبل التوريد لضمان أعلى معايير الجودة." },
-    { icon: RefreshCcw, title: "استبدال سهل", desc: "سياسة استبدال وإرجاع واضحة خلال 7 أيام من الاستلام." },
-    { icon: MessageSquare, title: "دعم سريع", desc: "فريق مبيعات متاح للرد خلال ساعات العمل الرسمية عبر واتساب." },
+    { icon: Truck, title: "كتالوج مصوّر", desc: "شاهد صور المنتجات وتعرّف على الخيارات المتاحة قبل إرسال استفسارك." },
+    { icon: ShieldCheck, title: "بيانات واضحة", desc: "الأسماء والأوصاف الحالية منظمة، والأسعار والمواصفات النهائية تُضاف لاحقاً." },
+    { icon: RefreshCcw, title: "أقسام سهلة", desc: "تصفح الألعاب حسب الفئة وابحث عن المنتج المطلوب بسرعة." },
+    { icon: MessageSquare, title: "استفسار مباشر", desc: "أرسل اسم المنتج أو كوده عبر واتساب لمعرفة التفاصيل المتاحة." },
   ];
 
   return (
@@ -401,9 +410,9 @@ export function BrandAdvantages() {
 /* ------------------------------------------------------------------ */
 export function FAQPreview() {
   const faqs = [
-    { q: "ما هو الحد الأدنى للطلب بسعر الجملة؟", a: "يبدأ من دستة كاملة (12 قطعة) من نفس الصنف، مع توضيح الكمية على كل بطاقة منتج." },
-    { q: "هل يمكن الشراء الفردي بسعر القطاعي؟", a: "نعم، نوفر سعر القطاعي على جميع الأصناف بدون حد أدنى للكمية." },
-    { q: "ما مدة الشحن للمحافظات الأخرى؟", a: "من 2 إلى 5 أيام عمل حسب المحافظة، مع تحديد التكلفة قبل تنفيذ الطلب." },
+    { q: "كيف أتعرف على المنتجات الموجودة؟", a: "تصفح الكتالوج حسب القسم أو استخدم البحث للوصول إلى الألعاب الظاهرة حالياً." },
+    { q: "هل الأسعار والمواصفات النهائية مضافة؟", a: "الأسعار والمواصفات النهائية تُضاف لاحقاً، ويمكنك الاستفسار عن أي منتج عبر واتساب." },
+    { q: "كيف أستفسر عن منتج؟", a: "اضغط على زر الاستفسار في بطاقة المنتج أو صفحة التفاصيل، وستفتح رسالة واتساب جاهزة." },
   ];
 
   const [openIndex, setOpenIndex] = useState<number | null>(0);
@@ -460,7 +469,7 @@ export function Newsletter() {
           <div className="relative z-10 grid lg:grid-cols-2 gap-8 items-center p-8 sm:p-14">
             <div>
               <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight">احصل على أحدث العروض</h2>
-              <p className="mt-3 text-sm text-brand-100 leading-relaxed">تواصل معنا مباشرة لمعرفة الأصناف الجديدة وعروض الجملة والقطاعي المتاحة حالياً.</p>
+              <p className="mt-3 text-sm text-brand-100 leading-relaxed">تواصل معنا مباشرة لمعرفة تفاصيل المنتجات الجديدة والبيانات المتاحة حالياً في الكتالوج.</p>
             </div>
             <a
               href={buildInquiryUrl("أحدث العروض والمنتجات الجديدة")}

@@ -1,10 +1,8 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import { getProductById, products } from "@/lib/products";
+import { products } from "@/lib/products";
 import { categoryMap } from "@/lib/categories";
-import { formatPrice, formatNumber, getUnitPrice } from "@/lib/format";
-import { Package } from "lucide-react";
 import { ProductActions } from "@/components/ProductActions";
 import { ProductGallery } from "@/components/ProductGallery";
 
@@ -14,12 +12,11 @@ export async function generateStaticParams() {
 
 export default async function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const product = getProductById(products.find((p) => p.slug === slug)?.id ?? "");
+  const product = products.find((p) => p.slug === slug);
   if (!product) notFound();
 
   const category = categoryMap[product.categoryId];
   const related = products.filter((p) => p.categoryId === product.categoryId && p.id !== product.id).slice(0, 3);
-  const unitPrice = getUnitPrice(product, "retail");
 
   return (
     <main>
@@ -53,9 +50,10 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
             <h1 className="mt-3 text-3xl sm:text-4xl font-extrabold text-ink-900 tracking-tight leading-tight">{product.name}</h1>
             <p className="mt-4 text-sm text-ink-600 leading-relaxed">{product.description}</p>
 
-            <div className="mt-6 flex items-baseline gap-3">
-              <span className="num text-3xl font-extrabold text-brand-800">{formatPrice(unitPrice)}</span>
-              <span className="text-sm text-ink-400">سعر القطعة</span>
+            <div className="mt-6 rounded-2xl border border-brand-200 bg-brand-50 p-4">
+              <p className="text-xs font-bold text-brand-700">السعر</p>
+              <p className="mt-1 text-xl font-extrabold text-brand-900">يُضاف لاحقاً</p>
+              <p className="mt-1 text-xs text-brand-800/75">تواصل معنا عبر واتساب لمعرفة السعر والتوفر.</p>
             </div>
 
             {/* Features */}
@@ -73,17 +71,9 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
               ))}
             </ul>
 
-            {/* Packaging */}
-            <div className="mt-6 rounded-2xl bg-gradient-to-r from-brand-50 to-white border border-brand-100 p-4">
-              <h3 className="text-sm font-extrabold text-brand-900 flex items-center gap-2">
-                <Package className="size-4" aria-hidden="true" /> بيانات التعبئة
-              </h3>
-              <div className="mt-3 grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
-                <span className="rounded-lg bg-white border border-brand-100 px-3 py-2"><span className="text-ink-400">الكرتونة:</span> <span className="num font-bold text-ink-800">{formatNumber(product.packaging.unitsPerCarton)} قطعة</span></span>
-                <span className="rounded-lg bg-white border border-brand-100 px-3 py-2"><span className="text-ink-400">أقل جملة:</span> <span className="num font-bold text-ink-800">{formatNumber(product.packaging.minWholesaleUnits)} قطعة</span></span>
-                <span className="rounded-lg bg-white border border-brand-100 px-3 py-2"><span className="text-ink-400">الوزن:</span> <span className="num font-bold text-ink-800">{product.packaging.cartonWeightKg} كجم</span></span>
-                <span className="rounded-lg bg-white border border-brand-100 px-3 py-2"><span className="text-ink-400">الأبعاد:</span> <span className="font-bold text-ink-800">{product.packaging.cartonDimensions}</span></span>
-              </div>
+            {/* بيانات سيتم استكمالها */}
+            <div className="mt-6 rounded-2xl border border-dashed border-ink-300 bg-ink-50 p-4 text-sm text-ink-600">
+              سيتم استكمال العمر المناسب والمواصفات التفصيلية وبيانات التعبئة بعد اعتماد بيانات المنتج.
             </div>
 
             {/* Badges */}
@@ -116,7 +106,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                   </div>
                   <h3 className="mt-4 text-sm font-extrabold text-ink-900 group-hover:text-brand-800 transition-colors">{p.name}</h3>
                   <p className="mt-1 text-xs text-ink-500">{p.shortDescription}</p>
-                  <span className="mt-3 block num text-base font-extrabold text-brand-800">{formatPrice(getUnitPrice(p, "retail"))}</span>
+                  <span className="mt-3 block text-sm font-extrabold text-brand-800">السعر يُضاف لاحقاً</span>
                 </Link>
               ))}
             </div>

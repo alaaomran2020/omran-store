@@ -18,10 +18,10 @@ export function Footer() {
         {/* Trust badges strip */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-12">
           {[
-            { icon: Truck, title: "شحن موثوق", desc: "لجميع المحافظات" },
-            { icon: ShieldCheck, title: "ضمان جودة", desc: "فحص دقيق قبل التوريد" },
-            { icon: Sparkles, title: "أسعار معلنة", desc: "جملة وقطاعي بلا مفاجآت" },
-            { icon: CreditCard, title: "دفع آمن", desc: "مع شركات شحن معتمدة" },
+            { icon: Truck, title: "كتالوج متجدد", desc: "منتجات مختارة بعناية" },
+            { icon: ShieldCheck, title: "صور واضحة", desc: "اطّلع على المنتج قبل السؤال" },
+            { icon: Sparkles, title: "بيانات قابلة للتحديث", desc: "الاسم والوصف والسعر يُضافون لاحقاً" },
+            { icon: CreditCard, title: "استفسار سريع", desc: "تواصل مباشر عبر واتساب" },
           ].map((badge) => (
             <div key={badge.title} className="flex items-center gap-3 rounded-2xl bg-white/5 border border-white/10 px-4 py-3.5 backdrop-blur-sm">
               <span className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-brand-700 text-white">
@@ -46,7 +46,7 @@ export function Footer() {
               <span className="text-base font-extrabold text-white tracking-tight">عمران للألعاب</span>
             </Link>
             <p className="text-sm leading-relaxed text-ink-400">
-              مورّد متخصص في ألعاب الأطفال والعرائس والألعاب التعليمية ومستلزمات الحفلات والهدايا بالجملة والقطاعي في طنطا وجميع محافظات مصر.
+              كتالوج عمران للألعاب والعرائس والألعاب التعليمية والهدايا. تصفّح المنتجات وتواصل معنا مباشرة للاستفسار عن التفاصيل والتوفر.
             </p>
           </div>
 
@@ -59,8 +59,6 @@ export function Footer() {
                   <a href={link.href} className="text-ink-400 hover:text-white transition-colors font-medium">{link.label}</a>
                 </li>
               ))}
-              <li><a href="#" className="text-ink-400 hover:text-white transition-colors font-medium">سياسة الشحن</a></li>
-              <li><a href="#" className="text-ink-400 hover:text-white transition-colors font-medium">سياسة الإرجاع</a></li>
             </ul>
           </nav>
 
@@ -107,7 +105,7 @@ export function Footer() {
         {/* Bottom bar */}
         <div className="mt-12 flex flex-col md:flex-row items-center justify-between gap-4 border-t border-white/10 pt-8 text-xs text-ink-400">
           <p>© <span className="num">{year}</span> {siteConfig.legalName}. جميع الحقوق محفوظة.</p>
-          <p className="text-center">الأسعار المعروضة استرشادية ويجب تأكيدها مع قيمة الشحن قبل تنفيذ الطلب.</p>
+          <p className="text-center">بيانات المنتجات الحالية أولية، وسيتم تحديث الاسم والوصف والسعر عند اعتمادها.</p>
         </div>
       </div>
     </footer>
