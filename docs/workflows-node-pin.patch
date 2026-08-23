@@ -1,0 +1,68 @@
+diff --git a/.github/workflows/nextjs.yml b/.github/workflows/nextjs.yml
+index d1837be..6d17426 100644
+--- a/.github/workflows/nextjs.yml
++++ b/.github/workflows/nextjs.yml
+@@ -51,7 +51,7 @@ jobs:
+       - name: Setup Node
+         uses: actions/setup-node@v4
+         with:
+-          node-version: "20"
++          node-version-file: ".nvmrc"
+           cache: ${{ steps.detect-package-manager.outputs.manager }}
+       - name: Setup Pages
+         uses: actions/configure-pages@v5
+diff --git a/.github/workflows/sync-instagram.yml b/.github/workflows/sync-instagram.yml
+index ca0a138..b5a48b5 100644
+--- a/.github/workflows/sync-instagram.yml
++++ b/.github/workflows/sync-instagram.yml
+@@ -27,9 +27,23 @@ jobs:
+       - name: Setup Node
+         uses: actions/setup-node@v4
+         with:
+-          node-version: "20"
++          node-version-file: ".nvmrc"
++
++      - name: Check Instagram credentials
++        id: creds
++        env:
++          INSTAGRAM_ACCESS_TOKEN: ${{ secrets.INSTAGRAM_ACCESS_TOKEN }}
++          INSTAGRAM_USER_ID: ${{ vars.INSTAGRAM_USER_ID }}
++        run: |
++          if [ -n "$INSTAGRAM_ACCESS_TOKEN" ] && [ -n "$INSTAGRAM_USER_ID" ]; then
++            echo "ready=true" >> "$GITHUB_OUTPUT"
++          else
++            echo "ready=false" >> "$GITHUB_OUTPUT"
++            echo "::warning::تم تخطي مزامنة إنستغرام: INSTAGRAM_ACCESS_TOKEN أو INSTAGRAM_USER_ID غير مضبوط."
++          fi
+ 
+       - name: Sync Instagram feed
++        if: steps.creds.outputs.ready == 'true'
+         env:
+           INSTAGRAM_ACCESS_TOKEN: ${{ secrets.INSTAGRAM_ACCESS_TOKEN }}
+           INSTAGRAM_USER_ID: ${{ vars.INSTAGRAM_USER_ID }}
+@@ -40,12 +54,17 @@ jobs:
+         run: node scripts/sync-instagram-feed.mjs
+ 
+       - name: Commit changed feed data
++        if: steps.creds.outputs.ready == 'true'
++        id: commit
+         run: |
+           if git diff --quiet -- src/data/instagram-feed.json; then
+             echo "Instagram feed is unchanged."
++            echo "changed=false" >> "$GITHUB_OUTPUT"
+             exit 0
+           fi
+ 
++          echo "changed=true" >> "$GITHUB_OUTPUT"
++
+           git config user.name "github-actions[bot]"
+           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+           git add src/data/instagram-feed.json
+@@ -53,6 +72,7 @@ jobs:
+           git push
+ 
+       - name: Deploy site with refreshed feed
++        if: steps.creds.outputs.ready == 'true' && steps.commit.outputs.changed == 'true'
+         env:
+           GH_TOKEN: ${{ github.token }}
+         run: gh workflow run nextjs.yml --repo "$GITHUB_REPOSITORY" --ref main
