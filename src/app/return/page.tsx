@@ -1,4 +1,21 @@
+import type { Metadata } from "next";
 import { StructuredData } from "@/components/StructuredDataPages";
+import { absoluteUrl } from "@/lib/seo";
+
+export const metadata: Metadata = {
+  title: "سياسة الاستبدال والإرجاع",
+  description:
+    "تعرف على سياسة الإرجاع والاستبدال في كتالوج عمران للألعاب — يمكنك إرجاع أو استبدال المنتج خلال 7 أيام بشرط سلامة المنتج العبوة.",
+  alternates: { canonical: absoluteUrl("/return") },
+  openGraph: {
+    type: "website",
+    locale: "ar_EG",
+    url: absoluteUrl("/return"),
+    title: "سياسة الاستبدال والإرجاع | عمران للألعاب",
+    description: "سياسة الإرجاع والاستبدال خلال 7 أيام في كتالوج عمران للألعاب.",
+  },
+  twitter: { card: "summary_large_image", title: "سياسة الاستبدال والإرجاع | عمران للألعاب", description: "سياسة الإرجاع لكتالوج عمران للألعاب." },
+};
 
 export default function ReturnPage() {
   return (

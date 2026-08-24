@@ -1,4 +1,21 @@
+import type { Metadata } from "next";
 import { StructuredData } from "@/components/StructuredDataPages";
+import { absoluteUrl } from "@/lib/seo";
+
+export const metadata: Metadata = {
+  title: "سياسة الخصوصية",
+  description:
+    "تعرف على كيفية جمع وحماية بياناتك عند التواصل مع كتالوج عمران للألعاب. نجمع بيانات الاتصال فقط لتنسيق الطلبات والشحن ولا نشاركها مع أي طرف ثالث.",
+  alternates: { canonical: absoluteUrl("/privacy") },
+  openGraph: {
+    type: "website",
+    locale: "ar_EG",
+    url: absoluteUrl("/privacy"),
+    title: "سياسة الخصوصية | عمران للألعاب",
+    description: "كيفية جمع وحماية بياناتك في كتالوج عمران للألعاب.",
+  },
+  twitter: { card: "summary_large_image", title: "سياسة الخصوصية | عمران للألعاب", description: "سياسة الخصوصية لكتالوج عمران للألعاب." },
+};
 
 export default function PrivacyPage() {
   return (
