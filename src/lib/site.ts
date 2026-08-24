@@ -103,3 +103,9 @@ export const siteConfig: SiteConfig = {
   phoneDisplay: "01555570269",
   address: "طنطا - ميدان السيد البدوي — فرع الاستاد",
 };
+/** القيم الافتراضية للصورة المشاركة عبر منصات التواصل (Open Graph). */
+export const openGraphImage = {
+  url: "/og-image.png",
+  width: 1200,
+  height: 630,
+};

@@ -1,6 +1,26 @@
+import type { Metadata } from "next";
 import { StructuredData } from "@/components/StructuredDataPages";
 import { Award, Users, MapPin, Clock, Phone, ShieldCheck } from "lucide-react";
 import { siteConfig } from "@/lib/site";
+import { absoluteUrl } from "@/lib/seo";
+
+export const metadata: Metadata = {
+  title: "عن عمران للألعاب",
+  description:
+    "تعرف على شركة عمران التجارية — مورّد متخصص في ألعاب الأطفال والعرائس والألعاب التعليمية ومستلزمات الحفلات في طنطا ومصر، مع أسعار جملة وقطاعي وتوصيل لجميع المحافظات.",
+  alternates: { canonical: absoluteUrl("/about") },
+  openGraph: {
+    type: "website",
+    locale: "ar_EG",
+    url: absoluteUrl("/about"),
+    siteName: siteConfig.name,
+    title: "عن عمران للألعاب | شركة عمران التجارية",
+    description:
+      "مورّد متخصص في ألعاب الأطفال والهدايا ومستلزمات الحفلات في طنطا وجميع محافظات مصر. تواصل معنا عبر واتساب.",
+    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: siteConfig.name }],
+  },
+  twitter: { card: "summary_large_image", title: "عن عمران للألعاب", description: siteConfig.description, images: ["/og-image.png"] },
+};
 
 export default function AboutPage() {
   return (

@@ -7,15 +7,19 @@ import { StoreProvider } from "@/context/StoreProvider";
 import { Header } from "@/components/Header";
 import { BackToTop } from "@/components/BackToTop";
 import { Footer } from "@/components/Footer";
-import { siteConfig } from "@/lib/site";
+import { siteConfig, openGraphImage } from "@/lib/site";
+
+const defaultTitle = `${siteConfig.name} | ${siteConfig.tagline}`;
+const defaultDescription = siteConfig.description;
+const defaultCanonical = siteConfig.url;
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
-    default: `${siteConfig.name} | ${siteConfig.tagline}`,
+    default: defaultTitle,
     template: `%s | ${siteConfig.name}`,
   },
-  description: siteConfig.description,
+  description: defaultDescription,
   applicationName: siteConfig.name,
   keywords: [
     "كتالوج ألعاب أطفال",
@@ -24,39 +28,59 @@ export const metadata: Metadata = {
     "ألعاب تعليمية للأطفال",
     "عرائس ودمى",
     "هدايا وألعاب أطفال",
+    "ألعاب أطفال بالجملة",
+    "توريد ألعاب محلات",
     "شركة عمران التجارية",
   ],
   authors: [{ name: siteConfig.legalName }],
+  creator: siteConfig.legalName,
+  publisher: siteConfig.legalName,
+  alternates: {
+    canonical: defaultCanonical,
+  },
   icons: {
     icon: [{ url: "/icon.svg", type: "image/svg+xml" }],
     shortcut: "/icon.svg",
     apple: "/icon.svg",
+  },
+  other: {
+    "geo.region": "EG-GHB",
+    "geo.placename": "Tanta, Egypt",
+    "geo.position": "30.793;30.999",
+    ICBM: "30.793, 30.999",
   },
   openGraph: {
     type: "website",
     locale: "ar_EG",
     url: siteConfig.url,
     siteName: siteConfig.name,
-    title: `${siteConfig.name} | ${siteConfig.tagline}`,
-    description: siteConfig.description,
+    title: defaultTitle,
+    description: defaultDescription,
     images: [
       {
-        url: "/og-image.svg",
-        width: 1200,
-        height: 630,
+        url: openGraphImage.url,
+        width: openGraphImage.width,
+        height: openGraphImage.height,
         alt: siteConfig.name,
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: siteConfig.name,
-    description: siteConfig.description,
-    images: ["/og-image.svg"],
+    title: defaultTitle,
+    description: defaultDescription,
+    images: [openGraphImage.url],
   },
   robots: {
     index: true,
     follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
   },
 };
 

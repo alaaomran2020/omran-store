@@ -1,22 +1,33 @@
-"use client";
-
+import type { Metadata } from "next";
 import { StructuredData } from "@/components/StructuredDataPages";
-import { ChevronDown } from "lucide-react";
-import { useState } from "react";
+import { FaqAccordion } from "@/components/FaqAccordion";
+import { JsonLd } from "@/components/JsonLd";
+import { faqs } from "@/lib/faqs";
+import { faqJsonLd, absoluteUrl } from "@/lib/seo";
+import { siteConfig } from "@/lib/site";
 
-const faqs = [
-  { q: "ما هو الحد الأدنى للطلب بسعر الجملة؟", a: "يبدأ من دستة كاملة (12 قطعة) من نفس الصنف، مع توضيح الكمية على كل بطاقة منتج." },
-  { q: "هل يمكن الشراء الفردي بسعر القطاعي؟", a: "نعم، نوفر سعر القطاعي على جميع الأصناف بدون حد أدنى للكمية." },
-  { q: "ما مدة الشحن للمحافظات الأخرى؟", a: "من 2 إلى 5 أيام عمل حسب المحافظة، مع تحديد التكلفة قبل تنفيذ الطلب." },
-  { q: "ما هي سياسة الإرجاع؟", a: "يمكن الإرجاع أو الاستبدال خلال 7 أيام من الاستلام بشرط سلامة المنتج." },
-];
+export const metadata: Metadata = {
+  title: "الأسئلة الشائعة",
+  description:
+    "إجابات على أكثر الاستفسارات شيوعاً حول أسعار الجملة والقطاعي، مدة الشحن للمحافظات، وسياسة الإرجاع في كتالوج عمران للألعاب.",
+  alternates: { canonical: absoluteUrl("/faq") },
+  openGraph: {
+    type: "website",
+    locale: "ar_EG",
+    url: absoluteUrl("/faq"),
+    siteName: siteConfig.name,
+    title: "الأسئلة الشائعة | عمران للألعاب",
+    description: "إجابات سريعة حول الحد الأدنى للطلب، الشحن، والسياسات من كتالوج عمران للألعاب.",
+    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: siteConfig.name }],
+  },
+  twitter: { card: "summary_large_image", title: "الأسئلة الشائعة | عمران للألعاب", description: siteConfig.description, images: ["/og-image.png"] },
+};
 
 export default function FAQPage() {
-  const [openIndex, setOpenIndex] = useState<number | null>(0);
-
   return (
     <>
-      <StructuredData />
+      <StructuredData type="none" />
+      <JsonLd data={faqJsonLd(faqs)} />
       <main>
         <div className="relative overflow-hidden bg-gradient-to-br from-brand-950 via-brand-900 to-brand-800 text-white">
           <div className="container-page relative py-14 sm:py-20">
@@ -25,23 +36,7 @@ export default function FAQPage() {
           </div>
         </div>
         <section className="container-page py-12 sm:py-16">
-          <div className="max-w-2xl space-y-3">
-            {faqs.map((faq, i) => (
-              <div key={i} className="rounded-2xl bg-white border border-ink-100 shadow-sm overflow-hidden">
-                <button
-                  type="button"
-                  onClick={() => setOpenIndex(openIndex === i ? null : i)}
-                  className="w-full flex items-center justify-between gap-4 px-6 py-5 text-start"
-                >
-                  <span className="text-sm font-extrabold text-ink-900">{faq.q}</span>
-                  <ChevronDown className={`size-5 text-brand-600 shrink-0 transition-transform duration-200 ${openIndex === i ? "rotate-180" : ""}`} aria-hidden="true" />
-                </button>
-                <div className={`overflow-hidden transition-all duration-300 ${openIndex === i ? "max-h-40" : "max-h-0"}`}>
-                  <div className="px-6 pb-5 text-sm text-ink-600 leading-relaxed">{faq.a}</div>
-                </div>
-              </div>
-            ))}
-          </div>
+          <FaqAccordion faqs={faqs} />
         </section>
       </main>
     </>

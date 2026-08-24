@@ -1,4 +1,21 @@
+import type { Metadata } from "next";
 import { StructuredData } from "@/components/StructuredDataPages";
+import { absoluteUrl } from "@/lib/seo";
+
+export const metadata: Metadata = {
+  title: "الشروط والأحكام",
+  description:
+    "تعرف على الشروط والأحكام الخاصة بكتالوج عمران للألعاب — الأسعار استرشادية وتُؤكَّد قبل تنفيذ الطلب، ويتم تطبيق الأسعار السارية وقت تأكيد الطلب.",
+  alternates: { canonical: absoluteUrl("/terms") },
+  openGraph: {
+    type: "website",
+    locale: "ar_EG",
+    url: absoluteUrl("/terms"),
+    title: "الشروط والأحكام | عمران للألعاب",
+    description: "الشروط والأحكام الخاصة بكتالوج عمران للألعاب.",
+  },
+  twitter: { card: "summary_large_image", title: "الشروط والأحكام | عمران للألعاب", description: "الشروط والأحكام لكتالوج عمران للألعاب." },
+};
 
 export default function TermsPage() {
   return (

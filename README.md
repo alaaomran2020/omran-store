@@ -97,6 +97,10 @@ src/
 │   ├── PremiumSections.tsx  # FeaturedCategories + BrandAdvantages + FAQ + Newsletter
 │   ├── AboutSection.tsx     # عن الكتالوج
 │   ├── ContactSection.tsx   # تواصل
+│   ├── ContactForm.tsx      # نموذج التواصل التفاعلي (Client)
+│   ├── FaqAccordion.tsx     # أكورديون الأسئلة (Client)
+│   ├── JsonLd.tsx           # عارض البيانات المنظمة (JSON-LD)
+│   ├── StructuredDataPages.tsx # بيانات منظمة للصفحات الداخلية
 │   ├── InstagramFeed.tsx    # خلاصة إنستغرام
 │   ├── Footer.tsx           # تذييل كتالوج
 │   └── BackToTop.tsx        # زر أعلى الصفحة
@@ -108,13 +112,45 @@ src/
 │   ├── cart-store.ts        # محفوظ للاختبارات
 │   ├── categories.ts        # 4 أقسام
 │   ├── whatsapp.ts          # روابط واتساب (استفسار منتج + استفسار عام)
+│   ├── seo.ts               # أدوات SEO + البيانات المنظمة (JSON-LD)
+│   ├── faqs.ts              # الأسئلة الشائعة (لصفحة FAQ + FAQPage schema)
 │   ├── site.ts              # بيانات الشركة
 │   └── format.ts
 └── public/
     ├── catalog-facebook/    # 12 صورة حقيقية
+    ├── og-image.png         # صورة المشاركة الاجتماعية (Open Graph) 1200×630
     ├── CNAME                # omrantoys.store
     └── ...
 ```
+
+---
+
+## تحسين محركات البحث (SEO)
+
+### البيانات المنظمة (JSON-LD)
+- `src/lib/seo.ts` يركّز بناء كل بيانات Schema.org عبر دوال قابلة لإعادة الاستخدام:
+  - `organizationJsonLd()` — كيان المنظمة (Organization) يُدرج في كل الصفحات.
+  - `websiteJsonLd()` — بيانات الموقع (WebSite) لتحسين نتائج البحث.
+  - `localBusinessJsonLd()` — كيان نشاط تجاري محلي (LocalBusiness/Store) يدعم البحث المحلي في طنطا/الغربية.
+  - `productJsonLd(product, category)` — بيانات المنتج (Product) لكل منتج لتفعيل النتائج الغنية.
+  - `breadcrumbJsonLd(items)` — مسار التنقل (BreadcrumbList) في صفحات المنتجات.
+  - `itemListJsonLd(products, name)` — قائمة المنتجات (ItemList) لصفحة الكتالوج.
+  - `faqJsonLd(faqs)` — الأسئلة الشائعة (FAQPage) لصفحة الأسئلة.
+- `JsonLd.tsx` يعرض JSON-LD بأمان (تهريب `<` لتجنّب كسر HTML).
+
+### صفحات المنتجات
+- `generateMetadata` يضيف **عنواناً ووصفاً ورابطاً قانونياً (canonical)** فريداً لكل منتج، مع Open Graph و Twitter Cards باستخدام صور المنتج الحقيقية.
+- رفع indexability عبر `robots` في `layout.tsx` (`max-image-preview`, `max-snippet`).
+
+### الموقع العام
+- خريطة الموقع `sitemap.ts` تغطي الآن: الرئيسية، كل الصفحات الثابتة، و **جميع صفحات المنتجات الـ 12** (كانت سابقاً الرئيسية فقط).
+- `robots.ts` يوجّه إلى `sitemap.xml`.
+- أُضيفت وسوم جغرافية (geo) في `layout.tsx` لدعم البحث المحلي.
+- صورة المشاركة الاجتماعية تم تحويلها إلى `og-image.png` (1200×630) لأن منصات التواصل لا تعرض SVG.
+
+### إعادة هيكلة لتوافق البيانات الوصفية
+- صفحات `about` و `contact` و `faq` و `privacy` و `shipping` و `return` و `terms` تحوّلت إلى **مكوّنات خادم (Server Components)** حتى تستطيع تصدير `metadata`، مع فصل الأجزاء التفاعلية في `ContactForm.tsx` و `FaqAccordion.tsx`.
+- صفحة `faq` تستخدم `faqs.ts` كمرجع واحد للأسئلة في العرض و `FAQPage` schema.
 
 ---
 

@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
@@ -5,10 +6,48 @@ import { catalogProducts, getProductBySlug } from "@/lib/products";
 import { categoryMap } from "@/lib/categories";
 import { ProductActions } from "@/components/ProductActions";
 import { ProductGallery } from "@/components/ProductGallery";
+import { JsonLd } from "@/components/JsonLd";
+import { organizationJsonLd, websiteJsonLd, productJsonLd, breadcrumbJsonLd, absoluteUrl } from "@/lib/seo";
+import { siteConfig } from "@/lib/site";
 import { buildInquiryUrl } from "@/lib/whatsapp";
 
 export async function generateStaticParams() {
   return catalogProducts.map((p) => ({ slug: p.slug }));
+}
+
+/** تحسين SEO لكل صفحة منتج: عنوان ووصف ورابط قانوني وبيانات مشاركة فريدة. */
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const product = getProductBySlug(slug) ?? catalogProducts.find((p) => p.slug === slug);
+  if (!product) return {};
+
+  const category = categoryMap[product.categoryId];
+  const title = `${product.name} | ${category?.name ?? "ألعاب أطفال"}`;
+  const description = product.shortDescription || product.description;
+  const url = absoluteUrl(`/products/${product.slug}`);
+  const imageSrc = product.images[0]?.src;
+  const imageAlt = product.images[0]?.alt ?? product.name;
+
+  return {
+    title,
+    description,
+    alternates: { canonical: url },
+    openGraph: {
+      type: "website",
+      locale: "ar_EG",
+      url,
+      siteName: siteConfig.name,
+      title,
+      description,
+      images: imageSrc ? [{ url: absoluteUrl(imageSrc), width: 1200, height: 1200, alt: imageAlt }] : [],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: imageSrc ? [absoluteUrl(imageSrc)] : [],
+    },
+  };
 }
 
 export default async function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -21,6 +60,19 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
 
   return (
     <main>
+      <JsonLd
+        data={[
+          organizationJsonLd(),
+          websiteJsonLd(),
+          productJsonLd(product, category),
+          breadcrumbJsonLd([
+            { name: "الرئيسية", path: "/" },
+            { name: "الكتالوج", path: "/products" },
+            { name: category?.name ?? "الأقسام", path: "/products" },
+            { name: product.name, path: `/products/${product.slug}` },
+          ]),
+        ]}
+      />
       {/* Breadcrumb */}
       <nav aria-label="مسار التنقل" className="container-page pt-6 pb-2 text-xs text-ink-400">
         <ol className="flex items-center gap-2 flex-wrap">

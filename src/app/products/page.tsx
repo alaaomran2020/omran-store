@@ -1,5 +1,31 @@
+import type { Metadata } from "next";
 import { CatalogSection } from "@/components/CatalogSection";
 import { StructuredData } from "@/components/StructuredDataPages";
+import { siteConfig } from "@/lib/site";
+import { absoluteUrl } from "@/lib/seo";
+
+export const metadata: Metadata = {
+  title: "كتالوج ألعاب الأطفال",
+  description:
+    "كتالوج عمران للألعاب — تصفّح 12 منتجاً حقيقياً لعبة أطفال وعرائس وألعاب تعليمية وهدايا وبالونات. استفسر عن السعر والتوفر عبر واتساب مباشرة.",
+  alternates: { canonical: absoluteUrl("/products") },
+  openGraph: {
+    type: "website",
+    locale: "ar_EG",
+    url: absoluteUrl("/products"),
+    siteName: siteConfig.name,
+    title: "كتالوج ألعاب الأطفال | عمران للألعاب",
+    description:
+      "كتالوج احترافي مصوّر بألعاب أطفال وعرائس وألعاب تعليمية وهدايا وبالونات — 12 منتجاً بصور حقيقية، استفسر عبر واتساب.",
+    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: siteConfig.name }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "كتالوج ألعاب الأطفال | عمران للألعاب",
+    description: "تصفّح الكتالوج واستفسر عن أي منتج عبر واتساب مباشرة.",
+    images: ["/og-image.png"],
+  },
+};
 
 export default function ProductsPage() {
   return (
