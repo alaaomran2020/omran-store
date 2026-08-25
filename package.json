@@ -8,7 +8,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "verify:release": "npm test && npm run typecheck && npm run lint && NODE_ENV=production npm run build",
+    "verify:release": "NODE_ENV=test npm test && npm run typecheck && npm run lint && NODE_ENV=production npm run build",
     "start": "next start",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
