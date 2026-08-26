@@ -29,7 +29,7 @@ export function ProductActions({ product }: { product: Product }) {
   return (
     <div className="mt-8 space-y-3">
         <a
-        href={buildProductInquiryUrl(product.name, product.sku, "retail")}
+        href={buildProductInquiryUrl(product.name, product.sku, "retail", product.slug)}
         onClick={() =>
           trackCatalogEvent("whatsapp_inquiry", {
             sku: product.sku,

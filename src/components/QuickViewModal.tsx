@@ -178,7 +178,7 @@ function QuickViewDialog({ product, onClose }: { product: Product; onClose: () =
 
             <div className="mt-auto grid gap-2.5 sm:grid-cols-[1fr_auto]">
               <a
-                href={buildProductInquiryUrl(product.name, product.sku, "retail")}
+                href={buildProductInquiryUrl(product.name, product.sku, "retail", product.slug)}
                 onClick={() =>
                   trackCatalogEvent("whatsapp_inquiry", {
                     sku: product.sku,

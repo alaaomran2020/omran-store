@@ -70,12 +70,17 @@ export function buildInquiryUrl(topic: string): string {
 }
 
 /** رابط واتساب لاستفسار عن منتج محدد — نسخة كتالوج احترافي */
-export function buildProductInquiryUrl(productName: string, sku: string, _mode?: PricingMode): string {
+export function buildProductInquiryUrl(
+  productName: string,
+  sku: string,
+  _mode?: PricingMode,
+  productSlug?: string,
+): string {
   const message = [
     `السلام عليكم، أرغب في الاستفسار عن المنتج التالي من كتالوج ${siteConfig.name}:`,
     `المنتج: ${productName}`,
     `الكود: ${sku}`,
-    `الرابط: ${siteConfig.url}/products`,
+    `الرابط: ${siteConfig.url}/products${productSlug ? `/${productSlug}` : ""}`,
     "",
     `برجاء إفادتي بالسعر والتوفر وخيارات التوصيل. شكراً لكم.`,
   ].join("\n");

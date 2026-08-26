@@ -83,7 +83,7 @@ export function ProductCard({ product, onQuickView }: ProductCardProps) {
 
         <div className="mt-auto flex items-center gap-2 pt-2">
           <a
-            href={buildProductInquiryUrl(product.name, product.sku, "retail")}
+            href={buildProductInquiryUrl(product.name, product.sku, "retail", product.slug)}
             onClick={() =>
               trackCatalogEvent("whatsapp_inquiry", {
                 sku: product.sku,
