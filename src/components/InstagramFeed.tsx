@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { ArrowUpLeft, Camera, ExternalLink, Images } from "lucide-react";
 import feed from "@/data/instagram-feed.json";
 
@@ -42,11 +43,13 @@ function InstagramPostCard({ item }: { item: FeedItem }) {
     >
       <div className="relative aspect-square overflow-hidden bg-gradient-to-br from-brand-100 via-rose-50 to-accent-100">
         {item.imageUrl ? (
-          <img
+          <Image
             src={item.imageUrl}
             alt={captionPreview(item.caption)}
-            loading="lazy"
-            className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+            fill
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+            unoptimized
+            className="object-cover transition duration-500 group-hover:scale-105"
           />
         ) : (
           <div className="flex h-full flex-col items-center justify-center gap-3 px-5 text-center text-brand-800">

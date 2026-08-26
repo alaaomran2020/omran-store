@@ -8,6 +8,7 @@ import { navLinks, siteConfig } from "@/lib/site";
 import { categories } from "@/lib/categories";
 import { catalogProducts } from "@/lib/products";
 import { useStore } from "@/context/StoreProvider";
+import { trackCatalogEvent } from "@/lib/analytics";
 
 /** الهيدر — كتالوج احترافي مع زر واتساب عائم */
 export function Header() {
@@ -179,6 +180,13 @@ export function Header() {
                           <a
                             key={prod.id}
                             href={`/products/${prod.slug}`}
+                            onClick={() =>
+                              trackCatalogEvent("catalog_search", {
+                                queryLength: searchQuery.trim().length,
+                                result: "product",
+                                sku: prod.sku,
+                              })
+                            }
                             className="flex items-center gap-3 rounded-xl px-3 py-2.5 hover:bg-brand-50 transition-colors"
                           >
                             <span className="size-10 rounded-lg bg-ink-50 border border-ink-100 overflow-hidden relative shrink-0">
@@ -201,6 +209,7 @@ export function Header() {
                             type="button"
                             onClick={() => {
                               browseCategory(cat.id);
+                              trackCatalogEvent("catalog_filter", { filter: "header_category", value: cat.id });
                               setSearchOpen(false);
                               setSearchQuery("");
                             }}
@@ -270,6 +279,7 @@ export function Header() {
       {/* Floating WhatsApp Button */}
       <a
         href={`https://wa.me/${siteConfig.whatsappNumber}?text=${encodeURIComponent("السلام عليكم، أرغب في الاستفسار عن منتجاتكم من موقع عمران للألعاب - الكتالوج الاحترافي.")}`}
+        onClick={() => trackCatalogEvent("whatsapp_inquiry", { source: "floating_header", mode: "general" })}
         target="_blank"
         rel="noopener noreferrer"
         aria-label="تواصل عبر واتساب"
