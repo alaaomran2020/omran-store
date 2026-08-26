@@ -4,6 +4,7 @@ import Image from "next/image";
 import { Eye, MessageCircle, Package } from "lucide-react";
 import { categoryMap } from "@/lib/categories";
 import { buildProductInquiryUrl } from "@/lib/whatsapp";
+import { trackCatalogEvent } from "@/lib/analytics";
 import type { Product } from "@/lib/types";
 
 interface ProductCardProps {
@@ -16,12 +17,21 @@ export function ProductCard({ product, onQuickView }: ProductCardProps) {
   const category = categoryMap[product.categoryId];
   const cover = product.images[0];
 
+  const openQuickView = () => {
+    trackCatalogEvent("product_quick_view", {
+      sku: product.sku,
+      category: product.categoryId,
+      source: "product_card",
+    });
+    onQuickView(product);
+  };
+
   return (
     <article className="group flex flex-col overflow-hidden rounded-[1.75rem] border border-ink-200/80 bg-white shadow-[0_8px_30px_rgba(15,23,42,0.04)] transition-all duration-300 hover:-translate-y-1.5 hover:border-brand-200 hover:shadow-[0_20px_45px_rgba(37,78,224,0.14)]">
       <div className="relative aspect-[4/3] overflow-hidden bg-gradient-to-br from-ink-50 via-white to-brand-50">
         <button
           type="button"
-          onClick={() => onQuickView(product)}
+          onClick={openQuickView}
           className="absolute inset-0 z-10 cursor-zoom-in"
           aria-label={`عرض تفاصيل ${product.name}`}
         />
@@ -47,7 +57,7 @@ export function ProductCard({ product, onQuickView }: ProductCardProps) {
         </div>
         <button
           type="button"
-          onClick={() => onQuickView(product)}
+          onClick={openQuickView}
           className="absolute bottom-3 end-3 z-20 flex items-center gap-1.5 rounded-xl bg-white/95 backdrop-blur-sm px-3 py-2 text-[11px] font-bold text-ink-800 shadow-md ring-1 ring-ink-100 transition-all hover:bg-white hover:shadow-lg"
         >
           <Eye className="size-3.5" aria-hidden="true" />
@@ -64,7 +74,7 @@ export function ProductCard({ product, onQuickView }: ProductCardProps) {
         </div>
 
         <h3 className="text-[15px] font-extrabold text-ink-900 leading-snug line-clamp-2">
-          <button type="button" onClick={() => onQuickView(product)} className="text-start hover:text-brand-700 transition-colors">
+          <button type="button" onClick={openQuickView} className="text-start hover:text-brand-700 transition-colors">
             {product.name}
           </button>
         </h3>
@@ -74,6 +84,14 @@ export function ProductCard({ product, onQuickView }: ProductCardProps) {
         <div className="mt-auto flex items-center gap-2 pt-2">
           <a
             href={buildProductInquiryUrl(product.name, product.sku, "retail")}
+            onClick={() =>
+              trackCatalogEvent("whatsapp_inquiry", {
+                sku: product.sku,
+                category: product.categoryId,
+                source: "product_card",
+                mode: "retail",
+              })
+            }
             target="_blank"
             rel="noopener noreferrer"
             className="flex flex-1 items-center justify-center gap-1.5 rounded-xl bg-[#25D366] px-3 py-2.5 text-[13px] font-extrabold text-white shadow-sm transition-all hover:bg-[#20bd5a] hover:shadow-md hover:-translate-y-0.5"
@@ -83,7 +101,7 @@ export function ProductCard({ product, onQuickView }: ProductCardProps) {
           </a>
           <button
             type="button"
-            onClick={() => onQuickView(product)}
+            onClick={openQuickView}
             className="rounded-xl bg-ink-900 px-4 py-2.5 text-[13px] font-bold text-white transition-colors hover:bg-ink-800"
             aria-label={`تفاصيل ${product.name}`}
           >

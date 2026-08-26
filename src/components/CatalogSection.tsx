@@ -17,6 +17,7 @@ import { useStore } from "@/context/StoreProvider";
 import { categories } from "@/lib/categories";
 import { catalogProducts } from "@/lib/products";
 import { formatNumber } from "@/lib/format";
+import { trackCatalogEvent } from "@/lib/analytics";
 import type { IconName, Product, SortOption } from "@/lib/types";
 
 // نافذة العرض السريع في حزمة منفصلة — لا تُحمَّل إلا عند أول استخدام
@@ -124,6 +125,15 @@ export function CatalogSection() {
 
   const hasFilters = query !== "" || category !== "all" || onlyInStock;
 
+  const handleSearchKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Enter" && query.trim()) {
+      trackCatalogEvent("catalog_search", {
+        queryLength: query.trim().length,
+        resultCount: visibleProducts.length,
+      });
+    }
+  };
+
   const resetFilters = () => {
     setQuery("");
     setCategory("all");
@@ -160,6 +170,7 @@ export function CatalogSection() {
                 type="search"
                 value={query}
                 onChange={(event) => setQuery(event.target.value)}
+                onKeyDown={handleSearchKeyDown}
                 placeholder="ابحث بالاسم أو كود الصنف…"
                 aria-label="البحث في المنتجات"
                 className="no-spinner w-full rounded-xl border border-ink-200 bg-white py-3 ps-10 pe-10 text-sm outline-none placeholder:text-ink-400 focus:border-brand-500"
@@ -184,7 +195,11 @@ export function CatalogSection() {
               />
               <select
                 value={sort}
-                onChange={(event) => setSort(event.target.value as SortOption)}
+                onChange={(event) => {
+                const nextSort = event.target.value as SortOption;
+                setSort(nextSort);
+                trackCatalogEvent("catalog_filter", { filter: "sort", value: nextSort });
+              }}
                 aria-label="ترتيب المنتجات"
                 className="w-full rounded-xl border border-ink-200 bg-white px-3 py-3 text-sm font-semibold text-ink-700 outline-none focus:border-brand-500 lg:w-56"
               >
@@ -200,7 +215,14 @@ export function CatalogSection() {
               <input
                 type="checkbox"
                 checked={onlyInStock}
-                onChange={(event) => setOnlyInStock(event.target.checked)}
+                onChange={(event) => {
+                  const nextOnlyInStock = event.target.checked;
+                  setOnlyInStock(nextOnlyInStock);
+                  trackCatalogEvent("catalog_filter", {
+                    filter: "availability",
+                    value: nextOnlyInStock ? "in_stock" : "all",
+                  });
+                }}
                 className="size-4 accent-brand-700"
               />
               المتوفر فقط
@@ -211,7 +233,10 @@ export function CatalogSection() {
           <div className="flex flex-wrap gap-2">
             <button
               type="button"
-              onClick={() => setCategory("all")}
+              onClick={() => {
+                setCategory("all");
+                trackCatalogEvent("catalog_filter", { filter: "category", value: "all" });
+              }}
               aria-pressed={category === "all"}
               className={`flex items-center gap-1.5 rounded-xl border px-3 py-2 text-sm font-semibold transition-colors ${
                 category === "all"
@@ -233,7 +258,10 @@ export function CatalogSection() {
                 <button
                   key={item.id}
                   type="button"
-                  onClick={() => setCategory(item.id)}
+                  onClick={() => {
+                    setCategory(item.id);
+                    trackCatalogEvent("catalog_filter", { filter: "category", value: item.id });
+                  }}
                   aria-pressed={isActive}
                   className={`flex items-center gap-1.5 rounded-xl border px-3 py-2 text-sm font-semibold transition-colors ${
                     isActive

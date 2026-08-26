@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { MessageCircle, Share2, X, Package, Sparkles } from "lucide-react";
 import { categoryMap } from "@/lib/categories";
 import { buildProductInquiryUrl } from "@/lib/whatsapp";
+import { trackCatalogEvent } from "@/lib/analytics";
 import type { Product } from "@/lib/types";
 
 interface QuickViewModalProps {
@@ -40,6 +41,7 @@ function QuickViewDialog({ product, onClose }: { product: Product; onClose: () =
   }, [onClose]);
 
   const handleShare = async () => {
+    trackCatalogEvent("product_share", { sku: product.sku, source: "quick_view" });
     const url = typeof window !== "undefined" ? window.location.href : "";
     const shareData = { title: product.name, text: product.shortDescription, url };
     if (navigator.share) {
@@ -177,6 +179,14 @@ function QuickViewDialog({ product, onClose }: { product: Product; onClose: () =
             <div className="mt-auto grid gap-2.5 sm:grid-cols-[1fr_auto]">
               <a
                 href={buildProductInquiryUrl(product.name, product.sku, "retail")}
+                onClick={() =>
+                  trackCatalogEvent("whatsapp_inquiry", {
+                    sku: product.sku,
+                    category: product.categoryId,
+                    source: "quick_view",
+                    mode: "retail",
+                  })
+                }
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center justify-center gap-2 rounded-xl bg-[#25D366] px-5 py-3.5 text-sm font-extrabold text-white shadow-lg shadow-emerald-900/10 transition-all hover:bg-[#20bd5a] hover:-translate-y-0.5 hover:shadow-xl"
