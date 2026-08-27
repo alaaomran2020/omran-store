@@ -41,7 +41,7 @@ export function FeaturedCategories() {
             الأقسام
           </span>
           <h2 className="mt-3 text-3xl sm:text-4xl font-extrabold text-ink-900 tracking-tight">تصفّح حسب القسم</h2>
-          <p className="mt-2 text-sm text-ink-500">اختر فئة لتصل إلى المنتجات المرتبطة بها مباشرة — كتالوج احترافي</p>
+          <p className="mt-2 text-sm text-ink-500">اختر فئة لتصل إلى المنتجات المرتبطة بها مباشرة</p>
         </div>
 
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -84,7 +84,7 @@ export function BrandAdvantages() {
   const advantages = [
     { icon: Camera, title: "كتالوج مصوّر حقيقي", desc: "صور فعلية من منتجاتنا مع وصف واضح وكود لكل صنف لتسهيل الاستفسار." },
     { icon: ShieldCheck, title: "بيانات واضحة ومنظمة", desc: "اسم، وصف، فئة، كود، ومواصفات أولية — والسعر والتوفر عبر واتساب." },
-    { icon: Search, title: "بحث وتصفية احترافية", desc: "ابحث بالاسم أو الكود، وصفّ حسب القسم والتوفر بسهولة." },
+    { icon: Search, title: "بحث وتصفية سهلة", desc: "ابحث بالاسم أو الكود، وصفّ حسب القسم والتوفر بسهولة." },
     { icon: MessageSquare, title: "استفسار مباشر عبر واتساب", desc: "زر واتساب في كل منتج يفتح رسالة جاهزة باسم المنتج وكوده." },
   ];
 
@@ -102,7 +102,7 @@ export function BrandAdvantages() {
                 لماذا الكتالوج؟
               </span>
               <h2 className="mt-4 text-3xl sm:text-4xl font-extrabold tracking-tight">مميزات كتالوج عمران</h2>
-              <p className="mt-3 text-sm text-brand-100 max-w-2xl mx-auto">كتالوج احترافي بدون سلة أو دفع — تصفح واستفسر فقط</p>
+              <p className="mt-3 text-sm text-brand-100 max-w-2xl mx-auto">تصفح المنتجات واستفسر عن السعر والتوفر عبر واتساب</p>
             </div>
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
               {advantages.map((adv) => (

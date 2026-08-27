@@ -12,7 +12,7 @@ interface ProductCardProps {
   onQuickView: (product: Product) => void;
 }
 
-/** بطاقة منتج احترافية — كتالوج فقط مع واتساب */
+/** بطاقة المنتج — كتالوج فقط مع واتساب */
 export function ProductCard({ product, onQuickView }: ProductCardProps) {
   const category = categoryMap[product.categoryId];
   const cover = product.images[0];

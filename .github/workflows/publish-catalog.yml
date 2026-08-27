@@ -1,0 +1,34 @@
+name: Publish catalog twice daily
+
+on:
+  schedule:
+    - cron: "0 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check Cairo schedule window
+        id: window
+        run: |
+          hour=$(TZ=Africa/Cairo date +%H)
+          minute=$(TZ=Africa/Cairo date +%M)
+          if [ "$minute" = "00" ] && { [ "$hour" = "12" ] || [ "$hour" = "00" ]; }; then
+            echo "run=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "run=false" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Trigger Vercel deployment
+        if: steps.window.outputs.run == 'true'
+        env:
+          VERCEL_DEPLOY_HOOK_URL: ${{ secrets.VERCEL_DEPLOY_HOOK_URL }}
+        run: |
+          test -n "$VERCEL_DEPLOY_HOOK_URL"
+          curl --fail --silent --show-error -X POST "$VERCEL_DEPLOY_HOOK_URL"
+      - name: Skip outside schedule
+        if: steps.window.outputs.run != 'true'
+        run: echo "Outside Cairo publish window; no deployment triggered."
