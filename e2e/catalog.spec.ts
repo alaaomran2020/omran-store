@@ -42,6 +42,27 @@ test.describe("كتالوج عمران للألعاب", () => {
     await expect(page.getByText("الأقسام").last()).toBeVisible();
   });
 
+  test("لوحة الإدارة لا تكشف بيانات المنتجات قبل تسجيل الدخول", async ({ page }) => {
+    const response = await page.goto("/admin");
+    expect(response?.status()).toBe(200);
+    await expect(page.getByRole("heading", { name: /لوحة شركة عمران التجارية/ })).toBeVisible();
+    await expect(page.getByText("حقيبة الرسم الوردية 150 قطعة")).not.toBeVisible();
+  });
+
+  test("الموقع العام لا يعرض مصادر البيانات أو العبارة القديمة", async ({ page }) => {
+    await page.goto("/");
+    await expect(page.locator("body")).not.toContainText("الخلاصة ستظهر هنا قريباً");
+    await expect(page.locator("body")).not.toContainText("احترافي");
+    await expect(page.locator("body")).toContainText("شركة عمران التجارية");
+  });
+
+  test("robots يمنع فهرسة لوحة الإدارة", async ({ request }) => {
+    const response = await request.get("/robots.txt");
+    expect(response.status()).toBe(200);
+    const body = await response.text();
+    expect(body).toContain("/admin");
+  });
+
   test("الصفحات القانونية و404 تستجيب", async ({ page }) => {
     for (const path of ["/privacy", "/shipping", "/terms"]) {
       const response = await page.goto(path);

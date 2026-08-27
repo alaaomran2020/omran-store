@@ -32,7 +32,7 @@ export function WholesaleSection() {
         <div className="mb-8 max-w-2xl">
           <p className="mb-1.5 text-sm font-bold text-brand-700">كيف يعمل الكتالوج؟</p>
           <h2 className="text-2xl font-extrabold text-ink-900 sm:text-3xl">من التصفح إلى الاستفسار في 4 خطوات</h2>
-          <p className="mt-2 text-sm text-ink-600">كتالوج احترافي بدون سلة أو دفع — تصفح واستفسر فقط عبر واتساب.</p>
+          <p className="mt-2 text-sm text-ink-600">كتالوج بدون سلة أو دفع — تصفح واستفسر فقط عبر واتساب.</p>
         </div>
 
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">

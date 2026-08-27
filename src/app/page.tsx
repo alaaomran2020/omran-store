@@ -7,7 +7,6 @@ import {
   Newsletter,
 } from "@/components/PremiumSections";
 import { catalogProducts } from "@/lib/products";
-import { InstagramFeed } from "@/components/InstagramFeed";
 import { AboutSection } from "@/components/AboutSection";
 import { ContactSection } from "@/components/ContactSection";
 import { JsonLd } from "@/components/JsonLd";
@@ -29,7 +28,6 @@ export default function HomePage() {
       <CatalogSection />
       <BrandAdvantages />
       <AboutSection />
-      <InstagramFeed />
       <FAQPreview />
       <Newsletter />
       <ContactSection />

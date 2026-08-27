@@ -10,7 +10,7 @@ import { catalogProducts } from "@/lib/products";
 import { useStore } from "@/context/StoreProvider";
 import { trackCatalogEvent } from "@/lib/analytics";
 
-/** الهيدر — كتالوج احترافي مع زر واتساب عائم */
+/** الهيدر — كتالوج مع زر واتساب عائم */
 export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -50,7 +50,7 @@ export function Header() {
           <div className="flex items-center gap-4">
             <span className="hidden sm:inline-flex items-center gap-1.5 text-brand-100">
               <Sparkles className="size-3.5" aria-hidden="true" />
-              كتالوج احترافي — 12 منتج بصور حقيقية
+              كتالوج — 12 منتج بصور حقيقية
             </span>
             <span className="hidden md:inline-flex items-center gap-1.5 text-brand-100">
               <Sparkles className="size-3.5" aria-hidden="true" />
@@ -88,7 +88,7 @@ export function Header() {
             </div>
             <div className="flex flex-col leading-none">
               <span className="text-[17px] lg:text-xl font-extrabold text-brand-950 tracking-tight">عمران للألعاب</span>
-              <span className="text-[10px] lg:text-[11px] font-medium text-ink-500 mt-0.5">كتالوج احترافي • واتساب فقط</span>
+              <span className="text-[10px] lg:text-[11px] font-medium text-ink-500 mt-0.5">كتالوج • واتساب فقط</span>
             </div>
           </Link>
 
@@ -278,7 +278,7 @@ export function Header() {
 
       {/* Floating WhatsApp Button */}
       <a
-        href={`https://wa.me/${siteConfig.whatsappNumber}?text=${encodeURIComponent("السلام عليكم، أرغب في الاستفسار عن منتجاتكم من موقع عمران للألعاب - الكتالوج الاحترافي.")}`}
+        href={`https://wa.me/${siteConfig.whatsappNumber}?text=${encodeURIComponent("السلام عليكم، أرغب في الاستفسار عن منتجاتكم من موقع عمران للألعاب - كتالوج شركة عمران التجارية.")}`}
         onClick={() => trackCatalogEvent("whatsapp_inquiry", { source: "floating_header", mode: "general" })}
         target="_blank"
         rel="noopener noreferrer"

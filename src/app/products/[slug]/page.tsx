@@ -107,7 +107,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
           {/* Info */}
           <div>
             <span className="inline-block rounded-full bg-brand-50 px-3 py-1 text-[11px] font-extrabold text-brand-700">
-              {category?.name} • كتالوج احترافي
+              {category?.name} • كتالوج
             </span>
             <h1 className="mt-3 text-3xl sm:text-4xl font-extrabold text-ink-900 tracking-tight leading-tight">{product.name}</h1>
             <p className="mt-4 text-sm text-ink-600 leading-relaxed">{product.description}</p>

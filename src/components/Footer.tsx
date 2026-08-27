@@ -19,7 +19,7 @@ export function Footer() {
           {[
             { icon: Camera, title: "صور حقيقية", desc: "12 منتج بصور فعلية" },
             { icon: Search, title: "بحث سريع", desc: "بالاسم والكود" },
-            { icon: ShieldCheck, title: "كتالوج احترافي", desc: "بدون سلة أو دفع" },
+            { icon: ShieldCheck, title: "كتالوج", desc: "بدون سلة أو دفع" },
             { icon: MessageCircle, title: "واتساب مباشر", desc: "استفسار فوري" },
           ].map((badge) => (
             <div key={badge.title} className="flex items-center gap-3 rounded-2xl bg-white/5 border border-white/10 px-4 py-3.5 backdrop-blur-sm">
@@ -45,7 +45,7 @@ export function Footer() {
               <span className="text-base font-extrabold text-white tracking-tight">عمران للألعاب</span>
             </Link>
             <p className="text-sm leading-relaxed text-ink-400">
-              {siteConfig.footerDescription} كتالوج احترافي بدون سلة — استفسر عبر واتساب عن السعر والتوفر.
+              {siteConfig.footerDescription} كتالوج بدون سلة — استفسر عبر واتساب عن السعر والتوفر.
             </p>
           </div>
 
@@ -118,7 +118,7 @@ export function Footer() {
           <p>
             © <span className="num">{year}</span> {siteConfig.legalName}. جميع الحقوق محفوظة.
           </p>
-          <p className="text-center">كتالوج احترافي — استفسر عبر واتساب عن السعر والتوفر. لا يوجد شراء مباشر.</p>
+          <p className="text-center">كتالوج — استفسر عبر واتساب عن السعر والتوفر. لا يوجد شراء مباشر.</p>
         </div>
       </div>
     </footer>
