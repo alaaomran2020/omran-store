@@ -4,7 +4,7 @@ import Image from "next/image";
 import { Eye, MessageCircle, Package } from "lucide-react";
 import { categoryMap } from "@/lib/categories";
 import { buildProductInquiryUrl } from "@/lib/whatsapp";
-import { trackCatalogEvent } from "@/lib/analytics";
+import { trackCatalogEvent, trackWhatsAppClick } from "@/lib/analytics";
 import type { Product } from "@/lib/types";
 
 interface ProductCardProps {
@@ -85,11 +85,9 @@ export function ProductCard({ product, onQuickView }: ProductCardProps) {
           <a
             href={buildProductInquiryUrl(product.name, product.sku, "retail", product.slug)}
             onClick={() =>
-              trackCatalogEvent("whatsapp_inquiry", {
-                sku: product.sku,
-                category: product.categoryId,
-                source: "product_card",
+              trackWhatsAppClick(product, "product_card", {
                 mode: "retail",
+                cta: "product_card_primary",
               })
             }
             target="_blank"

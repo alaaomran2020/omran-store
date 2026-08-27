@@ -8,7 +8,7 @@ import { navLinks, siteConfig } from "@/lib/site";
 import { categories } from "@/lib/categories";
 import { catalogProducts } from "@/lib/products";
 import { useStore } from "@/context/StoreProvider";
-import { trackCatalogEvent } from "@/lib/analytics";
+import { trackCatalogEvent, trackWhatsAppClick } from "@/lib/analytics";
 
 /** الهيدر — كتالوج مع زر واتساب عائم */
 export function Header() {
@@ -279,7 +279,7 @@ export function Header() {
       {/* Floating WhatsApp Button */}
       <a
         href={`https://wa.me/${siteConfig.whatsappNumber}?text=${encodeURIComponent("السلام عليكم، أرغب في الاستفسار عن منتجاتكم من موقع عمران للألعاب - كتالوج شركة عمران التجارية.")}`}
-        onClick={() => trackCatalogEvent("whatsapp_inquiry", { source: "floating_header", mode: "general" })}
+        onClick={() => trackWhatsAppClick(null, "floating_button", { mode: "general", cta: "floating_header" })}
         target="_blank"
         rel="noopener noreferrer"
         aria-label="تواصل عبر واتساب"

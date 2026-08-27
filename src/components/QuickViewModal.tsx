@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { MessageCircle, Share2, X, Package, Sparkles } from "lucide-react";
 import { categoryMap } from "@/lib/categories";
 import { buildProductInquiryUrl } from "@/lib/whatsapp";
-import { trackCatalogEvent } from "@/lib/analytics";
+import { trackCatalogEvent, trackWhatsAppClick } from "@/lib/analytics";
 import type { Product } from "@/lib/types";
 
 interface QuickViewModalProps {
@@ -180,11 +180,9 @@ function QuickViewDialog({ product, onClose }: { product: Product; onClose: () =
               <a
                 href={buildProductInquiryUrl(product.name, product.sku, "retail", product.slug)}
                 onClick={() =>
-                  trackCatalogEvent("whatsapp_inquiry", {
-                    sku: product.sku,
-                    category: product.categoryId,
-                    source: "quick_view",
+                  trackWhatsAppClick(product, "quick_view", {
                     mode: "retail",
+                    cta: "quick_view_primary",
                   })
                 }
                 target="_blank"

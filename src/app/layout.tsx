@@ -9,6 +9,7 @@ import { BackToTop } from "@/components/BackToTop";
 import { Footer } from "@/components/Footer";
 import { siteConfig, openGraphImage } from "@/lib/site";
 import { getThemeCssVariables } from "@/lib/site-theme";
+import { AnalyticsBootstrap } from "@/components/AnalyticsBootstrap";
 
 const defaultTitle = `${siteConfig.name} | ${siteConfig.tagline}`;
 const defaultDescription = siteConfig.description;
@@ -123,6 +124,7 @@ export default function RootLayout({
           <BackToTop />
         </StoreProvider>
         <Analytics />
+        <AnalyticsBootstrap />
       </body>
     </html>
   );
