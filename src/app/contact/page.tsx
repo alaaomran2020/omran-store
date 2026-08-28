@@ -6,20 +6,19 @@ import { siteConfig } from "@/lib/site";
 import { absoluteUrl } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "تواصل معنا",
+  title: "تواصل مع عمران للألعاب في طنطا",
   description:
-    "تواصل مع فريق عمران للألعاب عبر واتساب أو الهاتف أو البريد الإلكتروني للاستفسار عن الأسعار والتوفر وخيارات التوصيل في طنطا ومصر.",
-  alternates: { canonical: absoluteUrl("/contact") },
-  openGraph: {
-    type: "website",
-    locale: "ar_EG",
-    url: absoluteUrl("/contact"),
-    siteName: siteConfig.name,
-    title: "تواصل معنا | عمران للألعاب",
-    description: "فريقنا متاح للرد على استفساراتك عبر واتساب أو الهاتف خلال ساعات العمل الرسمية.",
-    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: siteConfig.name }],
+    "تواصل مع عمران للألعاب في طنطا عبر واتساب أو الهاتف للاستفسار عن ألعاب الأطفال والهدايا والكتالوج المتاح.",
+  alternates: {
+    canonical: "/contact",
   },
-  twitter: { card: "summary_large_image", title: "تواصل معنا | عمران للألعاب", description: siteConfig.description, images: ["/og-image.png"] },
+  openGraph: {
+    title: "تواصل مع عمران للألعاب في طنطا",
+    description:
+      "بيانات التواصل وساعات العمل والفروع المؤكدة لعمران للألعاب.",
+    url: "/contact",
+    type: "website",
+  },
 };
 
 export default function ContactPage() {

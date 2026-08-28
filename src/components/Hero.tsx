@@ -19,7 +19,7 @@ import { siteConfig } from "@/lib/site";
 const slides = [
   {
     title: "اكتشف ألعاب الأطفال والهدايا",
-    subtitle: "كتالوج مصوّر احترافي — تصفح المنتجات الحقيقية واستفسر عن السعر والتوفر عبر واتساب مباشرة",
+    subtitle: "كتالوج مصوّر قابل للتحديث — تصفح سجلات المنتجات التجريبية واستفسر عن السعر والتوفر عبر واتساب مباشرة",
     cta: "تصفح الكتالوج",
     ctaHref: "#products",
     accent: "from-brand-800 via-brand-700 to-brand-900",
@@ -28,7 +28,7 @@ const slides = [
   },
   {
     title: "عرائس ودمى ومجسمات",
-    subtitle: "تشكيلة دمى وعرائس بملابس وإكسسوارات — صور حقيقية من الكتالوج",
+    subtitle: "تشكيلة دمى وعرائس بملابس وإكسسوارات — صور توضيحية مؤقتة من الكتالوج",
     cta: "عرض منتجات الدمى",
     ctaHref: "#products",
     accent: "from-rose-800 via-rose-700 to-rose-900",
@@ -107,7 +107,7 @@ export function Hero() {
                 <dt className="sr-only">عدد المنتجات</dt>
                 <dd>
                   <span className="num block text-3xl font-extrabold text-accent-300">{formatNumber(catalogProducts.length)}</span>
-                  <span className="block text-xs text-brand-200 mt-1">منتج في الكتالوج</span>
+                  <span className="block text-xs text-brand-200 mt-1">سجلاً تجريبياً</span>
                 </dd>
               </div>
               <div>

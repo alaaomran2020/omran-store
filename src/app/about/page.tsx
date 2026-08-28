@@ -5,21 +5,19 @@ import { siteConfig } from "@/lib/site";
 import { absoluteUrl } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "عن عمران للألعاب",
+  title: "عن عمران للألعاب في طنطا",
   description:
-    "تعرف على شركة عمران التجارية — مورّد متخصص في ألعاب الأطفال والعرائس والألعاب التعليمية ومستلزمات الحفلات في طنطا ومصر، مع أسعار جملة وقطاعي وتوصيل لجميع المحافظات.",
-  alternates: { canonical: absoluteUrl("/about") },
-  openGraph: {
-    type: "website",
-    locale: "ar_EG",
-    url: absoluteUrl("/about"),
-    siteName: siteConfig.name,
-    title: "عن عمران للألعاب | شركة عمران التجارية",
-    description:
-      "مورّد متخصص في ألعاب الأطفال والهدايا ومستلزمات الحفلات في طنطا وجميع محافظات مصر. تواصل معنا عبر واتساب.",
-    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: siteConfig.name }],
+    "تعرّف على عمران للألعاب وكتالوج ألعاب الأطفال والهدايا في طنطا، وطريقة الاستفسار عبر واتساب.",
+  alternates: {
+    canonical: "/about",
   },
-  twitter: { card: "summary_large_image", title: "عن عمران للألعاب", description: siteConfig.description, images: ["/og-image.png"] },
+  openGraph: {
+    title: "عن عمران للألعاب في طنطا",
+    description:
+      "معلومات عن الكتالوج وطريقة التواصل مع عمران للألعاب.",
+    url: "/about",
+    type: "website",
+  },
 };
 
 export default function AboutPage() {

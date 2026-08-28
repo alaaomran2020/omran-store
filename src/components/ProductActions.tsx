@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Heart, MessageCircle, Share2 } from "lucide-react";
 import { buildProductInquiryUrl } from "@/lib/whatsapp";
 import type { Product } from "@/lib/types";
+import { track } from "@vercel/analytics";
 
 export function ProductActions({ product }: { product: Product }) {
   const [isFavorite, setIsFavorite] = useState(false);
@@ -24,10 +25,21 @@ export function ProductActions({ product }: { product: Product }) {
     window.setTimeout(() => setIsCopied(false), 1800);
   };
 
+  const handleWhatsAppClick = () => {
+    try {
+      track("whatsapp_click", {
+        product_sku: product.sku,
+      });
+    } catch (error) {
+      console.error("Failed to track WhatsApp click:", error);
+    }
+  };
+
   return (
     <div className="mt-8 space-y-3">
       <a
         href={buildProductInquiryUrl(product.name, product.sku, "retail")}
+        onClick={handleWhatsAppClick}
         target="_blank"
         rel="noopener noreferrer"
         className="flex w-full items-center justify-center gap-2 rounded-2xl bg-[#25D366] px-6 py-4 text-sm font-extrabold text-white shadow-lg shadow-emerald-900/10 transition-all hover:bg-[#20bd5a] hover:-translate-y-0.5 hover:shadow-xl"

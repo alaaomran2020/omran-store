@@ -49,7 +49,7 @@ export function Header() {
           <div className="flex items-center gap-4">
             <span className="hidden sm:inline-flex items-center gap-1.5 text-brand-100">
               <Sparkles className="size-3.5" aria-hidden="true" />
-              كتالوج احترافي — 12 منتج بصور حقيقية
+              كتالوج مصوّر قابل للتحديث — 12 سجلاً تجريبياً
             </span>
             <span className="hidden md:inline-flex items-center gap-1.5 text-brand-100">
               <Sparkles className="size-3.5" aria-hidden="true" />
@@ -57,7 +57,7 @@ export function Header() {
             </span>
             <span className="hidden lg:inline-flex items-center gap-1.5 text-brand-100">
               <Sparkles className="size-3.5" aria-hidden="true" />
-              صور حقيقية من تشكيلتنا
+              صور توضيحية مؤقتة للمعاينة
             </span>
           </div>
           <div className="flex items-center gap-3 sm:gap-5">
