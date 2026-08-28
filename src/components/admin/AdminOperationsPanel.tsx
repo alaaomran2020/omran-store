@@ -26,17 +26,33 @@ const emptyLead = (product?: Product): LeadRecord => ({
   campaign: "(not set)",
 });
 
+type OrderDraft = { orderId: string; transactionId: string; leadId: string; value: string };
+
+const emptyOrder = (): OrderDraft => ({
+  orderId: `order-${Date.now()}`,
+  transactionId: `txn-${Date.now()}`,
+  leadId: "",
+  value: "",
+});
+
 export function AdminOperationsPanel({ products }: { products: Product[] }) {
   const [leads, setLeads] = useState<LeadRecord[]>([]);
   const [orders, setOrders] = useState<OrderRecord[]>([]);
   const [leadSha, setLeadSha] = useState("");
   const [orderSha, setOrderSha] = useState("");
   const [leadDraft, setLeadDraft] = useState<LeadRecord>(emptyLead(products[0]));
-  const [orderDraft, setOrderDraft] = useState({ orderId: `order-${Date.now()}`, transactionId: `txn-${Date.now()}`, leadId: "", value: "" });
+  const [orderDraft, setOrderDraft] = useState<OrderDraft>(emptyOrder());
   const [status, setStatus] = useState("");
   const [busy, setBusy] = useState(false);
 
   const productMap = useMemo(() => new Map(products.map((product) => [product.id, product])), [products]);
+
+  // ضبط حالة المسودة عند وصول الكتالوج (products يُجلب من API بعد التحميل)
+  const [lastProducts, setLastProducts] = useState(products);
+  if (products !== lastProducts) {
+    setLastProducts(products);
+    if (products.length > 0 && !leadDraft.productId) setLeadDraft(emptyLead(products[0]));
+  }
 
   async function load() {
     setBusy(true);
@@ -56,8 +72,7 @@ export function AdminOperationsPanel({ products }: { products: Product[] }) {
   }
 
   useEffect(() => {
-    if (products.length > 0) setLeadDraft((current) => current.productId ? current : emptyLead(products[0]));
-    void load();
+    Promise.resolve().then(() => void load()).catch(() => undefined);
   }, [products]);
 
   function chooseProduct(productId: string) {
@@ -95,7 +110,7 @@ export function AdminOperationsPanel({ products }: { products: Product[] }) {
       setOrders(next);
       setOrderSha(data?.commitSha ?? orderSha);
       setStatus("تم تسجيل الطلب المؤكد.");
-      setOrderDraft({ orderId: `order-${Date.now()}`, transactionId: `txn-${Date.now()}`, leadId: "", value: "" });
+      setOrderDraft(emptyOrder());
     } else setStatus(data?.error ?? "تعذر حفظ الطلب.");
     setBusy(false);
   }
