@@ -9,7 +9,7 @@ export function ContactForm() {
       className="rounded-[2rem] bg-white border border-ink-100 shadow-xl shadow-ink-900/5 p-8"
       onSubmit={(e) => {
         e.preventDefault();
-        alert("تم إرسال رسالتك بنجاح! سنرد عليك قريباً.");
+        alert("هذا النموذج واجهة تمهيدية تجريبية فقط. للتواصل الفعلي والحصول على رد سريع ومباشر، يرجى استخدام هاتف الشركة أو مراسلتنا عبر واتساب.");
       }}
     >
       <h3 className="text-xl font-extrabold text-ink-900">أرسل رسالة</h3>
@@ -57,6 +57,10 @@ export function ContactForm() {
           <Send className="size-4" aria-hidden="true" />
           إرسال الرسالة
         </button>
+
+        <p className="text-[11px] text-ink-500 text-center leading-relaxed">
+          * تنويه: هذا النموذج واجهة توضيحية تجريبية ولا يقوم بالإرسال الفعلي. يرجى التواصل معنا عبر واتساب أو الاتصال الهاتفي مباشرة.
+        </p>
       </div>
     </form>
   );

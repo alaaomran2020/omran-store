@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import { catalogProducts, getProductBySlug } from "@/lib/products";
+import { catalogProducts } from "@/lib/products";
 import { categoryMap } from "@/lib/categories";
 import { ProductActions } from "@/components/ProductActions";
 import { ProductGallery } from "@/components/ProductGallery";
@@ -11,48 +11,72 @@ import { organizationJsonLd, websiteJsonLd, productJsonLd, breadcrumbJsonLd, abs
 import { siteConfig } from "@/lib/site";
 import { buildInquiryUrl } from "@/lib/whatsapp";
 
+interface ProductPageProps {
+  params: Promise<{ slug: string }>;
+}
+
+function getCatalogProduct(slug: string) {
+  return catalogProducts.find((product) => product.slug === slug);
+}
+
 export async function generateStaticParams() {
   return catalogProducts.map((p) => ({ slug: p.slug }));
 }
 
 /** تحسين SEO لكل صفحة منتج: عنوان ووصف ورابط قانوني وبيانات مشاركة فريدة. */
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: ProductPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const product = getProductBySlug(slug) ?? catalogProducts.find((p) => p.slug === slug);
-  if (!product) return {};
+  const product = getCatalogProduct(slug);
 
-  const category = categoryMap[product.categoryId];
-  const title = `${product.name} | ${category?.name ?? "ألعاب أطفال"}`;
+  if (!product) {
+    return {
+      robots: {
+        index: false,
+        follow: true,
+      },
+    };
+  }
+
+  // `<title>` يمر عبر قالب التخطيط العام الذي يضيف اسم الموقع تلقائيًا.
+  const title = product.name;
+  const socialTitle = `${product.name} | ${siteConfig.name}`;
   const description = product.shortDescription || product.description;
-  const url = absoluteUrl(`/products/${product.slug}`);
+  const url = `/products/${product.slug}`;
   const imageSrc = product.images[0]?.src;
   const imageAlt = product.images[0]?.alt ?? product.name;
 
   return {
     title,
     description,
-    alternates: { canonical: url },
+    alternates: {
+      canonical: url,
+    },
     openGraph: {
       type: "website",
       locale: "ar_EG",
       url,
       siteName: siteConfig.name,
-      title,
+      title: socialTitle,
       description,
       images: imageSrc ? [{ url: absoluteUrl(imageSrc), width: 1200, height: 1200, alt: imageAlt }] : [],
     },
     twitter: {
       card: "summary_large_image",
-      title,
+      title: socialTitle,
       description,
       images: imageSrc ? [absoluteUrl(imageSrc)] : [],
+    },
+    other: {
+      "product:retailer_item_id": product.sku,
     },
   };
 }
 
-export default async function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
+export default async function ProductPage({ params }: ProductPageProps) {
   const { slug } = await params;
-  const product = getProductBySlug(slug) ?? catalogProducts.find((p) => p.slug === slug);
+  const product = getCatalogProduct(slug);
   if (!product) notFound();
 
   const category = categoryMap[product.categoryId];
@@ -151,7 +175,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                 </span>
               ))}
               <span className="inline-flex items-center gap-1 rounded-full bg-white border border-ink-200 px-3 py-1.5 text-[11px] font-bold text-ink-700">
-                صور حقيقية
+                صور كتالوج توضيحية
               </span>
             </div>
 

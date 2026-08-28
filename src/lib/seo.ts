@@ -151,19 +151,29 @@ export function itemListJsonLd(products: Product[], name: string) {
     "@type": "ItemList",
     name,
     numberOfItems: products.length,
-    itemListElement: products.map((product, index) => ({
-      "@type": "ListItem",
-      position: index + 1,
-      url: absoluteUrl(`/products/${product.slug}`),
-      name: product.name,
-      image: product.images[0]?.src ? absoluteUrl(product.images[0].src) : absoluteUrl(siteConfig.logoUrl),
-    })),
+    itemListElement: products.map((product, index) => {
+      const category = categoryMap[product.categoryId];
+      return {
+        "@type": "ListItem",
+        position: index + 1,
+        url: absoluteUrl(`/products/${product.slug}`),
+        item: {
+          "@type": "Product",
+          "@id": `${absoluteUrl(`/products/${product.slug}`)}#product`,
+          name: product.name,
+          sku: product.sku,
+          image: product.images.map((img) => absoluteUrl(img.src)),
+          description: product.description || product.shortDescription,
+          brand: { "@type": "Brand", name: siteConfig.name },
+          category: category?.name,
+        },
+      };
+    }),
   };
 }
 
 /** بيانات المنتج (Product) — تُدرج في صفحة المنتج لتفعيل النتائج الغنية. */
 export function productJsonLd(product: Product, category?: Category) {
-  const hasPrice = product.retailPrice > 0;
   const image = firstImage(product);
 
   return {
@@ -178,15 +188,6 @@ export function productJsonLd(product: Product, category?: Category) {
     brand: { "@type": "Brand", name: siteConfig.name },
     image: product.images.map((img) => absoluteUrl(img.src)),
     url: absoluteUrl(`/products/${product.slug}`),
-    offers: {
-      "@type": "Offer",
-      url: absoluteUrl(`/products/${product.slug}`),
-      priceCurrency: siteConfig.currency,
-      ...(hasPrice ? { price: product.retailPrice } : {}),
-      availability: product.inStock ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
-      itemCondition: "https://schema.org/NewCondition",
-      seller: { "@id": `${siteConfig.url}/#organization` },
-    },
     additionalProperty: [
       { "@type": "PropertyValue", name: "الفئة العمرية", value: product.ageRange },
       { "@type": "PropertyValue", name: "الخامة", value: product.material },

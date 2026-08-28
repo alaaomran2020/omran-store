@@ -36,7 +36,7 @@ export function Footer() {
         {/* Trust badges strip */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-12">
           {[
-            { icon: Camera, title: "صور حقيقية", desc: "12 منتج بصور فعلية" },
+            { icon: Camera, title: "صور كتالوج توضيحية", desc: "12 سجلاً تجريبياً للمعاينة" },
             { icon: Search, title: "بحث سريع", desc: "بالاسم والكود" },
             { icon: ShieldCheck, title: "كتالوج", desc: "بدون سلة أو دفع" },
             { icon: MessageCircle, title: "واتساب مباشر", desc: "استفسار فوري" },

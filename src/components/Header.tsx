@@ -50,7 +50,7 @@ export function Header() {
           <div className="flex items-center gap-4">
             <span className="hidden sm:inline-flex items-center gap-1.5 text-brand-100">
               <Sparkles className="size-3.5" aria-hidden="true" />
-              كتالوج — 12 منتج بصور حقيقية
+              كتالوج مصوّر — 12 منتجًا بصور كتالوج احترافية
             </span>
             <span className="hidden md:inline-flex items-center gap-1.5 text-brand-100">
               <Sparkles className="size-3.5" aria-hidden="true" />
@@ -58,7 +58,7 @@ export function Header() {
             </span>
             <span className="hidden lg:inline-flex items-center gap-1.5 text-brand-100">
               <Sparkles className="size-3.5" aria-hidden="true" />
-              صور حقيقية من تشكيلتنا
+              صور كتالوج توضيحية للمعاينة
             </span>
           </div>
           <div className="flex items-center gap-3 sm:gap-5">
