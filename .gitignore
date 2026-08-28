@@ -12,6 +12,11 @@ next-env.d.ts
 /build
 /dist
 
+# cloudflare workers (opennext)
+/.open-next/
+/.wrangler/
+.dev.vars
+
 # misc
 .DS_Store
 *.pem
@@ -20,6 +25,8 @@ next-env.d.ts
 
 # debug
 npm-debug.log*
+/test-results/
+/playwright-report/
 yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*

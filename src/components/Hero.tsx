@@ -19,21 +19,21 @@ import { siteConfig } from "@/lib/site";
 const slides = [
   {
     title: "اكتشف ألعاب الأطفال والهدايا",
-    subtitle: "كتالوج مصوّر قابل للتحديث — تصفح سجلات المنتجات التجريبية واستفسر عن السعر والتوفر عبر واتساب مباشرة",
+    subtitle: "شركة عمران التجارية — لعب أطفال وهدايا. تصفح منتجاتنا واستفسر عن السعر والتوفر عبر واتساب مباشرة",
     cta: "تصفح الكتالوج",
     ctaHref: "#products",
     accent: "from-brand-800 via-brand-700 to-brand-900",
     glow: "bg-brand-400/20",
-    image: "/catalog-facebook/facebook-6.jpg",
+    image: "/catalog/pink-art-kit-150.jpg",
   },
   {
     title: "عرائس ودمى ومجسمات",
-    subtitle: "تشكيلة دمى وعرائس بملابس وإكسسوارات — صور توضيحية مؤقتة من الكتالوج",
+    subtitle: "تشكيلة دمى وعرائس بملابس وإكسسوارات — صور كتالوج توضيحية",
     cta: "عرض منتجات الدمى",
     ctaHref: "#products",
     accent: "from-rose-800 via-rose-700 to-rose-900",
     glow: "bg-rose-400/20",
-    image: "/catalog-facebook/facebook-8.jpg",
+    image: "/catalog/doll-set-accessories.jpg",
   },
   {
     title: "ألعاب تعليمية وتنمية مهارات",
@@ -42,7 +42,7 @@ const slides = [
     ctaHref: "#products",
     accent: "from-teal-800 via-teal-700 to-teal-900",
     glow: "bg-teal-400/20",
-    image: "/catalog-facebook/facebook-5.jpg",
+    image: "/catalog/rubber-band-geometry-board.jpg",
   },
 ];
 
@@ -72,7 +72,7 @@ export function Hero() {
           <div className="relative z-10">
             <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 backdrop-blur-md px-4 py-1.5 text-xs font-extrabold tracking-wide mb-5">
               <Sparkles className="size-3.5 text-accent-300" aria-hidden="true" />
-              <span>كتالوج عمران للألعاب — تصفّح واستفسر</span>
+              <span>شركة عمران التجارية — لعب أطفال - هدايا</span>
             </div>
 
             <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-extrabold leading-[1.1] tracking-tight text-balance">

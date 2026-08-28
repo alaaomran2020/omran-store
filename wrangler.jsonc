@@ -1,0 +1,17 @@
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+	// مخرجات محوّل OpenNext — لا تعدّلها يدوياً، يولّدها `npm run build:cf`
+	"main": ".open-next/worker.js",
+	"name": "omran-store",
+	"compatibility_date": "2026-08-01",
+	// nodejs_compat: يشغّل مسارات API بلوحة الإدارة داخل workerd بواجهة Node.js
+	// global_fetch_strictly_public: يمنع fetch من التوجّه إلى bindings داخلية بالخطأ
+	"compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+	"assets": {
+		"directory": ".open-next/assets",
+		"binding": "ASSETS"
+	}
+	// ملاحظة: لا توجد حاجة إلى r2_buckets هنا لأن الموقع لا يستخدم ISR
+	// (كل الصفحات static/SSG). إن أضفت ISR أو `use cache` لاحقاً، فعّل
+	// incrementalCache في open-next.config.ts وأضف الـ binding المقابل.
+}

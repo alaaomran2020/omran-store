@@ -7,7 +7,7 @@ import { ArrowUp } from "lucide-react";
 const SHOW_AFTER = 640;
 
 /**
- * زر عائم للعودة إلى أعلى الصفحة — نسخة كتالوج احترافي بدون سلة
+ * زر عائم للعودة إلى أعلى الصفحة — نسخة كتالوج بدون سلة
  */
 export function BackToTop() {
   const [visible, setVisible] = useState(false);

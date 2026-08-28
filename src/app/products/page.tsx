@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { CatalogSection } from "@/components/CatalogSection";
 import { StructuredData } from "@/components/StructuredDataPages";
 import { siteConfig } from "@/lib/site";
-import { absoluteUrl } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "كتالوج ألعاب الأطفال والهدايا",
@@ -17,6 +16,16 @@ export const metadata: Metadata = {
       "كتالوج عمران للألعاب في طنطا — تصفح المنتجات واستفسر عبر واتساب.",
     url: "/products",
     type: "website",
+    locale: "ar_EG",
+    siteName: siteConfig.name,
+    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: siteConfig.name }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "كتالوج ألعاب الأطفال والهدايا | عمران للألعاب",
+    description:
+      "كتالوج عمران للألعاب في طنطا — تصفح المنتجات واستفسر عبر واتساب.",
+    images: ["/og-image.png"],
   },
 };
 
@@ -31,7 +40,7 @@ export default function ProductsPage() {
             <div className="absolute bottom-0 start-0 size-48 rounded-full bg-accent-400/10 blur-3xl" aria-hidden="true" />
             <h1 className="relative z-10 text-3xl sm:text-4xl font-extrabold tracking-tight">ألعاب أطفال وهدايا للاستفسار في طنطا</h1>
             <p className="relative z-10 mt-3 text-sm text-brand-100 max-w-2xl leading-relaxed">
-              كتالوج مصوّر قابل للتحديث — 12 سجلاً تجريبياً وصوراً توضيحية مؤقتة. تصفح الأقسام، استخدم البحث، واستفسر عن أي منتج عبر واتساب مباشرة.
+              كتالوج مصوّر — 12 سجلاً تجريبياً بصور كتالوج احترافية. تصفح الأقسام، استخدم البحث، واستفسر عن أي منتج عبر واتساب مباشرة.
               لا يوجد سلة أو دفع إلكتروني في هذه النسخة.
             </p>
           </div>

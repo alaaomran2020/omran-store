@@ -9,7 +9,7 @@ import { JSDOM } from "jsdom";
 import React from "react";
 import { renderToString } from "react-dom/server";
 import { hydrateRoot } from "react-dom/client";
-import { act } from "react";
+import { act } from "react-dom/test-utils";
 
 // تهيئة بيئة DOM قبل تحميل مكوّنات المتجر
 const dom = new JSDOM("<!doctype html><html dir='rtl'><body><div id='root'></div></body></html>", {

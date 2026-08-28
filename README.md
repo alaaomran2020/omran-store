@@ -4,7 +4,7 @@
 
 كتالوج احترافي لألعاب الأطفال والهدايا يعتمد على **عرض المنتجات والاستفسار عبر واتساب فقط** — بدون سلة، بدون دفع، بدون تجربة شراء مباشرة.
 
-تم تحويل المتجر بالكامل من تجربة e-commerce إلى كتالوج مصوّر احترافي يلبي طلب العميل: تصفح المنتجات التجريبية (12 سجلاً تجريبياً يحتاج إلى بيانات المنتجات المؤكدة قبل الإطلاق التجاري بصور توضيحية مؤقتة من `public/catalog-facebook`) ثم استفسار فوري عبر واتساب.
+تم تحويل المتجر بالكامل من تجربة e-commerce إلى كتالوج مصوّر احترافي يلبي طلب العميل: تصفح المنتجات التجريبية (12 سجلاً تجريبياً يحتاج إلى بيانات المنتجات المؤكدة قبل الإطلاق التجاري) مع صور كتالوج احترافية، ثم استفسار فوري عبر واتساب.
 
 مبني بـ **Next.js App Router + TypeScript + Tailwind CSS v4** بتخطيط RTL عربي كامل.
 
@@ -19,21 +19,21 @@
 - منطق `cart-store.ts` و `legacy-products.ts` محفوظ داخلياً فقط لنجاح الاختبارات (20 اختبار) والتوافق
 
 ### ٢. كتالوج تجريبي بـ 12 سجلاً تجريبياً
-- `src/lib/products.ts` الآن يحتوي 12 سجلاً تجريبياً يحتاج إلى بيانات المنتجات المؤكدة قبل الإطلاق التجاري باستخدام جميع صور `public/catalog-facebook/facebook-*.jpg` كصور توضيحية مؤقتة
-- كل منتج: اسم عربي احترافي، وصف قصير وتفصيلي، فئة، SKU، مواصفات، صور حقيقية
+- `src/data/catalog-products.json` يحتوي 12 سجلاً تجريبياً يحتاج إلى بيانات المنتجات المؤكدة قبل الإطلاق التجاري (يديره لوحة الإدارة)، مع صور كتالوج احترافية: 10 منتجات بصور عالية الدقة في `public/catalog/` ومنتجان ما زالا على الصور القديمة في `public/catalog-facebook/` لحين استكمال التحديث
+- كل منتج: اسم عربي احترافي، وصف قصير وتفصيلي، فئة، SKU، مواصفات، وصور كتالوج احترافية
 - السعر: **استفسر عبر واتساب** — لا يوجد سعر معروض رقمياً
 - `products` (legacy 16 منتج) محفوظ للاختبارات فقط
 
 ### ٣. تجربة كتالوج محسّنة
 - **Header**: بحث حي يبحث في المنتجات (اسم/كود/وصف) + الأقسام، مع زر واتساب عائم ثابت
-- **Hero**: شرائح تستخدم صور حقيقية من الكتالوج
+- **Hero**: شرائح تستخدم صور الكتالوج الاحترافية
 - **ProductCard**: تصميم جديد احترافي 4:3، بادج "كتالوج" و "مميز"، زر واتساب أخضر + تفاصيل
 - **QuickViewModal**: معاينة سريعة مع معرض صور، بيانات منظمة، زر واتساب بارز
 - **CatalogSection**: بحث عربي مع تطبيع، تصفية أقسام، ترتيب، عرض المتوفر فقط
 - **صفحات المنتجات**: `/products/[slug]` تعرض تفاصيل كتالوج + منتجات ذات صلة + CTA واتساب
 
 ### ٤. أقسام الصفحة الرئيسية
-- `Hero` → `FeaturedCategories` → `CatalogSection` → `BrandAdvantages` → `AboutSection` → `InstagramFeed` → `FAQPreview` → `Newsletter` → `ContactSection`
+- `Hero` → `FeaturedCategories` → `CatalogSection` → `BrandAdvantages` → `AboutSection` → `FAQPreview` → `Newsletter` → `ContactSection`
 - جميع الأقسام تتحدث بلغة كتالوج (بدون سلة)
 
 ### ٥. النشر — GitHub Pages + Vercel
@@ -44,6 +44,11 @@
 - `.github/workflows/nextjs.yml` محدث: إزالة `static_site_generator: next` الذي كان يحقن `basePath` ويكسر الدومين الخاص `omrantoys.store`
 - `public/CNAME` + `CNAME` في الجذر يحتويان `omrantoys.store` لضمان عمل الدومين الخاص على Pages
 - حذف مجلد `github/` المكرر (الصحيح هو `.github/`)
+
+### ٦. النشر — Cloudflare Workers
+- `wrangler.jsonc` + `open-next.config.ts`: محوّل `@opennextjs/cloudflare` يشغّل الموقع في بيئة Node.js داخل `workerd`
+- مسارات `src/app/api/admin/*` تبقى على `export const runtime = "nodejs"` — لا تُضف `runtime = "edge"` (توجيه مهجور في Next 16 وغير مدعوم في OpenNext)
+- التفاصيل والأوامر في `docs/CLOUDFLARE_WORKERS.md`
 
 ---
 
@@ -62,9 +67,12 @@ npm run dev                  # http://localhost:3000
 | `npm run dev` | تطوير |
 | `npm run build` | بناء إنتاج (يعمل على Vercel و Pages) |
 | `npm start` | تشغيل إنتاج |
+| `npm run build:cf` | بناء Cloudflare Workers عبر محوّل OpenNext |
+| `npm run preview:cf` | معاينة محلية داخل workerd (نفس بيئة إنتاج Cloudflare) |
+| `npm run deploy:cf` | نشر إلى Cloudflare Workers |
 | `npm run lint` | ESLint |
 | `npm run typecheck` | TypeScript |
-| `npm test` | 20 اختبار |
+| `npm test` | 24 اختبار |
 
 ### متغيرات البيئة
 
@@ -81,14 +89,14 @@ npm run dev                  # http://localhost:3000
 src/
 ├── app/
 │   ├── layout.tsx           # RTL + خطوط + Header + Footer + BackToTop
-│   ├── page.tsx             # Hero + Categories + Catalog + Advantages + About + Instagram + FAQ + Newsletter + Contact + JSON-LD
+│   ├── page.tsx             # Hero + Categories + Catalog + Advantages + About + FAQ + Newsletter + Contact + JSON-LD
 │   ├── products/
 │   │   ├── page.tsx         # صفحة الكتالوج الكامل
 │   │   └── [slug]/page.tsx  # تفاصيل منتج (12 منتج)
 │   └── ...
 ├── components/
 │   ├── Header.tsx           # بحث منتجات + أقسام + واتساب عائم
-│   ├── Hero.tsx             # شرائح بصور حقيقية
+│   ├── Hero.tsx             # شرائح بصور الكتالوج
 │   ├── CatalogSection.tsx   # بحث + تصفية + شبكة
 │   ├── ProductCard.tsx      # بطاقة كتالوج احترافية
 │   ├── QuickViewModal.tsx   # معاينة سريعة + واتساب
@@ -101,13 +109,12 @@ src/
 │   ├── FaqAccordion.tsx     # أكورديون الأسئلة (Client)
 │   ├── JsonLd.tsx           # عارض البيانات المنظمة (JSON-LD)
 │   ├── StructuredDataPages.tsx # بيانات منظمة للصفحات الداخلية
-│   ├── InstagramFeed.tsx    # خلاصة إنستغرام
-│   ├── Footer.tsx           # تذييل كتالوج
+│   ├── Footer.tsx           # تذييل كتالوج + زر متابعة إنستغرام
 │   └── BackToTop.tsx        # زر أعلى الصفحة
 ├── context/
 │   └── StoreProvider.tsx    # فلتر الأقسام + منطق السلة القديم للاختبارات فقط
 ├── lib/
-│   ├── products.ts          # 12 سجلاً تجريبياً يحتاج إلى بيانات المنتجات المؤكدة قبل الإطلاق التجاري + legacy للاختبارات
+│   ├── products.ts          # تحميل الكتالوج من data/catalog-products.json + legacy للاختبارات
 │   ├── legacy-products.ts   # 16 منتج قديم للاختبارات
 │   ├── cart-store.ts        # محفوظ للاختبارات
 │   ├── categories.ts        # 4 أقسام
@@ -117,7 +124,8 @@ src/
 │   ├── site.ts              # بيانات الشركة
 │   └── format.ts
 └── public/
-    ├── catalog-facebook/    # 12 صورة توضيحية مؤقتة
+    ├── catalog/             # 10 صور كتالوج احترافية عالية الدقة (1024×1024)
+    ├── catalog-facebook/    # الصور القديمة منخفضة الدقة (منتجان قيد الاستبدال)
     ├── og-image.png         # صورة المشاركة الاجتماعية (Open Graph) 1200×630
     ├── CNAME                # omrantoys.store
     └── ...
@@ -139,7 +147,7 @@ src/
 - `JsonLd.tsx` يعرض JSON-LD بأمان (تهريب `<` لتجنّب كسر HTML).
 
 ### صفحات المنتجات
-- `generateMetadata` يضيف **عنواناً ووصفاً ورابطاً قانونياً (canonical)** فريداً لكل منتج، مع Open Graph و Twitter Cards باستخدام صور المنتج الحقيقية.
+- `generateMetadata` يضيف **عنواناً ووصفاً ورابطاً قانونياً (canonical)** فريداً لكل منتج، مع Open Graph و Twitter Cards باستخدام صور كتالوج المنتجات.
 - رفع indexability عبر `robots` في `layout.tsx` (`max-image-preview`, `max-snippet`).
 
 ### الموقع العام
@@ -185,7 +193,7 @@ src/
    - الأهم هو أن Vercel يبني من `main` بدون `output: export` (تم إصلاحه)
 
 ### ملاحظة Instagram
-المزامنة تعمل عبر workflow `Sync Instagram feed` كل 6 ساعات باستخدام `INSTAGRAM_ACCESS_TOKEN` كـ secret. لا تضع التوكن في `NEXT_PUBLIC_*`.
+قسم خلاصة إنستغرام أُزيل — المتبقي زر متابعة الحساب فقط في الفوتر (`siteConfig.social.instagram`)، ولا يتطلب أي مفاتيح API.
 
 ---
 

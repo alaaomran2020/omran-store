@@ -4,7 +4,15 @@ import next from "eslint-config-next";
 const eslintConfig = [
   ...next,
   {
-    ignores: [".next/**", "node_modules/**", "out/**", "scripts/**"],
+    ignores: [
+      ".next/**",
+      "node_modules/**",
+      "out/**",
+      "scripts/**",
+      // مخرجات محوّل OpenNext و Wrangler (حزم مولّدة، لا تُفحص)
+      ".open-next/**",
+      ".wrangler/**",
+    ],
   },
 ];
 
