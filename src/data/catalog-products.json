@@ -10,12 +10,8 @@
     "wholesalePrice": 0,
     "images": [
       {
-        "src": "/catalog-facebook/facebook-5.jpg",
+        "src": "/catalog/rubber-band-geometry-board.jpg",
         "alt": "لوحة الأشكال الهندسية بالمطاط"
-      },
-      {
-        "src": "/catalog-facebook/facebook-1.jpg",
-        "alt": "لوحة الأشكال الهندسية - زاوية أخرى"
       }
     ],
     "sku": "OMR-EDU-001",
@@ -49,12 +45,8 @@
     "wholesalePrice": 0,
     "images": [
       {
-        "src": "/catalog-facebook/facebook-6.jpg",
+        "src": "/catalog/pink-art-kit-150.jpg",
         "alt": "حقيبة الرسم الوردية 150 قطعة"
-      },
-      {
-        "src": "/catalog-facebook/facebook-2.jpg",
-        "alt": "حقيبة الرسم الوردية - محتويات"
       }
     ],
     "sku": "OMR-EDU-002",
@@ -88,12 +80,8 @@
     "wholesalePrice": 0,
     "images": [
       {
-        "src": "/catalog-facebook/facebook-7.jpg",
+        "src": "/catalog/blue-art-kit-150.jpg",
         "alt": "حقيبة الرسم الزرقاء 150 قطعة"
-      },
-      {
-        "src": "/catalog-facebook/facebook-3.jpg",
-        "alt": "حقيبة الرسم الزرقاء - تفاصيل"
       }
     ],
     "sku": "OMR-EDU-003",
@@ -127,12 +115,8 @@
     "wholesalePrice": 0,
     "images": [
       {
-        "src": "/catalog-facebook/facebook-8.jpg",
-        "alt": "طقم دميتين مع إكسسوارات"
-      },
-      {
-        "src": "/catalog-facebook/facebook-4.jpg",
-        "alt": "طقم دميتين - عرض جانبي"
+        "src": "/catalog/doll-set-accessories.jpg",
+        "alt": "طقم دميتين مع إكسسوارات الأناقة"
       }
     ],
     "sku": "OMR-DOL-001",
@@ -166,12 +150,8 @@
     "wholesalePrice": 0,
     "images": [
       {
-        "src": "/catalog-facebook/facebook-2.jpg",
+        "src": "/catalog/fashion-doll-collection.jpg",
         "alt": "مجموعة دمى الموضة والأزياء"
-      },
-      {
-        "src": "/catalog-facebook/facebook-8.jpg",
-        "alt": "دمى الموضة - تفاصيل"
       }
     ],
     "sku": "OMR-DOL-002",
@@ -207,12 +187,8 @@
     "wholesalePrice": 0,
     "images": [
       {
-        "src": "/catalog-facebook/facebook-3.jpg",
+        "src": "/catalog/offroad-toy-car.jpg",
         "alt": "سيارة دفع رباعي كبيرة للطرق الوعرة"
-      },
-      {
-        "src": "/catalog-facebook/facebook-4.jpg",
-        "alt": "سيارة دفع رباعي - تفاصيل العجلات"
       }
     ],
     "sku": "OMR-VEH-001",
@@ -248,12 +224,8 @@
     "wholesalePrice": 0,
     "images": [
       {
-        "src": "/catalog-facebook/facebook-4.jpg",
-        "alt": "طقم سيارات معدنية 6 قطع"
-      },
-      {
-        "src": "/catalog-facebook/facebook-3.jpg",
-        "alt": "سيارات معدنية - علبة العرض"
+        "src": "/catalog/mini-metal-cars-set.jpg",
+        "alt": "طقم سيارات معدنية صغيرة 6 قطع"
       }
     ],
     "sku": "OMR-VEH-002",
@@ -287,12 +259,8 @@
     "wholesalePrice": 0,
     "images": [
       {
-        "src": "/catalog-facebook/facebook-9.jpg",
+        "src": "/catalog/kitchen-play-set.jpg",
         "alt": "مجموعة المطبخ الصغير للأطفال"
-      },
-      {
-        "src": "/catalog-facebook/facebook-10.jpg",
-        "alt": "مطبخ صغير - محتويات"
       }
     ],
     "sku": "OMR-EDU-004",
@@ -327,12 +295,8 @@
     "wholesalePrice": 0,
     "images": [
       {
-        "src": "/catalog-facebook/facebook-10.jpg",
+        "src": "/catalog/doctor-play-set.jpg",
         "alt": "طقم أدوات الطبيب للأطفال"
-      },
-      {
-        "src": "/catalog-facebook/facebook-9.jpg",
-        "alt": "أدوات الطبيب - تفاصيل"
       }
     ],
     "sku": "OMR-EDU-005",
@@ -367,12 +331,8 @@
     "wholesalePrice": 0,
     "images": [
       {
-        "src": "/catalog-facebook/facebook-11.jpg",
+        "src": "/catalog/party-balloons-gift-set.jpg",
         "alt": "مجموعة بالونات وهدايا الحفلات"
-      },
-      {
-        "src": "/catalog-facebook/facebook-12.jpg",
-        "alt": "بالونات الحفلات - ألوان متنوعة"
       }
     ],
     "sku": "OMR-GFT-001",

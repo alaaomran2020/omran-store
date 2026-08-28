@@ -24,7 +24,7 @@ const slides = [
     ctaHref: "#products",
     accent: "from-brand-800 via-brand-700 to-brand-900",
     glow: "bg-brand-400/20",
-    image: "/catalog-facebook/facebook-6.jpg",
+    image: "/catalog/pink-art-kit-150.jpg",
   },
   {
     title: "عرائس ودمى ومجسمات",
@@ -33,7 +33,7 @@ const slides = [
     ctaHref: "#products",
     accent: "from-rose-800 via-rose-700 to-rose-900",
     glow: "bg-rose-400/20",
-    image: "/catalog-facebook/facebook-8.jpg",
+    image: "/catalog/doll-set-accessories.jpg",
   },
   {
     title: "ألعاب تعليمية وتنمية مهارات",
@@ -42,7 +42,7 @@ const slides = [
     ctaHref: "#products",
     accent: "from-teal-800 via-teal-700 to-teal-900",
     glow: "bg-teal-400/20",
-    image: "/catalog-facebook/facebook-5.jpg",
+    image: "/catalog/rubber-band-geometry-board.jpg",
   },
 ];
 

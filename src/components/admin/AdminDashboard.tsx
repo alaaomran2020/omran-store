@@ -13,7 +13,7 @@ const emptyProduct: Product = {
   categoryId: "educational",
   retailPrice: 0,
   wholesalePrice: 0,
-  images: [{ src: "/catalog-facebook/facebook-1.jpg", alt: "" }],
+  images: [{ src: "/catalog/pink-art-kit-150.jpg", alt: "" }],
   sku: "",
   packaging: { unitsPerCarton: 1, minWholesaleUnits: 1, cartonWeightKg: 0, cartonDimensions: "" },
   ageRange: "",
