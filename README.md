@@ -45,6 +45,11 @@
 - `public/CNAME` + `CNAME` في الجذر يحتويان `omrantoys.store` لضمان عمل الدومين الخاص على Pages
 - حذف مجلد `github/` المكرر (الصحيح هو `.github/`)
 
+### ٦. النشر — Cloudflare Workers
+- `wrangler.jsonc` + `open-next.config.ts`: محوّل `@opennextjs/cloudflare` يشغّل الموقع في بيئة Node.js داخل `workerd`
+- مسارات `src/app/api/admin/*` تبقى على `export const runtime = "nodejs"` — لا تُضف `runtime = "edge"` (توجيه مهجور في Next 16 وغير مدعوم في OpenNext)
+- التفاصيل والأوامر في `docs/CLOUDFLARE_WORKERS.md`
+
 ---
 
 ## التشغيل المحلي
@@ -62,9 +67,12 @@ npm run dev                  # http://localhost:3000
 | `npm run dev` | تطوير |
 | `npm run build` | بناء إنتاج (يعمل على Vercel و Pages) |
 | `npm start` | تشغيل إنتاج |
+| `npm run build:cf` | بناء Cloudflare Workers عبر محوّل OpenNext |
+| `npm run preview:cf` | معاينة محلية داخل workerd (نفس بيئة إنتاج Cloudflare) |
+| `npm run deploy:cf` | نشر إلى Cloudflare Workers |
 | `npm run lint` | ESLint |
 | `npm run typecheck` | TypeScript |
-| `npm test` | 20 اختبار |
+| `npm test` | 24 اختبار |
 
 ### متغيرات البيئة
 

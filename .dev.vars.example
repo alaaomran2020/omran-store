@@ -1,0 +1,18 @@
+# انسخ هذا الملف إلى .dev.vars للتشغيل المحلي على Cloudflare Workers
+# (npm run preview:cf). ملف .dev.vars متجاهَل في git ولا يُرفع أبداً.
+#
+# ملاحظة: .env.local لا يصل إلى worker وقت التشغيل — استخدم هذا الملف فقط.
+
+# سر عشوائي لا يقل عن 32 حرفاً
+ADMIN_SESSION_SECRET=
+# [{"username":"admin","passwordHash":"<salt>:<pbkdf2-sha256-hex>","role":"admin"}]
+# أنشئ الـ hash بـ:
+#   node -e "const c=require('crypto');const s='SALT';console.log(s+':'+c.pbkdf2Sync('PASS',s,100000,32,'sha256').toString('hex'))"
+ADMIN_USERS_JSON=
+
+# fine-grained token بصلاحية Contents: Read and write
+ADMIN_GITHUB_TOKEN=
+ADMIN_GITHUB_REPO=alaaomran2020/omran-store
+ADMIN_GITHUB_BRANCH=main
+ADMIN_DATA_GITHUB_REPO=alaaomran2020/omran-store-private-data
+ADMIN_DATA_GITHUB_BRANCH=main
