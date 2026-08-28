@@ -8,6 +8,7 @@ import { Header } from "@/components/Header";
 import { BackToTop } from "@/components/BackToTop";
 import { Footer } from "@/components/Footer";
 import { siteConfig, openGraphImage } from "@/lib/site";
+import { getThemeCssVariables } from "@/lib/site-theme";
 
 const defaultTitle = `${siteConfig.name} | ${siteConfig.tagline}`;
 const defaultDescription = siteConfig.description;
@@ -108,7 +109,7 @@ export default function RootLayout({
 
   return (
     <html lang="ar" dir="rtl">
-      <body className="min-h-dvh bg-ink-50 antialiased">
+      <body className="min-h-dvh bg-ink-50 antialiased" style={getThemeCssVariables()}>
         <StoreProvider>
           <a
             href="#products"

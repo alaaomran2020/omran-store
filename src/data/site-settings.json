@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "updatedAt": "2026-08-25T00:00:00.000Z",
+  "updatedBy": "إعداد الموقع الأساسي",
+  "theme": {
+    "primary": "#3263F0",
+    "accent": "#F05C0F",
+    "background": "#FFFDF8"
+  }
+}

@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     siteName: siteConfig.name,
     title: "كتالوج ألعاب الأطفال | عمران للألعاب",
     description:
-      "كتالوج احترافي مصوّر بألعاب أطفال وعرائس وألعاب تعليمية وهدايا وبالونات — 12 منتجاً بصور حقيقية، استفسر عبر واتساب.",
+      "كتالوج مصوّر بألعاب أطفال وعرائس وألعاب تعليمية وهدايا وبالونات — 12 منتجاً بصور حقيقية، استفسر عبر واتساب.",
     images: [{ url: "/og-image.png", width: 1200, height: 630, alt: siteConfig.name }],
   },
   twitter: {
@@ -38,7 +38,7 @@ export default function ProductsPage() {
             <div className="absolute bottom-0 start-0 size-48 rounded-full bg-accent-400/10 blur-3xl" aria-hidden="true" />
             <h1 className="relative z-10 text-3xl sm:text-4xl font-extrabold tracking-tight">كتالوج عمران للألعاب</h1>
             <p className="relative z-10 mt-3 text-sm text-brand-100 max-w-2xl leading-relaxed">
-              كتالوج احترافي مصوّر — 12 منتجاً بصور حقيقية. تصفح الأقسام، استخدم البحث، واستفسر عن أي منتج عبر واتساب مباشرة.
+              كتالوج مصوّر — 12 منتجاً بصور حقيقية. تصفح الأقسام، استخدم البحث، واستفسر عن أي منتج عبر واتساب مباشرة.
               لا يوجد سلة أو دفع إلكتروني في هذه النسخة.
             </p>
           </div>

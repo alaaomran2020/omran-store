@@ -24,7 +24,7 @@ const pillars = [
   },
 ];
 
-/** نبذة عن الشركة — نسخة كتالوج احترافي */
+/** نبذة عن الشركة — نسخة كتالوج */
 export function AboutSection() {
   return (
     <section id="about" className="scroll-mt-28 bg-ink-50 py-14 sm:py-20">
@@ -32,11 +32,11 @@ export function AboutSection() {
         <div>
           <p className="mb-1.5 text-sm font-bold text-brand-700">عن الكتالوج</p>
           <h2 className="text-2xl font-extrabold text-ink-900 sm:text-3xl">
-            {siteConfig.name} — كتالوج احترافي
+            {siteConfig.name} — كتالوج
           </h2>
           <div className="mt-4 space-y-3 text-sm leading-relaxed text-ink-600">
             <p>
-              {siteConfig.legalName} تقدم كتالوجاً مصوراً احترافياً لألعاب الأطفال والهدايا والعرائس والألعاب التعليمية،
+              {siteConfig.legalName} تقدم كتالوجاً مصوراً لألعاب الأطفال والهدايا والعرائس والألعاب التعليمية،
               بهدف تسهيل تصفح المنتجات والتعرف على التشكيلة المتاحة قبل التواصل.
             </p>
             <p>

@@ -63,19 +63,24 @@ export function buildWhatsAppUrl(message: string, phone?: string): string {
   return `https://wa.me/${number}?text=${encodeURIComponent(message)}`;
 }
 
-/** رابط واتساب لاستفسار عام (بدون سلة) — كتالوج احترافي */
+/** رابط واتساب لاستفسار عام (بدون سلة) — كتالوج */
 export function buildInquiryUrl(topic: string): string {
   const message = `السلام عليكم، أرغب في الاستفسار عن: ${topic}.\nمن كتالوج ${siteConfig.name} - ${siteConfig.url}`;
   return buildWhatsAppUrl(message);
 }
 
-/** رابط واتساب لاستفسار عن منتج محدد — نسخة كتالوج احترافي */
-export function buildProductInquiryUrl(productName: string, sku: string, _mode?: PricingMode): string {
+/** رابط واتساب لاستفسار عن منتج محدد — نسخة كتالوج */
+export function buildProductInquiryUrl(
+  productName: string,
+  sku: string,
+  _mode?: PricingMode,
+  productSlug?: string,
+): string {
   const message = [
     `السلام عليكم، أرغب في الاستفسار عن المنتج التالي من كتالوج ${siteConfig.name}:`,
     `المنتج: ${productName}`,
     `الكود: ${sku}`,
-    `الرابط: ${siteConfig.url}/products`,
+    `الرابط: ${siteConfig.url}/products${productSlug ? `/${productSlug}` : ""}`,
     "",
     `برجاء إفادتي بالسعر والتوفر وخيارات التوصيل. شكراً لكم.`,
   ].join("\n");
