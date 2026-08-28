@@ -37,6 +37,27 @@ export async function readCatalogFromGitHub() {
   return { products: JSON.parse(json) as Product[], sha: body.sha };
 }
 
+export async function uploadProductImageToGitHub(file: File, actor: string) {
+  ensureConfigured();
+  const allowed = new Set(["image/jpeg", "image/png", "image/webp"]);
+  if (!allowed.has(file.type)) throw new Error("نوع الصورة غير مدعوم. استخدم JPG أو PNG أو WebP.");
+  if (file.size > 5 * 1024 * 1024) throw new Error("حجم الصورة يجب ألا يتجاوز 5 ميجابايت.");
+  const extension = file.type === "image/jpeg" ? "jpg" : file.type.split("/")[1];
+  const safeName = file.name.toLowerCase().replace(/[^a-z0-9-_]+/g, "-").replace(/^-|-$/g, "").slice(0, 60) || "product-image";
+  const path = `public/uploads/${Date.now()}-${safeName}.${extension}`;
+  const response = await fetch(`https://api.github.com/repos/${repo}/contents/${path}`, {
+    method: "PUT",
+    headers: headers(),
+    body: JSON.stringify({
+      message: `chore(admin): upload product image by ${actor}`,
+      content: Buffer.from(await file.arrayBuffer()).toString("base64"),
+      branch,
+    }),
+  });
+  if (!response.ok) throw new Error(`GitHub image upload failed: ${response.status}`);
+  return `/${path.replace(/^public\//, "")}`;
+}
+
 export async function publishCatalogToGitHub(products: Product[], sha: string, actor: string) {
   ensureConfigured();
   const response = await fetch(contentUrl(), {

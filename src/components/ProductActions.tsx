@@ -1,14 +1,18 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Heart, MessageCircle, Share2 } from "lucide-react";
 import { buildProductInquiryUrl } from "@/lib/whatsapp";
-import { trackCatalogEvent } from "@/lib/analytics";
+import { trackCatalogEvent, trackProductEvent, trackWhatsAppClick } from "@/lib/analytics";
 import type { Product } from "@/lib/types";
 
 export function ProductActions({ product }: { product: Product }) {
   const [isFavorite, setIsFavorite] = useState(false);
   const [isCopied, setIsCopied] = useState(false);
+
+  useEffect(() => {
+    trackProductEvent("view_item", product, { page_type: "product_page" });
+  }, [product]);
 
   const handleShare = async () => {
     trackCatalogEvent("product_share", { sku: product.sku, source: "product_page" });
@@ -31,11 +35,9 @@ export function ProductActions({ product }: { product: Product }) {
         <a
         href={buildProductInquiryUrl(product.name, product.sku, "retail", product.slug)}
         onClick={() =>
-          trackCatalogEvent("whatsapp_inquiry", {
-            sku: product.sku,
-            category: product.categoryId,
-            source: "product_page",
+          trackWhatsAppClick(product, "product_page", {
             mode: "retail",
+            cta: "product_primary",
           })
         }
         target="_blank"
