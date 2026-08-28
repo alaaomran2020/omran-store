@@ -82,7 +82,8 @@ function safeEqual(left: string, right: string) {
   if (a.length !== b.length) return false;
   let result = 0;
   for (let i = 0; i < a.length; i++) {
-    result |= a[i] ^ b[i];
+    // تم إضافة ?? 0 لتجنب خطأ TypeScript TS2532
+    result |= (a[i] ?? 0) ^ (b[i] ?? 0);
   }
   return result === 0;
 }
