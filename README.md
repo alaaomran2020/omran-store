@@ -33,7 +33,7 @@
 - **صفحات المنتجات**: `/products/[slug]` تعرض تفاصيل كتالوج + منتجات ذات صلة + CTA واتساب
 
 ### ٤. أقسام الصفحة الرئيسية
-- `Hero` → `FeaturedCategories` → `CatalogSection` → `BrandAdvantages` → `AboutSection` → `InstagramFeed` → `FAQPreview` → `Newsletter` → `ContactSection`
+- `Hero` → `FeaturedCategories` → `CatalogSection` → `BrandAdvantages` → `AboutSection` → `FAQPreview` → `Newsletter` → `ContactSection`
 - جميع الأقسام تتحدث بلغة كتالوج (بدون سلة)
 
 ### ٥. النشر — GitHub Pages + Vercel
@@ -101,8 +101,7 @@ src/
 │   ├── FaqAccordion.tsx     # أكورديون الأسئلة (Client)
 │   ├── JsonLd.tsx           # عارض البيانات المنظمة (JSON-LD)
 │   ├── StructuredDataPages.tsx # بيانات منظمة للصفحات الداخلية
-│   ├── InstagramFeed.tsx    # خلاصة إنستغرام
-│   ├── Footer.tsx           # تذييل كتالوج
+│   ├── Footer.tsx           # تذييل كتالوج + زر متابعة إنستغرام
 │   └── BackToTop.tsx        # زر أعلى الصفحة
 ├── context/
 │   └── StoreProvider.tsx    # فلتر الأقسام + منطق السلة القديم للاختبارات فقط

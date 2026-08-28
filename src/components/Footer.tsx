@@ -4,6 +4,25 @@ import { Mail, MapPin, Phone, Clock, ShieldCheck, Camera, MessageCircle, Search 
 import { categories } from "@/lib/categories";
 import { navLinks, siteConfig } from "@/lib/site";
 
+function InstagramGlyph() {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className="size-4"
+      aria-hidden="true"
+    >
+      <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+      <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
+    </svg>
+  );
+}
+
 export function Footer() {
   const year = new Date().getFullYear();
 
@@ -110,6 +129,19 @@ export function Footer() {
                 <span>{siteConfig.workingHours}</span>
               </li>
             </ul>
+
+            {siteConfig.social.instagram ? (
+              <a
+                href={siteConfig.social.instagram}
+                target="_blank"
+                rel="noreferrer"
+                className="mt-5 inline-flex w-fit items-center gap-2 rounded-xl bg-gradient-to-l from-[#f58529] via-[#dd2a7b] to-[#8134af] px-5 py-3 text-sm font-black text-white shadow-lg shadow-[#dd2a7b]/25 transition hover:-translate-y-0.5 hover:shadow-xl"
+                aria-label="متابعة حساب عمران للألعاب على إنستغرام"
+              >
+                <InstagramGlyph />
+                تابعنا على إنستغرام
+              </a>
+            ) : null}
           </div>
         </div>
 
