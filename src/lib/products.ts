@@ -19,8 +19,7 @@ export const catalogProducts: Product[] = [
     retailPrice: 0,
     wholesalePrice: 0,
     images: [
-      { src: "/catalog-facebook/facebook-5.jpg", alt: "لوحة الأشكال الهندسية بالمطاط" },
-      { src: "/catalog-facebook/facebook-1.jpg", alt: "لوحة الأشكال الهندسية - زاوية أخرى" },
+      { src: "/catalog/rubber-band-geometry-board.jpg", alt: "لوحة الأشكال الهندسية بالمطاط" },
     ],
     sku: "OMR-EDU-001",
     packaging: { unitsPerCarton: 24, minWholesaleUnits: 12, cartonWeightKg: 8.5, cartonDimensions: "60×40×40 سم" },
@@ -43,8 +42,7 @@ export const catalogProducts: Product[] = [
     retailPrice: 0,
     wholesalePrice: 0,
     images: [
-      { src: "/catalog-facebook/facebook-6.jpg", alt: "حقيبة الرسم الوردية 150 قطعة" },
-      { src: "/catalog-facebook/facebook-2.jpg", alt: "حقيبة الرسم الوردية - محتويات" },
+      { src: "/catalog/pink-art-kit-150.jpg", alt: "حقيبة الرسم الوردية 150 قطعة" },
     ],
     sku: "OMR-EDU-002",
     packaging: { unitsPerCarton: 12, minWholesaleUnits: 6, cartonWeightKg: 12, cartonDimensions: "55×45×40 سم" },
@@ -67,8 +65,7 @@ export const catalogProducts: Product[] = [
     retailPrice: 0,
     wholesalePrice: 0,
     images: [
-      { src: "/catalog-facebook/facebook-7.jpg", alt: "حقيبة الرسم الزرقاء 150 قطعة" },
-      { src: "/catalog-facebook/facebook-3.jpg", alt: "حقيبة الرسم الزرقاء - تفاصيل" },
+      { src: "/catalog/blue-art-kit-150.jpg", alt: "حقيبة الرسم الزرقاء 150 قطعة" },
     ],
     sku: "OMR-EDU-003",
     packaging: { unitsPerCarton: 12, minWholesaleUnits: 6, cartonWeightKg: 12, cartonDimensions: "55×45×40 سم" },
@@ -91,8 +88,7 @@ export const catalogProducts: Product[] = [
     retailPrice: 0,
     wholesalePrice: 0,
     images: [
-      { src: "/catalog-facebook/facebook-8.jpg", alt: "طقم دميتين مع إكسسوارات" },
-      { src: "/catalog-facebook/facebook-4.jpg", alt: "طقم دميتين - عرض جانبي" },
+      { src: "/catalog/doll-set-accessories.jpg", alt: "طقم دميتين مع إكسسوارات الأناقة" },
     ],
     sku: "OMR-DOL-001",
     packaging: { unitsPerCarton: 18, minWholesaleUnits: 9, cartonWeightKg: 10, cartonDimensions: "65×45×50 سم" },
@@ -115,8 +111,7 @@ export const catalogProducts: Product[] = [
     retailPrice: 0,
     wholesalePrice: 0,
     images: [
-      { src: "/catalog-facebook/facebook-2.jpg", alt: "مجموعة دمى الموضة والأزياء" },
-      { src: "/catalog-facebook/facebook-8.jpg", alt: "دمى الموضة - تفاصيل" },
+      { src: "/catalog/fashion-doll-collection.jpg", alt: "مجموعة دمى الموضة والأزياء" },
     ],
     sku: "OMR-DOL-002",
     packaging: { unitsPerCarton: 24, minWholesaleUnits: 12, cartonWeightKg: 9, cartonDimensions: "60×40×45 سم" },
@@ -139,8 +134,7 @@ export const catalogProducts: Product[] = [
     retailPrice: 0,
     wholesalePrice: 0,
     images: [
-      { src: "/catalog-facebook/facebook-3.jpg", alt: "سيارة دفع رباعي كبيرة للطرق الوعرة" },
-      { src: "/catalog-facebook/facebook-4.jpg", alt: "سيارة دفع رباعي - تفاصيل العجلات" },
+      { src: "/catalog/offroad-toy-car.jpg", alt: "سيارة دفع رباعي كبيرة للطرق الوعرة" },
     ],
     sku: "OMR-VEH-001",
     packaging: { unitsPerCarton: 8, minWholesaleUnits: 4, cartonWeightKg: 14, cartonDimensions: "75×50×55 سم" },
@@ -163,8 +157,7 @@ export const catalogProducts: Product[] = [
     retailPrice: 0,
     wholesalePrice: 0,
     images: [
-      { src: "/catalog-facebook/facebook-4.jpg", alt: "طقم سيارات معدنية 6 قطع" },
-      { src: "/catalog-facebook/facebook-3.jpg", alt: "سيارات معدنية - علبة العرض" },
+      { src: "/catalog/mini-metal-cars-set.jpg", alt: "طقم سيارات معدنية صغيرة 6 قطع" },
     ],
     sku: "OMR-VEH-002",
     packaging: { unitsPerCarton: 24, minWholesaleUnits: 12, cartonWeightKg: 10, cartonDimensions: "60×40×35 سم" },
@@ -187,8 +180,7 @@ export const catalogProducts: Product[] = [
     retailPrice: 0,
     wholesalePrice: 0,
     images: [
-      { src: "/catalog-facebook/facebook-9.jpg", alt: "مجموعة المطبخ الصغير للأطفال" },
-      { src: "/catalog-facebook/facebook-10.jpg", alt: "مطبخ صغير - محتويات" },
+      { src: "/catalog/kitchen-play-set.jpg", alt: "مجموعة المطبخ الصغير للأطفال" },
     ],
     sku: "OMR-EDU-004",
     packaging: { unitsPerCarton: 16, minWholesaleUnits: 8, cartonWeightKg: 9, cartonDimensions: "62×42×48 سم" },
@@ -211,8 +203,7 @@ export const catalogProducts: Product[] = [
     retailPrice: 0,
     wholesalePrice: 0,
     images: [
-      { src: "/catalog-facebook/facebook-10.jpg", alt: "طقم أدوات الطبيب للأطفال" },
-      { src: "/catalog-facebook/facebook-9.jpg", alt: "أدوات الطبيب - تفاصيل" },
+      { src: "/catalog/doctor-play-set.jpg", alt: "طقم أدوات الطبيب للأطفال" },
     ],
     sku: "OMR-EDU-005",
     packaging: { unitsPerCarton: 20, minWholesaleUnits: 10, cartonWeightKg: 8, cartonDimensions: "58×40×42 سم" },
@@ -235,8 +226,7 @@ export const catalogProducts: Product[] = [
     retailPrice: 0,
     wholesalePrice: 0,
     images: [
-      { src: "/catalog-facebook/facebook-11.jpg", alt: "مجموعة بالونات وهدايا الحفلات" },
-      { src: "/catalog-facebook/facebook-12.jpg", alt: "بالونات الحفلات - ألوان متنوعة" },
+      { src: "/catalog/party-balloons-gift-set.jpg", alt: "مجموعة بالونات وهدايا الحفلات" },
     ],
     sku: "OMR-GFT-001",
     packaging: { unitsPerCarton: 50, minWholesaleUnits: 25, cartonWeightKg: 6, cartonDimensions: "55×40×30 سم" },
